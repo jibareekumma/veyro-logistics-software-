@@ -1,9 +1,10 @@
-// import { useState } from 'react'
+
+import Landing from "./components/auths/Landing"
 
 function App() {
 
   return <>
-    <h1>Here we go again</h1>
+    <Landing/>
   </>
 }
 

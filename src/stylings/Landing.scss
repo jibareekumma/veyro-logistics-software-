@@ -1,0 +1,528 @@
+// Landing.scss
+@import './Variable.scss';
+
+.landing {
+  font-family: sans-serif;
+  background-color: $color-background;
+  color: $color-text-primary;
+  overflow-x: hidden;
+}
+
+// --- Buttons ---
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  gap: 0.5rem;
+
+  &--primary {
+    background-color: $color-button-bg;
+    color: $veyro-near-black;
+    &:hover {
+      background-color: darken($color-button-bg, 10%);
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    color: $veyro-white;
+    border: 1px solid $veyro-white;
+    &:hover {
+      background-color: rgba($veyro-white, 0.1);
+    }
+  }
+
+  &--text {
+    background: transparent;
+    color: $veyro-white;
+    &:hover {
+      color: $color-brand-accent;
+    }
+  }
+}
+
+// --- Navbar ---
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  padding: 1rem 0;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-placeholder {
+    width: 32px;
+    height: 32px;
+    background-color: $veyro-white;
+    border-radius: 4px;
+  }
+
+  &__brand {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: $veyro-white;
+    letter-spacing: 1px;
+  }
+
+  &__links {
+    display: none;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+
+    a {
+      color: $veyro-white;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      &:hover {
+        color: $color-brand-accent;
+      }
+    }
+  }
+
+  &__actions {
+    display: none;
+    gap: 1rem;
+  }
+
+  &__hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: $veyro-white;
+    }
+  }
+
+  // Tablet & Desktop
+  @media (min-width: 768px) {
+    &__links {
+      display: flex;
+    }
+    &__actions {
+      display: flex;
+    }
+    &__hamburger {
+      display: none;
+    }
+  }
+}
+
+// --- Hero ---
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $veyro-near-black; // Fallback for image
+  background-image: url('https://via.placeholder.com/1920x1080/181818/58d0e8?text=Hero+Background'); // Placeholder
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 1rem 4rem;
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba($veyro-near-black, 0.9), rgba($veyro-near-black, 0.4));
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    color: $veyro-white;
+  }
+
+  &__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: $color-brand-accent;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 1rem 0;
+
+    &--accent {
+      color: $color-brand-accent;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $veyro-soft-gray;
+    max-width: 500px;
+    margin-bottom: 2rem;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    &__title {
+      font-size: 4rem;
+    }
+    &__subtitle {
+      font-size: 1.125rem;
+    }
+    &__buttons {
+      flex-direction: row;
+    }
+  }
+}
+
+// --- Features ---
+.features {
+  background-color: $color-brand-primary;
+  padding: 3rem 1rem;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    color: $veyro-white;
+
+    &__icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &__title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+    }
+
+    &__desc {
+      font-size: 0.875rem;
+      color: $veyro-soft-gray;
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// --- Tracking ---
+.tracking {
+  padding: 4rem 1rem;
+  background-color: $color-background;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: $color-brand-accent;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: $color-heading;
+    margin: 0 0 1rem 0;
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: $color-text-secondary;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__input {
+    padding: 0.75rem 1rem;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    &:focus {
+      outline: none;
+      border-color: $color-brand-accent;
+    }
+  }
+
+  &__visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: $veyro-soft-gray;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-secondary;
+    font-size: 0.875rem;
+  }
+
+  &__timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 1rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1.25rem;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $color-border;
+      z-index: 1;
+    }
+  }
+
+  .timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    text-align: center;
+
+    &__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: $color-brand-accent;
+      margin-bottom: 0.5rem;
+      border: 2px solid $color-surface;
+    }
+
+    &__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: $color-text-primary;
+      margin: 0 0 0.25rem 0;
+    }
+
+    &__date {
+      font-size: 0.625rem;
+      color: $color-text-secondary;
+      margin: 0;
+      line-height: 1.2;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__container {
+      flex-direction: row;
+      align-items: center;
+    }
+    &__form {
+      flex-direction: row;
+    }
+    &__input {
+      flex: 1;
+    }
+    &__image-placeholder {
+      height: 300px;
+    }
+  }
+}
+
+// --- Services ---
+.services {
+  padding: 4rem 1rem;
+  background-color: $color-surface;
+
+  &__header {
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+    text-align: left;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: $color-heading;
+    margin: 0 0 1rem 0;
+  }
+
+  &__desc {
+    font-size: 1rem;
+    color: $color-text-secondary;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background-color: $color-card-bg;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+
+    &__image-placeholder {
+      width: 100%;
+      height: 180px;
+      background-color: $veyro-soft-gray;
+    }
+
+    &__title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: $color-heading;
+      margin: 1rem 1rem 0.5rem;
+    }
+
+    &__desc {
+      font-size: 0.875rem;
+      color: $color-text-secondary;
+      margin: 0 1rem 1rem;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    &__link {
+      display: inline-block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $color-brand-accent;
+      text-decoration: none;
+      margin: 0 1rem 1rem;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// --- Footer ---
+.footer {
+  background-color: $color-brand-primary;
+  padding: 4rem 1rem;
+  text-align: center;
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    color: $veyro-white;
+  }
+
+  &__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: $color-brand-accent;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 1.5rem 0;
+  }
+
+  @media (min-width: 768px) {
+    &__title {
+      font-size: 2rem;
+    }
+  }
+}
