@@ -1,4 +1,6 @@
 
+
+
 import '../../stylings/Landing.css'
 
 import veyroLogo from '../../assets/logo2.png'
@@ -8,6 +10,12 @@ import trackingIcon from "../../assets/icons/tracking-icon.png"
 import secureIcon from "../../assets/icons/secured-icon.png"
 import globalIcon from "../../assets/icons/global-reach-icon.png"
 import priceIcon from "../../assets/icons/competive-price-icon.png"
+
+import oceanFreight from "../../assets/photos/ocean-freight.jpg"
+import warehouse from "../../assets/photos/warehouse.jpg"
+import trucking from "../../assets/photos/trucking.jpg"
+import workerImg from "../../assets/photos/veyro-worker.png"
+
 import { useState } from 'react'
 
 
@@ -71,6 +79,29 @@ const Landing = function(){
             time: '16:10'
         }
     ]
+
+
+    const builtServices = [
+        {
+            id: 1,
+            title: 'Road Freight',
+            image: trucking,
+            paragraph: 'Flexible and reliable trucking across USA & Canada'
+        },
+        {
+            id: 2,
+            title: 'Ocean Freight',
+            image: oceanFreight,
+            paragraph: 'Cost effective global shipping for larger loads'
+        },
+        {
+            id: 3,
+            title: 'Warehousing',
+            image: warehouse,
+            paragraph: 'Secure storage and inventory management'
+        }
+    ]
+
  
     const [currentStep, setCurrentStep] = useState(2);
 
@@ -82,6 +113,7 @@ const Landing = function(){
 
         <div className = 'landing-header'>
             <nav>
+                <div className='nav-ph'></div>
                 <img src = {veyroLogo} alt="Veyro Logo" />
                 <button>Sign Up</button>
             </nav>
@@ -89,15 +121,15 @@ const Landing = function(){
             <div className = 'header-texts'>
                 <h5>LOGISTICS & SHIPMENT TRACKING</h5>
                 <h2>Your Cargo <br />
-                    <mark>OUr Priority</mark></h2>
+                    <mark>Our Priority</mark></h2>
                 <p>Fast, secure and reliable logistics 
                     solutions for businesses and individuals. 
                     Track your shipments in real time, from pickup
                     to delivery
                 </p>
                 <div className='btns'>
-                    <button>Track Your Shipment »</button>
-                    <button>Get Started</button>
+                    <button className='one'>Track Your Shipment »</button>
+                    <button className='two'>Get Started</button>
                 </div>
             </div>
         </div>
@@ -107,7 +139,7 @@ const Landing = function(){
         <div className='details-container'>
             
             {details.map( (a) =>(
-                <div>
+                <div className='item' key={a.id}>
                     <img src = {a.image} 
                     alt={a.alt} className = {a.className} />
                     <div className = "a-texts">
@@ -121,18 +153,21 @@ const Landing = function(){
 
 
         <div className='tracking-container'>
-            <div>
+            <div className='container'>
                 <h5>TRACK YOUR SHIPMENT</h5>
                 <h4>ENTER YOUR TRACKING ID</h4>
 
                 <form>
-                    <input type="text" maxLength={16}
+                    <input type="text" 
+                    placeholder='e.g VYR-TRK-8492716'
+                    maxLength={16}
                     />
                     <button>Track »</button>
                 </form>
             </div>
 
             <div className="tracking-UI">
+                <div></div>
 
         {trackingUI.map((item, index) => (
             <div
@@ -173,6 +208,44 @@ const Landing = function(){
 
 
 
+        <div className='built-container'>
+            <div className='built-texts'>
+                <h4>Built for Modern Logistics</h4>
+                <p>VEYRO combines technology and experience 
+                    to deliver smarter, faster and more transparent 
+                    shipping solutions.
+                </p>
+                <button>Learn More »</button>
+            </div>
+
+            <img src = {workerImg} alt="Veyro at work" 
+                className='built-ph'
+            />
+
+            <div className='built-services'>
+
+        {builtServices.map((a) => (
+            <div className='built-item' key={a.id}>
+                <img src = {a.image} alt="a.id" 
+                    className='built-item-ph'
+                />
+                <h5>{a.title}</h5>
+                <p>{a.paragraph}</p>
+            </div>
+        ))}
+
+            </div>
+        </div>
+
+
+
+        <div className='closing-container'>
+            <h5>LET'S MOVE YOUR WORLD</h5>
+            <h4>Smarter Logistics. Stronger Business.</h4>
+            <button>Get Started »</button>
+        </div>
+
+
 
         </main>
     </>
@@ -180,4 +253,3 @@ const Landing = function(){
 
 
 export default Landing;
-

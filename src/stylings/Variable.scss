@@ -1,13 +1,23 @@
 
 
 
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: bebas-nue;
+    src: url(fonts/BebasNeue-Regular.ttf);
+}
+
 $veyro-deep-teal: #205068;
 $veyro-bright-cyan: #58d0e8;
 $veyro-near-black: #181818;
 $veyro-off-white: #f8f8f8;
 $veyro-white: #ffffff;
 $veyro-soft-gray: #e5e7eb;
-$veyro-muted-gray: #6b7280;
+$muted-gray: #6b7280;
 
 $veyro-identity-colors: (
   "deep-teal": $veyro-deep-teal,
@@ -25,25 +35,7 @@ $color-logo-mark: $veyro-deep-teal;
 $color-logo-wordmark: $veyro-near-black;
 $color-heading: $veyro-deep-teal;
 
-$color-button-bg: $veyro-bright-cyan;
-$color-active-state: $veyro-bright-cyan;
-$color-tracking-route: $veyro-bright-cyan;
-$color-highlight: $veyro-bright-cyan;
 
-$color-text-primary: $veyro-near-black;
-$color-text-secondary: $veyro-muted-gray;
-$color-text-label: $veyro-muted-gray;
-$color-text-metadata: $veyro-muted-gray;
-
-$color-background: $veyro-off-white;
-$color-surface: $veyro-white;
-$color-card-bg: $veyro-white;
-$color-input-bg: $veyro-white;
-$color-modal-bg: $veyro-white;
-
-$color-border: $veyro-soft-gray;
-$color-divider: $veyro-soft-gray;
-$color-disabled: $veyro-soft-gray;
 
 $dark-color-background: #111827;
 $dark-color-card-bg: #1f2937;
@@ -52,27 +44,29 @@ $dark-color-text-primary: #f3f4f6;
 $dark-color-text-secondary: #9ca3af;
 $dark-color-border: #374151;
 
-$light-theme: (
-  "background": $color-background,
-  "surface": $color-surface,
-  "card": $color-card-bg,
-  "primary": $color-brand-primary,
-  "accent": $color-brand-accent,
-  "text-primary": $color-text-primary,
-  "text-secondary": $color-text-secondary,
-  "border": $color-border
+
+
+
+$accent-gradient: linear-gradient(
+  135deg,
+  #35afc9 0%,
+  #67c9dc 100%
 );
 
-$dark-theme: (
-  "background": $dark-color-background,
-  "surface": $dark-color-card-bg,
-  "card": $dark-color-card-bg,
-  "primary": $dark-color-primary,
-  "accent": $dark-color-primary,
-  "text-primary": $dark-color-text-primary,
-  "text-secondary": $dark-color-text-secondary,
-  "border": $dark-color-border
-);
+$bg-white-dim: rgb(219, 220, 223);
+
+$accent-filter: brightness(0) saturate(100%)
+        invert(77%) sepia(35%)
+        saturate(700%) hue-rotate(150deg)
+        brightness(90%) contrast(85%);
+
+$accent-glow:  #35afc9;
+$accent-dimmed: rgba(2, 24, 37);
+$secondary-texts: rgb(200, 203, 209);
+
+$fira-sans: fira-sans;
+
+$bebas-nue: bebas-nue;
 
 @mixin apply-theme($theme) {
   @each $name, $value in $theme {

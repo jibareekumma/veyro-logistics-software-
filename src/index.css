@@ -1,11 +1,25 @@
 
 
+@font-face {
+    font-family: ubuntu;
+    src: url(fonts/Ubuntu-Regular.ttf);
+}
+
+
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    background-color: red;
+
+html{
+    font-size: 62.5%;
 }
+
+body{
+    font-family: ubuntu;
+}
+

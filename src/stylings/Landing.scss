@@ -4,6 +4,13 @@
 
 
 
+@font-face {
+    font-family: bebas-nue;
+    src: url(/src/assets/fonts/BebasNeue-Regular.ttf);
+}
+
+
+
 
 
 .tracking-UI {
@@ -33,7 +40,7 @@
 // Reached points become blue
 .tracking-step.reached {
     .tracking-point {
-        background: blue;
+        background: #67c9dc;
     }
 }
 
@@ -47,14 +54,18 @@
 
 .tracking-status {
     font-weight: 600;
+    color: #67c9dc;
+    font-size: 1.5rem;
 }
 
 .tracking-date {
-    font-size: 14px;
+    font-size: 13px;
+    color: white;
 }
 
 .tracking-time {
     font-size: 13px;
+    color: white;
 }
 
 // Connecting line
@@ -67,7 +78,7 @@
     width: 100%;
     height: 2px;
 
-    background: #000;
+    background: red;
 
     z-index: 1;
 }
@@ -76,6 +87,542 @@
 // has been reached
 .tracking-step.reached {
     .tracking-line {
-        background: blue;
+        background: $accent-glow;
+    }
+}
+
+
+
+.landing-container{
+    width: 100%;
+    height: auto;
+    // padding: 1rem;
+}
+
+
+.landing-header{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    height: auto;
+    padding: 1rem 1.5rem;
+    background-image: url(/src/assets/bg-img3.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+   
+    nav{
+        
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .nav-ph{
+            width: 3rem;
+            height: 3rem;
+            border-radius: 4px;
+            border: none;
+            background-color: transparent;
+            
+        }
+
+        img{
+            width: 10rem;
+            height: 4rem;
+        }
+
+        button{
+            background: $accent-gradient;
+            height: 2.8rem;
+            width: 8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            color: black;
+            letter-spacing: 0.5px;
+            font-size: 1em;
+            font-weight: 500;
+            border: none;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+.header-texts{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1.5rem;
+
+    h5{
+        font-size: 1.5rem;
+        letter-spacing: 0.7px;
+        word-spacing: 1.1px;
+        color: white;
+        font-weight: 450;
+    }
+
+    h2{
+        display: flex;
+        flex-direction: column;
+        gap: -1rem;
+        font-size: 3rem;
+        letter-spacing: 2px;
+        color: white;
+        font-family: bebas-nue;
+        font-weight: 300;
+        line-height: 3rem;
+
+
+        mark{
+            background-color: transparent;
+            display: inline-block;
+            color: $accent-glow;
+        }
+    }
+    
+    p{
+        color: $secondary-texts;
+        letter-spacing: 0.6px;
+        word-spacing: 0.5px;
+        font-size: 1.3rem;
+        width: 65%;
+        line-height: 1.8rem;
+    }
+
+    .btns{
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 45%;
+
+        button{
+            height: 2.8rem;
+            letter-spacing: 1px;
+            word-spacing: 1.2px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .one{
+            background: $accent-gradient;
+        }
+        .two{
+            background-color: transparent;
+            color: white;
+            border: 0.5px solid $secondary-texts;
+        }
+    }
+}
+
+
+
+.details-container{
+    
+    background-color: $accent-dimmed;
+    padding: 1.5rem 1.5rem;
+
+    .item{
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        width: 60%;
+        margin-bottom: 1rem;
+  
+        align-items: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        img{
+            width: 4rem;
+            height: 4rem;
+            filter: $accent-filter;
+        }
+        .a-texts{
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+
+            h5{
+                font-size: 1.3rem;
+                letter-spacing: 0.5px;
+                color: white;
+                font-weight: 500;
+            }
+            p{
+                font-size: 1.2rem;
+                letter-spacing: 0.5px;
+                color: $secondary-texts;
+            }
+        }
+    }
+}
+
+
+.tracking-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem 1.5rem;
+    background-color: $bg-white-dim;
+
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+
+        h5{
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            word-spacing: 1px;
+            color: rgb(75, 75, 77);
+        }
+
+        h4{
+            font-size: 2rem;
+            font-family: bebas-nue;
+            letter-spacing: 1.1px;
+            font-weight: 550;
+        }
+        form{
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            justify-content: space-between;
+
+            input{
+                height: 3.5rem;
+                width: 70%;
+                padding: 1rem;
+                border-radius: 4px;
+                border: 0.2px solid $secondary-texts;
+            }
+            button{
+                height: 3.5rem;
+                width: 28%;
+                background-color: $accent-glow;
+                border: none;
+                border-radius: 4px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+
+
+    .tracking-UI{
+        border: none;
+        border-radius: 8px;
+        height: 20rem;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 1rem;
+        background-image: url(/src/assets/bg-img4.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+}
+
+
+.built-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 1.5rem;
+    background-color: #0d1420;
+
+    .built-texts{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        h4{
+            font-size: 1.8rem;
+            font-family: bebas-nue;
+            letter-spacing: 1px;
+            color: white;
+        }
+        p{
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            color: $secondary-texts;
+            line-height: 1.6rem;
+        }
+        button{
+            width: 9rem;
+            height: 2.6rem;
+            background: $accent-gradient;
+            border: none;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .built-ph{
+        width: 100%;
+        height: 10rem;
+        border-radius: 8px;
+        background-color: white;
+    }
+
+    .built-services{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .built-item{
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+
+            .built-item-ph{
+                width: 100%;
+                height: 8rem;
+                border-radius: 8px;
+                background-color: white;
+            }
+
+            h5{
+                font-size: 1.1rem;
+                color: white;
+                letter-spacing: 0.5px;
+            }
+            p{
+                font-size: 1rem;
+                color: $secondary-texts;
+            }
+        }
+    }
+}
+
+
+.closing-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 1.5rem;
+    background-color: #0a0f18;
+    text-align: center;
+
+    h5{
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+        color: $accent-glow;
+    }
+    h4{
+        font-size: 1.8rem;
+        font-family: bebas-nue;
+        letter-spacing: 1px;
+        color: white;
+    }
+    button{
+        width: 9rem;
+        height: 2.6rem;
+        background: $accent-gradient;
+        border: none;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+
+
+@media (min-width: 768px){
+
+    .landing-header{
+        padding: 1.5rem 3rem 2.5rem;
+        gap: 3rem;
+
+        nav{
+            .nav-ph{
+                display: none;
+            }
+        }
+    }
+
+    .header-texts{
+        padding: 0 3rem;
+        gap: 1.3rem;
+
+        h2{
+            font-size: 4rem;
+            line-height: 4rem;
+        }
+
+        p{
+            width: 75%;
+        }
+
+        .btns{
+            flex-direction: row;
+            width: auto;
+            gap: 1rem;
+
+            button{
+                width: 12rem;
+            }
+        }
+    }
+
+    .details-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding: 1.5rem 3rem;
+
+        .item{
+            width: 45%;
+        }
+    }
+
+    .tracking-container{
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 2.5rem 3rem;
+
+        .container{
+            width: 40%;
+
+            form{
+                width: 100%;
+            }
+        }
+
+        .tracking-UI{
+            width: 60%;
+            height: 18rem;
+        }
+    }
+
+    .built-container{
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 2.5rem 3rem;
+        align-items: flex-start;
+
+        .built-texts{
+            width: 45%;
+        }
+
+        .built-ph{
+            width: 50%;
+            height: auto;
+            align-self: stretch;
+        }
+
+        .built-services{
+            flex-direction: row;
+            width: 100%;
+            gap: 1.5rem;
+
+            .built-item{
+                width: 31%;
+            }
+        }
+    }
+
+    .closing-container{
+        padding: 4rem 3rem;
+
+        h4{
+            font-size: 2.2rem;
+        }
+    }
+}
+
+
+@media (min-width: 1024px){
+
+    .landing-header{
+        padding: 2rem 4rem 4rem;
+    }
+
+    .header-texts{
+        padding: 0 4rem;
+
+        h2{
+            font-size: 5rem;
+            line-height: 5rem;
+        }
+
+        p{
+            width: 55%;
+            font-size: 1.4rem;
+        }
+    }
+
+    .details-container{
+        flex-wrap: nowrap;
+        padding: 1.8rem 4rem;
+
+        .item{
+            width: 25%;
+        }
+    }
+
+    .tracking-container{
+        padding: 3rem 4rem;
+
+        .container{
+            width: 32%;
+        }
+
+        .tracking-UI{
+            width: 65%;
+            height: 20rem;
+        }
+    }
+
+    .built-container{
+        padding: 3.5rem 4rem;
+
+        .built-texts{
+            width: 38%;
+        }
+
+        .built-ph{
+            width: 42%;
+        }
+
+        .built-services{
+            .built-item{
+                width: 22%;
+            }
+        }
+    }
+
+    .closing-container{
+        padding: 5rem 4rem;
+
+        h4{
+            font-size: 2.6rem;
+        }
     }
 }
