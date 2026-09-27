@@ -16,7 +16,14 @@ import warehouse from "../../assets/photos/warehouse.jpg"
 import trucking from "../../assets/photos/trucking.jpg"
 import workerImg from "../../assets/photos/veyro-worker.png"
 
+
+
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+
+
+
 
 
 const Landing = function(){
@@ -56,7 +63,7 @@ const Landing = function(){
         }
     ]
 
-
+ 
     const trackingUI = [
         {
             status: "Picked Up",
@@ -105,6 +112,7 @@ const Landing = function(){
  
     const [currentStep, setCurrentStep] = useState(2);
 
+    const navigate = useNavigate()
 
     return <>
 
@@ -115,8 +123,8 @@ const Landing = function(){
             <nav>
                 <div className='nav-ph'></div>
                 <img src = {veyroLogo} alt="Veyro Logo" />
-                <button>Sign Up</button>
-            </nav>
+                <button onClick = {() => navigate('/register')}
+               >Sign Up</button>            </nav>
 
             <div className = 'header-texts'>
                 <h5>LOGISTICS & SHIPMENT TRACKING</h5>
@@ -128,8 +136,12 @@ const Landing = function(){
                     to delivery
                 </p>
                 <div className='btns'>
-                    <button className='one'>Track Your Shipment »</button>
-                    <button className='two'>Get Started</button>
+                    <button className='one'
+                    onClick = {() => navigate('/login')}
+                    >Track Your Shipment »</button>
+                    <button className='two'
+                    onClick = {() => navigate('/register')}
+                    >Get Started</button>
                 </div>
             </div>
         </div>
@@ -162,7 +174,9 @@ const Landing = function(){
                     placeholder='e.g VYR-TRK-8492716'
                     maxLength={16}
                     />
-                    <button>Track »</button>
+                    <button
+                    onClick = {() => navigate('/login')}
+                    >Track »</button>
                 </form>
             </div>
 
