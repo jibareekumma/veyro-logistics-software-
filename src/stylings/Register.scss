@@ -470,3 +470,22 @@
         }
     }
 }
+
+
+
+.error-text {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.general-error {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.buttons-container button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

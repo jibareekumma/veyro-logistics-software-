@@ -377,4 +377,20 @@
     border-left: 1px solid rgb(83, 119, 119);
     padding-left: 1.5rem;
   }
+}
+.error-text {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.general-error {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.buttons-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }/*# sourceMappingURL=Register.css.map */

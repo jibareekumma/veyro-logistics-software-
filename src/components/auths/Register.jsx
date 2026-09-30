@@ -1,5 +1,6 @@
 import '../../stylings/Register.css'
 
+import { useState } from 'react'
 
 import veyroLogo from '../../assets/logo2.png'
 
@@ -11,6 +12,7 @@ import globeIcon from '../../assets/icons/globe_icon.png'
 
 import googleIcon from '../../assets/icons/google-icon.png' 
 import { useNavigate } from 'react-router-dom'
+import { registerUser, saveSession, parseErrors } from '../../api/auth'
 
 
 
@@ -22,6 +24,18 @@ const Register = function(){
 
     const navigate = useNavigate();
 
+    const [values, setValues] = useState({
+        full_name: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirm_password: '',
+        country: ''
+    })
+    const [agreed, setAgreed] = useState(false)
+    const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
+
     const navLinks = ['Home', 'Track Shipment', 'Services', 'About', 'Contact']
 
     const formItems = [
@@ -29,6 +43,7 @@ const Register = function(){
 
         {
             id: 1,
+            name: 'full_name',
             label: 'Username',
             icon: userIcon,
             placeholder: "Enter your full name",
@@ -36,6 +51,7 @@ const Register = function(){
         },
         {
             id: 2,
+            name: 'email',
             label: 'Email Address',
             icon: mailIcon,
             placeholder: "Enter your email address",
@@ -43,6 +59,7 @@ const Register = function(){
         },
         {
             id: 3,
+            name: 'phone',
             label: 'Phone Number',
             icon: phoneIcon,
             placeholder: "+1 555 000 8888",
@@ -50,6 +67,7 @@ const Register = function(){
         },
         {
             id: 4,
+            name: 'password',
             label: 'Password',
             icon: lockIcon,
             placeholder: "Create a password",
@@ -57,6 +75,7 @@ const Register = function(){
         },
         {
             id: 5,
+            name: 'confirm_password',
             label: 'Confirm Password',
             icon: lockIcon,
             placeholder: "Confirm your password",
@@ -64,6 +83,7 @@ const Register = function(){
         },
         {
             id: 6,
+            name: 'country',
             label: 'Country/Region',
             icon: globeIcon,
             placeholder: "Input your country",
@@ -99,6 +119,30 @@ const Register = function(){
 
     ]
 
+    const handleChange = function(e){
+        setValues({ ...values, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async function(e){
+        e.preventDefault()
+        if (loading) return
+        if (!agreed) {
+            setErrors({ general: 'Please accept the Terms of Services and Privacy Policy.' })
+            return
+        }
+        setErrors({})
+        setLoading(true)
+        try {
+            const data = await registerUser(values)
+            saveSession(data, true)
+            navigate('/dashboard')
+        } catch (error) {
+            setErrors(parseErrors(error))
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return<>
         
 
@@ -127,7 +171,7 @@ const Register = function(){
                 <div className='register-main'>
 
                     <div className='text-container'>
-                        <h5>CUSTOMER REGSITRATION</h5>
+                        <h5>CUSTOMER REGISTRATION</h5>
                         <h3>Create Your <br />
                        <mark> Customer Account </mark></h3>
                        <p>Join VEYRO to track your shipments, manage 
@@ -136,21 +180,27 @@ const Register = function(){
                     </div>
 
                     <div className='form-container'>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             {formItems.map( (a) =>(
                                 <div className='form-item' key={a.id}>
                                     <label>{a.label}</label>
                                     <div className='input'>
                                         <img src={a.icon} />
                                         <input type={a.type} 
+                                         name={a.name}
+                                         value={values[a.name]}
+                                         onChange={handleChange}
                                          placeholder={a.placeholder}   
                                         />
                                     </div>
+                                    {errors[a.name] && <p className='error-text'>{errors[a.name]}</p>}
                                 </div>
                             ) )}
                         </form>
                        <div className='tick-box'>
                         <input type="checkbox" 
+                         checked={agreed}
+                         onChange={(e) => setAgreed(e.target.checked)}
                         /> <p>I agree to the 
                             <mark>Terms of Services </mark> and 
                             <mark>Privacy Policy</mark>
@@ -160,8 +210,11 @@ const Register = function(){
 
                     <div className='buttons-container'>
 
+                            {errors.general && <p className='error-text general-error'>{errors.general}</p>}
 
-                            <button>Create Account »</button>
+                            <button onClick={handleSubmit} disabled={loading}>
+                                {loading ? 'Creating Account...' : 'Create Account »'}
+                            </button>
 
                             <div className='or'>
                                 <span></span>

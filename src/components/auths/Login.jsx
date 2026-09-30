@@ -1,5 +1,6 @@
 import '../../stylings/Register.css'
 
+import { useState } from 'react'
 
 import veyroLogo from '../../assets/logo2.png'
 
@@ -11,6 +12,7 @@ import globeIcon from '../../assets/icons/globe_icon.png'
 
 import googleIcon from '../../assets/icons/google-icon.png' 
 import { useNavigate } from 'react-router-dom'
+import { loginUser, saveSession, parseErrors } from '../../api/auth'
 
 
 
@@ -21,6 +23,14 @@ const Login = function(){
 
     const navigate = useNavigate();
 
+    const [values, setValues] = useState({
+        email: '',
+        password: ''
+    })
+    const [remember, setRemember] = useState(false)
+    const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
+
     const navLinks = ['Home', 'Track Shipment', 'Services', 'About', 'Contact']
 
     const formItems = [
@@ -28,24 +38,18 @@ const Login = function(){
 
         {
             id: 1,
-            label: 'Username',
-            icon: userIcon,
-            placeholder: "Enter your full name",
-            type: 'text'
-        },
-        {
-            id: 2,
+            name: 'email',
             label: 'Email Address',
             icon: mailIcon,
             placeholder: "Enter your email address",
             type: 'text'
         },
-        
         {
-            id: 4,
+            id: 2,
+            name: 'password',
             label: 'Password',
             icon: lockIcon,
-            placeholder: "Create a password",
+            placeholder: "Enter your password",
             type: 'password'
         },
    
@@ -77,6 +81,26 @@ const Login = function(){
 
     ]
 
+    const handleChange = function(e){
+        setValues({ ...values, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async function(e){
+        e.preventDefault()
+        if (loading) return
+        setErrors({})
+        setLoading(true)
+        try {
+            const data = await loginUser(values)
+            saveSession(data, remember)
+            navigate('/dashboard')
+        } catch (error) {
+            setErrors(parseErrors(error))
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return<>
         
 
@@ -106,7 +130,7 @@ const Login = function(){
                 <div className='register-main'>
 
                     <div className='text-container'>
-                        <h5>CUSTOMER REGSITRATION</h5>
+                        <h5>CUSTOMER LOGIN</h5>
                         <h3>Login Into Your <br />
                        <mark> Customer Account </mark></h3>
                        <p>Join VEYRO to track your shipments, manage 
@@ -115,21 +139,27 @@ const Login = function(){
                     </div>
 
                     <div className='form-container'>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             {formItems.map( (a) =>(
                                 <div className='form-item' key={a.id}>
                                     <label>{a.label}</label>
                                     <div className='input'>
                                         <img src={a.icon} />
                                         <input type={a.type} 
+                                         name={a.name}
+                                         value={values[a.name]}
+                                         onChange={handleChange}
                                          placeholder={a.placeholder}   
                                         />
                                     </div>
+                                    {errors[a.name] && <p className='error-text'>{errors[a.name]}</p>}
                                 </div>
                             ) )}
                         </form>
                        <div className='tick-box'>
                         <input type="checkbox" 
+                         checked={remember}
+                         onChange={(e) => setRemember(e.target.checked)}
                         /> <p>Remember me
                         </p>
                        </div>
@@ -137,8 +167,11 @@ const Login = function(){
 
                     <div className='buttons-container'>
 
+                            {errors.general && <p className='error-text general-error'>{errors.general}</p>}
 
-                            <button>Sign In »</button>
+                            <button onClick={handleSubmit} disabled={loading}>
+                                {loading ? 'Signing In...' : 'Sign In »'}
+                            </button>
 
                             <div className='or'>
                                 <span></span>
