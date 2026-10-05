@@ -18,6 +18,7 @@ const request = async function(path, method, body, token){
     if (!response.ok) {
         const error = new Error('Request failed')
         error.data = data
+        error.status = response.status
         throw error
     }
     return data
@@ -41,6 +42,16 @@ const parseErrors = function(error){
     return result
 }
 
+const getStorage = function(){
+    if (localStorage.getItem('veyro_refresh')) {
+        return localStorage
+    }
+    if (sessionStorage.getItem('veyro_refresh')) {
+        return sessionStorage
+    }
+    return null
+}
+
 const clearSession = function(){
     ['veyro_access', 'veyro_refresh', 'veyro_user'].forEach(function(key){
         localStorage.removeItem(key)
@@ -57,7 +68,59 @@ const saveSession = function(data, remember){
 }
 
 const getAccessToken = function(){
-    return localStorage.getItem('veyro_access') || sessionStorage.getItem('veyro_access')
+    const storage = getStorage()
+    return storage ? storage.getItem('veyro_access') : null
+}
+
+const hasSession = function(){
+    return getStorage() !== null
+}
+
+const getStoredUser = function(){
+    const storage = getStorage()
+    if (!storage) {
+        return null
+    }
+    try {
+        return JSON.parse(storage.getItem('veyro_user'))
+    } catch (error) {
+        return null
+    }
+}
+
+const refreshAccessToken = async function(){
+    const storage = getStorage()
+    if (!storage) {
+        return null
+    }
+    try {
+        const data = await request('/token/refresh/', 'POST', { refresh: storage.getItem('veyro_refresh') })
+        storage.setItem('veyro_access', data.access)
+        if (data.refresh) {
+            storage.setItem('veyro_refresh', data.refresh)
+        }
+        return data.access
+    } catch (error) {
+        if (error.status === 401) {
+            clearSession()
+        }
+        return null
+    }
+}
+
+const authRequest = async function(path, method, body){
+    try {
+        return await request(path, method, body, getAccessToken())
+    } catch (error) {
+        if (error.status !== 401) {
+            throw error
+        }
+        const newToken = await refreshAccessToken()
+        if (!newToken) {
+            throw error
+        }
+        return request(path, method, body, newToken)
+    }
 }
 
 const registerUser = function(payload){
@@ -69,7 +132,11 @@ const loginUser = function(payload){
 }
 
 const getCurrentUser = function(){
-    return request('/me/', 'GET', null, getAccessToken())
+    return authRequest('/me/', 'GET', null)
 }
 
-export { registerUser, loginUser, getCurrentUser, saveSession, clearSession, getAccessToken, parseErrors }
+const logoutUser = function(){
+    clearSession()
+}
+
+export { registerUser, loginUser, getCurrentUser, saveSession, clearSession, getAccessToken, hasSession, getStoredUser, logoutUser, parseErrors }
