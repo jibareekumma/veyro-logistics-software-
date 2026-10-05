@@ -201,8 +201,8 @@
   padding-bottom: 0.5rem;
 }
 .details-container .item img {
-  width: 4rem;
-  height: 4rem;
+  max-width: 3rem;
+  height: 3rem;
   filter: brightness(0) saturate(100%) invert(77%) sepia(35%) saturate(700%) hue-rotate(150deg) brightness(90%) contrast(85%);
 }
 .details-container .item .a-texts {
@@ -270,16 +270,68 @@
   cursor: pointer;
 }
 .tracking-container .tracking-UI {
-  border: none;
-  border-radius: 8px;
-  height: 20rem;
   display: flex;
-  align-items: flex-end;
-  padding-bottom: 1rem;
+  width: 100%;
   background-image: url(/src/assets/bg-img4.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 4px;
+}
+.tracking-container .tracking-step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 10rem;
+  align-self: flex-end;
+  color: #000;
+}
+.tracking-container .tracking-point {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #000;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+}
+.tracking-container .tracking-step.reached .tracking-point {
+  background: #67c9dc;
+}
+.tracking-container .tracking-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 12px;
+  padding: 0 2px;
+}
+.tracking-container .tracking-status {
+  font-weight: 600;
+  color: #67c9dc;
+  font-size: clamp(0.85rem, 3.6vw, 1.5rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+.tracking-container .tracking-date {
+  font-size: clamp(10px, 2.8vw, 13px);
+  color: white;
+}
+.tracking-container .tracking-time {
+  font-size: clamp(10px, 2.8vw, 13px);
+  color: white;
+}
+.tracking-container .tracking-line {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: red;
+  z-index: 1;
+}
+.tracking-container .tracking-step.reached .tracking-line {
+  background: #35afc9;
 }
 
 .built-container {

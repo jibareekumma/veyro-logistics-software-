@@ -5,7 +5,7 @@ import { useState } from 'react'
 import veyroLogo from '../../assets/logo2.png'
 
 import userIcon from '../../assets/icons/user_icon.png'
-import mailIcon from '../../assets/icons/mail_icon.png'
+import mailIcon from '../../assets/icons/mail-icon.png'
 import phoneIcon from '../../assets/icons/phone_icon.png'
 import lockIcon from '../../assets/icons/lock_icon.png'
 import globeIcon from '../../assets/icons/globe_icon.png'
