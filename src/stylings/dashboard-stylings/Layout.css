@@ -1,0 +1,172 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.dashboard-layout {
+  min-height: 100vh;
+  background-color: #f8f8f8;
+}
+.dashboard-layout .dashboard-main {
+  min-width: 0;
+}
+.dashboard-layout .dashboard-content {
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-layout .content-left {
+  min-width: 0;
+}
+.dashboard-layout .stat-item .trend {
+  display: none;
+}
+.dashboard-layout .alert-container .texts .resolve {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .dashboard-layout {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    align-items: start;
+  }
+  .dashboard-layout .mobile-only {
+    display: none;
+  }
+  .dashboard-layout .dashboard-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .dashboard-layout .greetings {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+  .dashboard-layout .greetings h4 {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+  .dashboard-layout .greetings .h3 {
+    font-size: 1.8rem;
+  }
+  .dashboard-layout .greetings p {
+    font-size: 1rem;
+  }
+  .dashboard-layout .stats-container {
+    gap: 0.6rem;
+  }
+  .dashboard-layout .stats-container .stat-item {
+    padding: 0.8rem;
+    gap: 0.6rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+  .dashboard-layout .stats-container .stat-item .headers {
+    gap: 0.5rem;
+  }
+  .dashboard-layout .stats-container .stat-item .headers img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .dashboard-layout .stats-container .stat-item .headers h5 {
+    font-size: 0.85rem;
+  }
+  .dashboard-layout .stats-container .stat-item .stat-details {
+    margin-left: 0;
+  }
+  .dashboard-layout .stats-container .stat-item .stat-details .figures {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .dashboard-layout .stats-container .stat-item .stat-details h4 {
+    font-size: 1.9rem;
+  }
+  .dashboard-layout .stats-container .stat-item .stat-details p {
+    font-size: 0.75rem;
+  }
+  .dashboard-layout .stats-container .stat-item .trend {
+    display: inline;
+    font-size: 0.8rem;
+    font-weight: 550;
+  }
+  .dashboard-layout .stats-container .stat-item .trend.up {
+    color: #2e8b62;
+  }
+  .dashboard-layout .stats-container .stat-item .trend.down {
+    color: #e74c3c;
+  }
+  .dashboard-layout .stats-container .stat-item:nth-child(4) h4 {
+    color: #e74c3c;
+  }
+  .dashboard-layout .alert-container {
+    min-height: auto;
+    align-items: center;
+    padding: 0.9rem 1rem;
+  }
+  .dashboard-layout .alert-container .icon img {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .dashboard-layout .alert-container .texts {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-right: 9rem;
+  }
+  .dashboard-layout .alert-container .texts h3 {
+    font-size: 1rem;
+  }
+  .dashboard-layout .alert-container .texts p {
+    max-width: 100%;
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+  }
+  .dashboard-layout .alert-container .texts .resolve {
+    display: block;
+    font-size: 0.75rem;
+  }
+  .dashboard-layout .alert-container .texts .btn {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+    max-width: none;
+    white-space: nowrap;
+  }
+  .dashboard-layout .alert-container .texts .btn p {
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 1024px) {
+  .dashboard-layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+  .dashboard-layout .dashboard-content {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  }
+  .dashboard-layout .greetings {
+    margin-top: 2rem;
+  }
+  .dashboard-layout .greetings .h3 {
+    font-size: 2.1rem;
+  }
+  .dashboard-layout .stats-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .dashboard-layout .stats-container .stat-item .stat-details h4 {
+    font-size: 2.1rem;
+  }
+  .dashboard-layout .alert-container .texts h3 {
+    font-size: 1.1rem;
+  }
+  .dashboard-layout .alert-container .texts p {
+    font-size: 0.85rem;
+  }
+}/*# sourceMappingURL=Layout.css.map */

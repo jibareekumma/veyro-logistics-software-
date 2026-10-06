@@ -1,0 +1,148 @@
+
+
+@import '../Variable.scss';
+
+
+
+.stats-container{
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 1rem 1.5rem 1.5rem 1.5rem;
+    gap: 1rem;
+
+    .stat-item{
+        background-color: white;
+        
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        .headers{
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            align-items: center;
+            img{
+                width: 2.5rem;
+                height: 2.2rem;
+                filter: $filter-accent-glow;
+            }
+            h5{
+                font-size: 1.3rem;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+                color: $accent-glow;
+            }
+        }
+
+
+        .stat-details{
+            margin-left: 3rem;
+            h4{
+                font-size: 2.3rem;
+                color: black;
+            }
+            p{
+                font-size: 1.05rem;
+                letter-spacing: 0.2px;
+                color: $veyro-near-black;
+            }
+        }
+    }
+}
+
+
+
+.alert-container {
+   
+    min-height: 120px;
+    padding: 12px 14px;
+    box-sizing: border-box;
+    margin: 1rem 1.5rem 1.5rem 1.5rem;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    position: relative;
+
+    background: #fff5f3;
+    border: 1px solid #f5c9c2;
+    border-radius: 5px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    .icon {
+        flex-shrink: 0;
+
+        img {
+            width: 1.8rem;
+            height: 1.8rem;
+            object-fit: contain;
+        }
+    }
+
+    .texts {
+        flex: 1;
+        min-width: 0;
+        padding-right: 20px;
+
+        h3 {
+            margin: 0 0 4px;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+            font-weight: 550;
+            color: #e74c3c;
+        }
+
+        p {
+            margin: 0;
+            max-width: 80%;
+
+            font-size: 1.05rem;
+            line-height: 1.5rem;
+            color: $veyro-near-black;
+        }
+
+        .btn {
+            max-width: 12rem;
+            margin-top: 8px;
+            padding: 6px 10px;
+
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            border: 1px solid #58d0e8;
+            border-radius: 4px;
+            background: transparent;
+
+            p {
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: 550;
+                letter-spacing: 0.5px;
+                color: $accent-glow;
+            }
+
+            img {
+                width: 10px;
+                height: 10px;
+                filter: $filter-accent-glow;
+            }
+        }
+    }
+
+    // Close icon
+    > img:last-child {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+    }
+}

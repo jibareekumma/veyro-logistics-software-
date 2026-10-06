@@ -1,0 +1,45 @@
+
+@import '../Variable.scss';
+
+
+
+.dashboard-header{
+    background-color: $cyan-bg;
+    width: 100%;
+    padding: 1.5rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+    .logo{
+
+        display: flex;
+        align-items: flex-end;
+        img{
+            width: 9rem;
+            height: 3.2rem;
+        }
+    }
+
+    .icons{
+       
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 20%;
+        img{
+            min-width: 2rem;
+            height: 2rem;
+            filter: $filter-white;
+            
+        }
+        .pfp{
+            width: 2.3rem;
+            height: 2.3rem;
+            border-radius: 50%;
+           
+        }
+    }
+}

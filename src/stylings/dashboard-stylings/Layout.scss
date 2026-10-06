@@ -1,0 +1,215 @@
+
+
+@import '../Variable.scss';
+
+
+.dashboard-layout{
+    min-height: 100vh;
+    background-color: #f8f8f8;
+
+    .dashboard-main{
+        min-width: 0;
+    }
+
+    .dashboard-content{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-left{
+        min-width: 0;
+    }
+
+    .stat-item .trend{
+        display: none;
+    }
+
+    .alert-container .texts .resolve{
+        display: none;
+    }
+}
+
+
+@media (min-width: 768px){
+
+    .dashboard-layout{
+        display: grid;
+        grid-template-columns: 12rem minmax(0, 1fr);
+        align-items: start;
+
+        .mobile-only{
+            display: none;
+        }
+
+        .dashboard-content{
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+            align-items: start;
+        }
+
+        .greetings{
+            width: 100%;
+            margin-top: 1.5rem;
+
+            h4{
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+            }
+
+            .h3{
+                font-size: 1.8rem;
+            }
+
+            p{
+                font-size: 1rem;
+            }
+        }
+
+        .stats-container{
+            gap: 0.6rem;
+
+            .stat-item{
+                padding: 0.8rem;
+                gap: 0.6rem;
+                border: 1px solid #e5e7eb;
+                border-radius: 6px;
+                box-shadow: none;
+
+                .headers{
+                    gap: 0.5rem;
+
+                    img{
+                        width: 1.5rem;
+                        height: 1.5rem;
+                    }
+
+                    h5{
+                        font-size: 0.85rem;
+                    }
+                }
+
+                .stat-details{
+                    margin-left: 0;
+
+                    .figures{
+                        display: flex;
+                        align-items: baseline;
+                        gap: 0.6rem;
+                    }
+
+                    h4{
+                        font-size: 1.9rem;
+                    }
+
+                    p{
+                        font-size: 0.75rem;
+                    }
+                }
+
+                .trend{
+                    display: inline;
+                    font-size: 0.8rem;
+                    font-weight: 550;
+
+                    &.up{
+                        color: #2e8b62;
+                    }
+
+                    &.down{
+                        color: #e74c3c;
+                    }
+                }
+            }
+
+            .stat-item:nth-child(4) h4{
+                color: #e74c3c;
+            }
+        }
+
+        .alert-container{
+            min-height: auto;
+            align-items: center;
+            padding: 0.9rem 1rem;
+
+            .icon img{
+                width: 1.6rem;
+                height: 1.6rem;
+            }
+
+            .texts{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+                padding-right: 9rem;
+
+                h3{
+                    font-size: 1rem;
+                }
+
+                p{
+                    max-width: 100%;
+                    font-size: 0.8rem;
+                    line-height: 1.2rem;
+                }
+
+                .resolve{
+                    display: block;
+                    font-size: 0.75rem;
+                }
+
+                .btn{
+                    position: absolute;
+                    right: 1.5rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin-top: 0;
+                    max-width: none;
+                    white-space: nowrap;
+
+                    p{
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1024px){
+
+    .dashboard-layout{
+        grid-template-columns: 15rem minmax(0, 1fr);
+
+        .dashboard-content{
+            grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+        }
+
+        .greetings{
+            margin-top: 2rem;
+
+            .h3{
+                font-size: 2.1rem;
+            }
+        }
+
+        .stats-container{
+            grid-template-columns: repeat(4, 1fr);
+
+            .stat-item .stat-details h4{
+                font-size: 2.1rem;
+            }
+        }
+
+        .alert-container .texts{
+            h3{
+                font-size: 1.1rem;
+            }
+
+            p{
+                font-size: 0.85rem;
+            }
+        }
+    }
+}

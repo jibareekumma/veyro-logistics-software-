@@ -1,0 +1,82 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(/src/assets/fonts/BebasNeue-Regular.ttf);
+}
+@font-face {
+  font-family: ubuntu;
+  src: url(fonts/Ubuntu-Regular.ttf);
+}
+.search-container {
+  margin: 1rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.search-container .inputs {
+  border: 0.5px solid rgb(83, 119, 119);
+  height: 3rem;
+  display: flex;
+  padding: 0.5rem;
+  gap: 1rem;
+  width: 70%;
+  border-radius: 4px;
+}
+.search-container .inputs img {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.search-container .inputs input {
+  border: none;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  font-family: ubuntu;
+  width: 100%;
+  height: 100%;
+}
+.search-container .inputs input:focus {
+  outline: none;
+}
+.search-container button {
+  width: 20%;
+  height: 3rem;
+  background-color: #205068;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+.search-container button:hover {
+  cursor: pointer;
+}
+
+.greetings {
+  margin: 1rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 70%;
+}
+.greetings h4 {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  color: #35afc9;
+}
+.greetings .h3 {
+  font-size: 1.7rem;
+  word-spacing: 1px;
+}
+.greetings p {
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+  color: #181818;
+}/*# sourceMappingURL=Greetings.css.map */

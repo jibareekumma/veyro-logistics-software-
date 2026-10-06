@@ -1,0 +1,227 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.dashboard-aside {
+  margin: 1rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.dashboard-aside .track-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #0f2a3a;
+}
+.dashboard-aside .track-panel .bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.dashboard-aside .track-panel .overlay {
+  position: relative;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, rgba(10, 35, 50, 0.92), rgba(10, 35, 50, 0.55));
+}
+.dashboard-aside .track-panel .overlay h5 {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: #58d0e8;
+}
+.dashboard-aside .track-panel .overlay h3 {
+  font-size: 1.6rem;
+  color: white;
+}
+.dashboard-aside .track-panel .overlay p {
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  color: #d1d9de;
+}
+.dashboard-aside .track-panel .overlay .track-form {
+  display: flex;
+  margin-top: 0.8rem;
+}
+.dashboard-aside .track-panel .overlay .track-form .inputs {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.8rem;
+  padding: 0 0.8rem;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 4px 0 0 4px;
+}
+.dashboard-aside .track-panel .overlay .track-form .inputs img {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.dashboard-aside .track-panel .overlay .track-form .inputs input {
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 0.9rem;
+  font-family: ubuntu;
+}
+.dashboard-aside .track-panel .overlay .track-form .inputs input:focus {
+  outline: none;
+}
+.dashboard-aside .track-panel .overlay .track-form button {
+  width: 6rem;
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  background-color: #58d0e8;
+  color: #181818;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 550;
+  cursor: pointer;
+}
+.dashboard-aside .track-panel .overlay .track-form button img {
+  width: 12px;
+  height: 12px;
+}
+.dashboard-aside .quick-actions {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+}
+.dashboard-aside .quick-actions h3 {
+  font-size: 1.15rem;
+  color: #181818;
+}
+.dashboard-aside .quick-actions .actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.7rem;
+  margin: 0.8rem 0 1rem 0;
+}
+.dashboard-aside .quick-actions .actions-grid .action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.dashboard-aside .quick-actions .actions-grid .action-card:hover {
+  background-color: #f8f8f8;
+}
+.dashboard-aside .quick-actions .actions-grid .action-card img {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-bottom: 0.2rem;
+}
+.dashboard-aside .quick-actions .actions-grid .action-card h5 {
+  font-size: 0.85rem;
+  font-weight: 550;
+  color: #181818;
+}
+.dashboard-aside .quick-actions .actions-grid .action-card p {
+  font-size: 0.7rem;
+  color: #6b7280;
+}
+.dashboard-aside .quick-actions .promo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  min-height: 8rem;
+  background-color: #eaf3f7;
+}
+.dashboard-aside .quick-actions .promo .bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: right;
+     object-position: right;
+}
+.dashboard-aside .quick-actions .promo .promo-text {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 8rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: linear-gradient(90deg, rgba(234, 243, 247, 0.96) 45%, rgba(234, 243, 247, 0));
+}
+.dashboard-aside .quick-actions .promo .promo-text > img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.dashboard-aside .quick-actions .promo .promo-text h4 {
+  font-size: 0.95rem;
+  font-weight: 550;
+  color: #35afc9;
+}
+.dashboard-aside .quick-actions .promo .promo-text p {
+  max-width: 60%;
+  font-size: 0.7rem;
+  line-height: 1.1rem;
+  color: #181818;
+}
+.dashboard-aside .quick-actions .promo .promo-text .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.dashboard-aside .quick-actions .promo .promo-text .btn p {
+  font-size: 0.8rem;
+  font-weight: 550;
+  color: #35afc9;
+}
+.dashboard-aside .quick-actions .promo .promo-text .btn img {
+  width: 10px;
+  height: 10px;
+  filter: brightness(0) saturate(100%) invert(63%) sepia(47%) saturate(720%) hue-rotate(145deg) brightness(88%);
+}
+
+@media (min-width: 768px) {
+  .dashboard-aside {
+    margin: 1.5rem 1.5rem 1.5rem 0;
+  }
+  .dashboard-aside .track-panel .overlay {
+    padding: 1.2rem;
+  }
+  .dashboard-aside .track-panel .overlay h3 {
+    font-size: 1.3rem;
+  }
+  .dashboard-aside .track-panel .overlay p {
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 1024px) {
+  .dashboard-aside .track-panel .overlay {
+    padding: 1.5rem;
+  }
+  .dashboard-aside .track-panel .overlay h3 {
+    font-size: 1.6rem;
+  }
+  .dashboard-aside .track-panel .overlay p {
+    font-size: 0.9rem;
+  }
+}/*# sourceMappingURL=Aside.css.map */
