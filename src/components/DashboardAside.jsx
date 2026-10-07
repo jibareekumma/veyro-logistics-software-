@@ -8,8 +8,8 @@ import addressesIcon from "../assets/icons/nav-addresses.png"
 import supportIcon from "../assets/icons/nav-support.png"
 import shipIcon from "../assets/icons/nav-shipments.png"
 
-import trackBg from "../assets/photos/track-bg.jpeg"
-import promoBg from "../assets/photos/promo-ship.jpeg"
+import trackBg from "../assets/photos/track-bg.jpg"
+import promoBg from "../assets/photos/promo-ship.jpg"
 
 import "../stylings/dashboard-stylings/Aside.css"
 

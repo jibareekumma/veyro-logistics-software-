@@ -2,7 +2,7 @@
 
 import searchIcon from "../assets/icons/search-icon.png"
 import arrowRight from "../assets/icons/right-arrow.png"
-import boxIcon from "../assets/icons/box.png"
+import boxIcon from "../assets/icons/nav-shipments.png"
 
 import "../stylings/dashboard-stylings/Shipments.css"
 
