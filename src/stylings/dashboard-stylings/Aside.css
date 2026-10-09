@@ -35,7 +35,7 @@
   background: linear-gradient(90deg, rgba(10, 35, 50, 0.92), rgba(10, 35, 50, 0.55));
 }
 .dashboard-aside .track-panel .overlay h5 {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   letter-spacing: 2px;
   font-weight: 500;
   color: #58d0e8;
@@ -45,8 +45,8 @@
   color: white;
 }
 .dashboard-aside .track-panel .overlay p {
-  font-size: 0.9rem;
-  line-height: 1.3rem;
+  font-size: 1.05rem;
+  line-height: 1.5rem;
   color: #d1d9de;
 }
 .dashboard-aside .track-panel .overlay .track-form {
@@ -73,7 +73,7 @@
   border: none;
   width: 100%;
   height: 100%;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-family: ubuntu;
 }
 .dashboard-aside .track-panel .overlay .track-form .inputs input:focus {
@@ -91,7 +91,7 @@
   background-color: #58d0e8;
   color: #181818;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 550;
   cursor: pointer;
 }
@@ -106,7 +106,7 @@
   padding: 1rem;
 }
 .dashboard-aside .quick-actions h3 {
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   color: #181818;
 }
 .dashboard-aside .quick-actions .actions-grid {
@@ -133,12 +133,12 @@
   margin-bottom: 0.2rem;
 }
 .dashboard-aside .quick-actions .actions-grid .action-card h5 {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 550;
   color: #181818;
 }
 .dashboard-aside .quick-actions .actions-grid .action-card p {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: #6b7280;
 }
 .dashboard-aside .quick-actions .promo {
@@ -174,14 +174,14 @@
   height: 1.6rem;
 }
 .dashboard-aside .quick-actions .promo .promo-text h4 {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 550;
   color: #35afc9;
 }
 .dashboard-aside .quick-actions .promo .promo-text p {
   max-width: 60%;
-  font-size: 0.7rem;
-  line-height: 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.2rem;
   color: #181818;
 }
 .dashboard-aside .quick-actions .promo .promo-text .btn {
@@ -190,7 +190,7 @@
   gap: 0.4rem;
 }
 .dashboard-aside .quick-actions .promo .promo-text .btn p {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 550;
   color: #35afc9;
 }
@@ -208,10 +208,10 @@
     padding: 1.2rem;
   }
   .dashboard-aside .track-panel .overlay h3 {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
   .dashboard-aside .track-panel .overlay p {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 1024px) {
@@ -219,9 +219,9 @@
     padding: 1.5rem;
   }
   .dashboard-aside .track-panel .overlay h3 {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
   }
   .dashboard-aside .track-panel .overlay p {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 }/*# sourceMappingURL=Aside.css.map */

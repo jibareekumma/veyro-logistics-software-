@@ -102,7 +102,7 @@
                 display: inline-block;
                 padding: 0.2rem 0.6rem;
                 border-radius: 4px;
-                font-size: 0.85rem;
+                font-size: 0.95rem;
                 font-weight: 500;
 
                 &.delayed{
@@ -220,11 +220,11 @@
 
         .shipments-header{
             h3{
-                font-size: 1.1rem;
+                font-size: 1.35rem;
             }
 
             .view-all p{
-                font-size: 0.85rem;
+                font-size: 1.05rem;
             }
         }
 
@@ -244,7 +244,7 @@
                 border-bottom: 1px solid #e5e7eb;
 
                 p{
-                    font-size: 0.8rem;
+                    font-size: 1rem;
                     color: #6b7280;
                 }
             }
@@ -252,7 +252,7 @@
             .table-row{
 
                 p{
-                    font-size: 0.8rem;
+                    font-size: 1rem;
                 }
 
                 .tracking-id,
@@ -269,7 +269,7 @@
                 }
 
                 .status{
-                    font-size: 0.75rem;
+                    font-size: 0.95rem;
                 }
             }
         }
@@ -277,7 +277,7 @@
 
     .create-shipment{
         height: 2.8rem;
-        font-size: 0.95rem;
+        font-size: 1.15rem;
     }
 
     .bottom-track{
@@ -289,11 +289,11 @@
         }
 
         .track-input input{
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         button{
-            font-size: 0.95rem;
+            font-size: 1.15rem;
         }
     }
 }
@@ -304,25 +304,25 @@
     .shipments-container{
 
         .shipments-header h3{
-            font-size: 1.25rem;
+            font-size: 1.5rem;
         }
 
         .shipments-table .table-row p{
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         .shipments-table .table-head p{
-            font-size: 0.85rem;
+            font-size: 1.05rem;
         }
 
         .shipments-table .table-row .status{
-            font-size: 0.8rem;
+            font-size: 1rem;
         }
     }
 
     .create-shipment{
         height: 3rem;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .bottom-track{

@@ -46,14 +46,14 @@
     margin-top: 1.5rem;
   }
   .dashboard-layout .greetings h4 {
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     letter-spacing: 2px;
   }
   .dashboard-layout .greetings .h3 {
-    font-size: 1.8rem;
+    font-size: 2.1rem;
   }
   .dashboard-layout .greetings p {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .dashboard-layout .stats-container {
     gap: 0.6rem;
@@ -73,7 +73,7 @@
     height: 1.5rem;
   }
   .dashboard-layout .stats-container .stat-item .headers h5 {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
   }
   .dashboard-layout .stats-container .stat-item .stat-details {
     margin-left: 0;
@@ -84,14 +84,14 @@
     gap: 0.6rem;
   }
   .dashboard-layout .stats-container .stat-item .stat-details h4 {
-    font-size: 1.9rem;
+    font-size: 2.2rem;
   }
   .dashboard-layout .stats-container .stat-item .stat-details p {
-    font-size: 0.75rem;
+    font-size: 0.95rem;
   }
   .dashboard-layout .stats-container .stat-item .trend {
     display: inline;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 550;
   }
   .dashboard-layout .stats-container .stat-item .trend.up {
@@ -120,16 +120,16 @@
     padding-right: 9rem;
   }
   .dashboard-layout .alert-container .texts h3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .dashboard-layout .alert-container .texts p {
     max-width: 100%;
-    font-size: 0.8rem;
-    line-height: 1.2rem;
+    font-size: 1rem;
+    line-height: 1.4rem;
   }
   .dashboard-layout .alert-container .texts .resolve {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.95rem;
   }
   .dashboard-layout .alert-container .texts .btn {
     position: absolute;
@@ -141,7 +141,7 @@
     white-space: nowrap;
   }
   .dashboard-layout .alert-container .texts .btn p {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 }
 @media (min-width: 1024px) {
@@ -155,18 +155,18 @@
     margin-top: 2rem;
   }
   .dashboard-layout .greetings .h3 {
-    font-size: 2.1rem;
+    font-size: 2.4rem;
   }
   .dashboard-layout .stats-container {
     grid-template-columns: repeat(4, 1fr);
   }
   .dashboard-layout .stats-container .stat-item .stat-details h4 {
-    font-size: 2.1rem;
+    font-size: 2.4rem;
   }
   .dashboard-layout .alert-container .texts h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
   .dashboard-layout .alert-container .texts p {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
   }
 }/*# sourceMappingURL=Layout.css.map */

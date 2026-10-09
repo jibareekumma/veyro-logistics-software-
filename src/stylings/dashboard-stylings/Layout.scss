@@ -1,5 +1,3 @@
-
-
 @import '../Variable.scss';
 
 
@@ -52,16 +50,16 @@
             margin-top: 1.5rem;
 
             h4{
-                font-size: 0.75rem;
+                font-size: 0.95rem;
                 letter-spacing: 2px;
             }
 
             .h3{
-                font-size: 1.8rem;
+                font-size: 2.1rem;
             }
 
             p{
-                font-size: 1rem;
+                font-size: 1.2rem;
             }
         }
 
@@ -84,7 +82,7 @@
                     }
 
                     h5{
-                        font-size: 0.85rem;
+                        font-size: 1.05rem;
                     }
                 }
 
@@ -98,17 +96,17 @@
                     }
 
                     h4{
-                        font-size: 1.9rem;
+                        font-size: 2.2rem;
                     }
 
                     p{
-                        font-size: 0.75rem;
+                        font-size: 0.95rem;
                     }
                 }
 
                 .trend{
                     display: inline;
-                    font-size: 0.8rem;
+                    font-size: 1rem;
                     font-weight: 550;
 
                     &.up{
@@ -144,18 +142,18 @@
                 padding-right: 9rem;
 
                 h3{
-                    font-size: 1rem;
+                    font-size: 1.2rem;
                 }
 
                 p{
                     max-width: 100%;
-                    font-size: 0.8rem;
-                    line-height: 1.2rem;
+                    font-size: 1rem;
+                    line-height: 1.4rem;
                 }
 
                 .resolve{
                     display: block;
-                    font-size: 0.75rem;
+                    font-size: 0.95rem;
                 }
 
                 .btn{
@@ -168,7 +166,7 @@
                     white-space: nowrap;
 
                     p{
-                        font-size: 0.8rem;
+                        font-size: 1rem;
                     }
                 }
             }
@@ -190,7 +188,7 @@
             margin-top: 2rem;
 
             .h3{
-                font-size: 2.1rem;
+                font-size: 2.4rem;
             }
         }
 
@@ -198,17 +196,17 @@
             grid-template-columns: repeat(4, 1fr);
 
             .stat-item .stat-details h4{
-                font-size: 2.1rem;
+                font-size: 2.4rem;
             }
         }
 
         .alert-container .texts{
             h3{
-                font-size: 1.1rem;
+                font-size: 1.3rem;
             }
 
             p{
-                font-size: 0.85rem;
+                font-size: 1.05rem;
             }
         }
     }
