@@ -1,5 +1,6 @@
 
-
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { NavLink } from 'react-router-dom'
 
 import logo from "../assets/logo2.png"
@@ -14,7 +15,9 @@ import profileIcon from "../assets/icons/nav-profile.png"
 import "../stylings/dashboard-stylings/Sidebar.css"
 
 
-const Sidebar = function(){
+const Sidebar = function({ showToggle }){
+
+    const [open, setOpen] = useState(false)
 
     const links = [
         { id: 1, label: 'Dashboard', to: '/dashboard', icon: dashboardIcon },
@@ -26,26 +29,87 @@ const Sidebar = function(){
         { id: 7, label: 'Profile', to: '/profile', icon: profileIcon },
     ]
 
-    return <aside className='sidebar'>
-        <img className='logo' src={logo} alt="Veyro logo"
-        loading='lazy'/>
+    useEffect(function(){
+        if(!open){
+            return
+        }
 
-        <nav>
-            {links.map( (a) => (
-                <NavLink to={a.to} key={a.id} className='nav-link'>
-                    <img src={a.icon} alt={a.label + " icon"}
-                    loading='lazy'/>
-                    <span>{a.label}</span>
-                    {a.badge && <span className='badge'>{a.badge}</span>}
-                </NavLink>
-            ))}
-        </nav>
+        const onKey = function(e){
+            if(e.key === 'Escape'){
+                setOpen(false)
+            }
+        }
 
-        <div className='tagline'>
-            <p>GLOBAL LOGISTICS.</p>
-            <p>SIMPLIFIED.</p>
-        </div>
-    </aside>
+        const onResize = function(){
+            if(window.innerWidth >= 768){
+                setOpen(false)
+            }
+        }
+
+        document.body.style.overflow = 'hidden'
+        window.addEventListener('keydown', onKey)
+        window.addEventListener('resize', onResize)
+
+        return function(){
+            document.body.style.overflow = ''
+            window.removeEventListener('keydown', onKey)
+            window.removeEventListener('resize', onResize)
+        }
+    }, [open])
+
+    const drawer = <>
+
+        <div
+            className={open ? 'sidebar-overlay show' : 'sidebar-overlay'}
+            onClick={() => setOpen(false)}
+        ></div>
+
+        <aside className={open ? 'sidebar open' : 'sidebar'}>
+            <button
+                className='menu-close'
+                onClick={() => setOpen(false)}
+                aria-label='Close menu'
+            >&times;</button>
+
+            <img className='logo' src={logo} alt="Veyro logo"
+            loading='lazy'/>
+
+            <nav>
+                {links.map( (a) => (
+                    <NavLink to={a.to} key={a.id} className='nav-link'
+                    onClick={() => setOpen(false)}>
+                        <img src={a.icon} alt={a.label + " icon"}
+                        loading='lazy'/>
+                        <span>{a.label}</span>
+                        {a.badge && <span className='badge'>{a.badge}</span>}
+                    </NavLink>
+                ))}
+            </nav>
+
+            <div className='tagline'>
+                <p>GLOBAL LOGISTICS.</p>
+                <p>SIMPLIFIED.</p>
+            </div>
+        </aside>
+    </>
+
+    return <>
+
+        {showToggle && (
+            <button
+                className={open ? 'menu-toggle hidden' : 'menu-toggle'}
+                onClick={() => setOpen(true)}
+                aria-label='Open menu'
+                aria-expanded={open}
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        )}
+
+        {showToggle ? createPortal(drawer, document.body) : drawer}
+    </>
 }
 
 

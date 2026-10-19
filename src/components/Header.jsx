@@ -1,12 +1,11 @@
-
-
 import veyroLogo from '../assets/logo2.png'
 import bellIcon from "../assets/icons/bell-icon.png"
 
-import pfp from "../assets/photos/pfp.jpeg"
-
 
 import "../stylings/dashboard-stylings/Header-Dashboard.css"
+
+
+import Sidebar from './Sidebar'
 
 const Header = function(){
     return<>
@@ -19,10 +18,8 @@ const Header = function(){
                 <div className='icons'>
                     <img src={bellIcon} alt="Bell Icon"
                     loading='lazy' />
-                    
-                    <img src={pfp} alt="Profile Image" loading='lazy'
-                    className='pfp'
-                    />
+
+                    <Sidebar showToggle/>
                    
                 </div>
             </div>
