@@ -1,0 +1,307 @@
+.package-details {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  color: #17384b;
+}
+.package-details__card {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e3ebf0;
+  border-radius: 10px;
+}
+.package-details__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+}
+.package-details__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.package-details__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  background: #f0f2f3;
+  border: 1px solid #e1e5e8;
+  border-radius: 7px;
+}
+.package-details__image-placeholder {
+  width: 20px;
+  height: 20px;
+  background: #202020;
+  border-radius: 3px;
+}
+.package-details__title {
+  min-width: 0;
+}
+.package-details__title h3 {
+  margin: 0 0 5px;
+  color: #17384b;
+  font-size: 13px;
+  font-weight: 700;
+}
+.package-details__title p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #8197a5;
+  font-size: 10px;
+}
+.package-details__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: #f2f7f9;
+  border: 1px solid #e0eaf0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.package-details__toggle:hover {
+  background: #e4f1f6;
+}
+.package-details__toggle:focus-visible {
+  outline: 2px solid #19b9d8;
+  outline-offset: 3px;
+}
+.package-details__toggle.is-open .package-details__arrow {
+  transform: rotate(-135deg);
+}
+.package-details__arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #45697b;
+  border-bottom: 2px solid #45697b;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.package-details__content {
+  padding: 0 14px 16px;
+  border-top: 1px solid #edf1f4;
+  animation: package-details-reveal 0.2s ease;
+}
+.package-details__product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0;
+}
+.package-details__product-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background: #f2f4f5;
+  border: 1px solid #e4e8eb;
+  border-radius: 7px;
+}
+.package-details__product-info {
+  flex: 1;
+  min-width: 0;
+}
+.package-details__product-info h4 {
+  margin: 0 0 5px;
+  color: #193b4e;
+  font-size: 12px;
+  font-weight: 600;
+}
+.package-details__product-info p {
+  margin: 0 0 5px;
+  color: #8296a4;
+  font-size: 10px;
+}
+.package-details__product-info span {
+  color: #607b8b;
+  font-size: 10px;
+}
+.package-details__status {
+  align-self: flex-start;
+  padding: 5px 7px;
+  color: #1599bb;
+  background: #e4f8fc;
+  border-radius: 5px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+.package-details__divider {
+  width: 100%;
+  height: 1px;
+  background: #edf1f4;
+}
+.package-details__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  padding: 17px 0;
+}
+.package-details__field {
+  min-width: 0;
+}
+.package-details__field span {
+  display: block;
+  margin-bottom: 6px;
+  color: #8a9eaa;
+  font-size: 10px;
+}
+.package-details__field p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #294d60;
+  font-size: 11px;
+  font-weight: 600;
+}
+.package-details__route {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 17px;
+}
+.package-details__route-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.package-details__route-item > div:last-child {
+  min-width: 0;
+}
+.package-details__route-item span {
+  display: block;
+  margin-bottom: 5px;
+  color: #8a9eaa;
+  font-size: 10px;
+}
+.package-details__route-item p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #294d60;
+  font-size: 11px;
+  font-weight: 600;
+}
+.package-details__route-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background: #f0f3f5;
+  border: 1px solid #e2e8ec;
+  border-radius: 7px;
+}
+.package-details__icon-placeholder {
+  width: 12px;
+  height: 12px;
+  background: #202020;
+  border-radius: 2px;
+}
+.package-details__route-line {
+  width: 1px;
+  height: 14px;
+  margin-left: 14px;
+  border-left: 1px dashed #b8ccd6;
+}
+
+@keyframes package-details-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 768px) {
+  .package-details__header {
+    padding: 18px 20px;
+  }
+  .package-details__heading {
+    gap: 14px;
+  }
+  .package-details__image {
+    width: 48px;
+    height: 48px;
+  }
+  .package-details__title h3 {
+    font-size: 15px;
+  }
+  .package-details__title p {
+    font-size: 11px;
+  }
+  .package-details__toggle {
+    width: 34px;
+    height: 34px;
+  }
+  .package-details__content {
+    padding: 0 20px 20px;
+  }
+  .package-details__product {
+    padding: 20px 0;
+    gap: 14px;
+  }
+  .package-details__product-image {
+    width: 64px;
+    height: 64px;
+  }
+  .package-details__product-info h4 {
+    font-size: 13px;
+  }
+  .package-details__product-info p,
+  .package-details__product-info span {
+    font-size: 11px;
+  }
+  .package-details__status {
+    font-size: 10px;
+  }
+  .package-details__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 30px;
+    padding: 22px 0;
+  }
+  .package-details__field span {
+    font-size: 11px;
+  }
+  .package-details__field p {
+    font-size: 12px;
+  }
+  .package-details__route {
+    gap: 16px;
+    padding-top: 20px;
+  }
+  .package-details__route-item {
+    gap: 12px;
+  }
+  .package-details__route-item span {
+    font-size: 11px;
+  }
+  .package-details__route-item p {
+    font-size: 12px;
+  }
+  .package-details__route-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .package-details__toggle,
+  .package-details__arrow,
+  .package-details__content {
+    animation: none;
+    transition: none;
+  }
+}/*# sourceMappingURL=PackageDetails.css.map */

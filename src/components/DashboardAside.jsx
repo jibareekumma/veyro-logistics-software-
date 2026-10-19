@@ -12,6 +12,7 @@ import trackBg from "../assets/photos/track-bg.jpg"
 import promoBg from "../assets/photos/promo-ship.jpg"
 
 import "../stylings/dashboard-stylings/Aside.css"
+import { useNavigate } from "react-router-dom"
 
 
 const DashboardAside = function(){
@@ -22,6 +23,9 @@ const DashboardAside = function(){
         { id: 3, icon: addressesIcon, title: 'Addresses', text: 'Manage saved addresses' },
         { id: 4, icon: supportIcon, title: 'Support', text: 'Get help & open a ticket' },
     ]
+
+    
+    const navigate = useNavigate();
 
     return <div className="dashboard-aside">
 
@@ -40,7 +44,9 @@ const DashboardAside = function(){
                         loading="lazy"/>
                         <input type="text" placeholder='e.g. VY-82K4-91AX'/>
                     </div>
-                    <button>
+                    <button 
+                    onClick={() => navigate('/tracking')}
+                    >
                         Track
                         <img src={arrowRight} alt="Right Arrow"
                         loading="lazy"/>

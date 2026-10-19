@@ -13,6 +13,9 @@ import "../stylings/dashboard-stylings/Layout.css"
 
 
 
+
+
+
 // Photos/Icon Imports 
 
 import searchIcon from "../assets/icons/search-icon.png"
@@ -39,6 +42,7 @@ const UserDashboard = function(){
 
 
 
+
     return <div className='dashboard-layout'>
 
         <Sidebar/>
@@ -62,7 +66,9 @@ const UserDashboard = function(){
                                 loading='lazy'/>
                                 <input type="text" placeholder='Search shipments, tracking ids...'/>
                             </div>
-                            <button>Search</button>
+                            <button
+                            onClick={() => navigate('/tracking')}
+                            >Search</button>
                         </div>
                     </div>
 
