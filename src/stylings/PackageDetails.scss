@@ -1,6 +1,8 @@
 
 
 
+@import "./Variable.scss";
+
 
 .package-details {
   width: 100%;
@@ -39,17 +41,26 @@
     flex-shrink: 0;
     width: 42px;
     height: 42px;
-    overflow: hidden;
-    background: #f0f2f3;
-    border: 1px solid #e1e5e8;
+ 
+    border: 1px solid black;
     border-radius: 7px;
   }
 
-  &__image-placeholder {
-    width: 20px;
-    height: 20px;
-    background: #202020;
-    border-radius: 3px;
+  // &__image-placeholder {
+  //   width: 20px;
+  //   height: 20px;
+  //   background: #202020;
+  //   border-radius: 3px;
+  // }
+
+  .package-image-container{
+    
+
+    img{
+      width: 35px;
+      height: 35px;
+      filter: $accent-filter;
+    }
   }
 
   &__title {
@@ -124,16 +135,26 @@
     padding: 16px 0;
   }
 
-  &__product-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    background: #f2f4f5;
-    border: 1px solid #e4e8eb;
-    border-radius: 7px;
+  // &__product-image {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   flex-shrink: 0;
+  //   width: 52px;
+  //   height: 52px;
+  //   background: #f2f4f5;
+  //   border: 1px solid green;
+  //   border-radius: 7px;
+  // }
+
+  .product-image-main{
+   
+
+
+    img{
+      width: 7rem;
+      height: 7rem;
+    }
   }
 
   &__product-info {
@@ -237,24 +258,44 @@
     }
   }
 
-  &__route-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 30px;
-    height: 30px;
-    background: #f0f3f5;
-    border: 1px solid #e2e8ec;
-    border-radius: 7px;
+  // &__route-icon {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   flex-shrink: 0;
+  //   width: 30px;
+  //   height: 30px;
+  //   background: #f0f3f5;
+  //   border: 1px solid #e2e8ec;
+  //   border-radius: 7px;
+  // }
+
+  // &__icon-placeholder {
+  //   width: 12px;
+  //   height: 12px;
+  //   background: #202020;
+  //   border-radius: 2px;
+  // }
+
+
+  .sender-flag{
+   
+
+    img{
+      width: 22px;
+      height: 20px;
+    }
+  }
+  
+   .recipient-flag{
+   
+
+    img{
+      width: 22px;
+      height: 20px;
+    }
   }
 
-  &__icon-placeholder {
-    width: 12px;
-    height: 12px;
-    background: #202020;
-    border-radius: 2px;
-  }
 
   &__route-line {
     width: 1px;

@@ -3,6 +3,13 @@
 import { useState } from "react";
 import "../stylings/PackageDetails.css";
 
+
+import packageImg from "../assets/photos/package2.png"
+import packageIcon from "../assets/icons/pacakge-info.png"
+
+import senderFlag from "../assets/photos/usa.png"
+import recipientFlag from "../assets/photos/nigeria.png"
+
 const packages = [
   {
     id: 1,
@@ -13,9 +20,14 @@ const packages = [
     weight: "1.2 kg",
     dimensions: "25 × 18 × 12 cm",
     sender: "Miami, USA",
-    recipient: "Toronto, Canada",
+    recipient: "Lagos, Nigeria",
     date: "Oct 10, 2026",
     status: "In Transit",
+    image: packageImg,
+    packageIcon : packageIcon,
+    senderFlag: senderFlag,
+    recipientFlag: recipientFlag,
+
   },
 ];
 
@@ -29,9 +41,8 @@ function PackageDetails() {
           {/* Header */}
           <div className="package-details__header">
             <div className="package-details__heading">
-              <div className="package-details__image">
-                {/* Replace with your package image */}
-                <div className="package-details__image-placeholder" />
+              <div className="package-image-container">
+                <img src={item.packageIcon} alt="" />
               </div>
 
               <div className="package-details__title">
@@ -59,9 +70,8 @@ function PackageDetails() {
           {isOpen && (
             <div className="package-details__content">
               <div className="package-details__product">
-                <div className="package-details__product-image">
-                  {/* Replace with the actual product image */}
-                  <div className="package-details__image-placeholder" />
+                <div className="product-image-main">
+                  <img src={item.image} alt="" />
                 </div>
 
                 <div className="package-details__product-info">
@@ -103,9 +113,8 @@ function PackageDetails() {
 
               <div className="package-details__route">
                 <div className="package-details__route-item">
-                  <div className="package-details__route-icon">
-                    {/* Replace with sender icon */}
-                    <div className="package-details__icon-placeholder" />
+                  <div className="sender-flag">
+                    <img src={item.senderFlag} alt="" />
                   </div>
 
                   <div>
@@ -117,10 +126,12 @@ function PackageDetails() {
                 <div className="package-details__route-line" />
 
                 <div className="package-details__route-item">
-                  <div className="package-details__route-icon">
-                    {/* Replace with destination icon */}
-                    <div className="package-details__icon-placeholder" />
+                  
+
+                   <div className="recipient-flag">
+                    <img src={item.recipientFlag} alt="" />
                   </div>
+
 
                   <div>
                     <span>Recipient Location</span>

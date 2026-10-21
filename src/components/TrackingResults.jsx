@@ -121,7 +121,7 @@ const TrackingResults = function(){
                                 <div className="detail-text">
                                     <p>{location.title}</p>
                                     <h5>{location.text}</h5>
-                                </div>
+                                </div> 
                             </div>
                         ))}
                     </div>
