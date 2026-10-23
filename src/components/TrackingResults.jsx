@@ -10,6 +10,7 @@ import "../stylings/TrackingResults.css"
 
 import TrackingMap from "./TrackingMap"
 import PackageDetails from "./PackageDetails"
+import { useNavigate } from "react-router-dom"
 
 
 const TrackingResults = function(){
@@ -83,6 +84,9 @@ const TrackingResults = function(){
         },
     ]
 
+
+    const navigate = useNavigate();
+
     return<>
 
         <Header/>
@@ -92,7 +96,9 @@ const TrackingResults = function(){
             <div className="tracking-texts">
 
                 <div className="section1">
-                    <div className="back">
+                    <div className="back"
+                    onClick = {() => navigate("/dashboard")}
+                    >
                         <img src={leftArr} alt="Left Arrow" />
                         <p>Back to Track a Package</p>
                     </div>

@@ -1,0 +1,110 @@
+.package-photos-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 480px;
+}
+.package-photos-container .upload-label-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #005f73;
+}
+.package-photos-container .upload-label-text span {
+  font-weight: 400;
+  color: #6c757d;
+}
+.package-photos-container .dropzone-box {
+  border: 2px dashed #90e0ef;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.package-photos-container .dropzone-box:hover {
+  background-color: #edf6f9;
+}
+.package-photos-container .dropzone-box .upload-icon {
+  font-size: 22px;
+  color: #0077b6;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.package-photos-container .dropzone-box .upload-main-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0077b6;
+  margin-bottom: 4px;
+}
+.package-photos-container .dropzone-box .upload-sub-text {
+  font-size: 12px;
+  color: #6c757d;
+}
+.package-photos-container .photos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+.package-photos-container .photos-grid .photo-thumbnail-card, .package-photos-container .photos-grid .add-more-card {
+  width: 76px;
+  height: 76px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.package-photos-container .photos-grid .photo-thumbnail-card {
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+}
+.package-photos-container .photos-grid .photo-thumbnail-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.package-photos-container .photos-grid .photo-thumbnail-card .cancel-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.package-photos-container .photos-grid .photo-thumbnail-card:hover .cancel-btn {
+  opacity: 1;
+}
+.package-photos-container .photos-grid .add-more-card {
+  border: 1px solid #90e0ef;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.package-photos-container .photos-grid .add-more-card:hover {
+  background-color: #f0f9fb;
+}
+.package-photos-container .photos-grid .add-more-card .plus-icon {
+  font-size: 24px;
+  color: #0077b6;
+  font-weight: 300;
+}/*# sourceMappingURL=PackagePhotos.css.map */

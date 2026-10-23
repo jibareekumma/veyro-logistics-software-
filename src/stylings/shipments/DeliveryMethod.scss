@@ -1,0 +1,235 @@
+@use './shared' as *;
+
+.delivery-method {
+  @include section-card;
+
+  .headings {
+    @include section-headings;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.3);
+      border-radius: 8px;
+    }
+
+    .collapse-icon {
+      color: $text-light;
+      display: flex;
+      transition: transform 0.2s ease;
+
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &.collapsed .headings {
+    margin-bottom: 0;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include tablet {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .option-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "icon info price radio";
+    align-items: center;
+    column-gap: 12px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid $field-border;
+    border-radius: 10px;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+
+    &:hover {
+      border-color: $brand;
+    }
+
+    &.selected {
+      border-color: $brand;
+      background: #f0fafd;
+      box-shadow: 0 0 0 1px $brand inset;
+    }
+
+    .option-icon {
+      grid-area: icon;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: $tint;
+      color: $text-dark;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .option-info {
+      grid-area: info;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .option-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: $text-body;
+      }
+
+      .option-days {
+        font-size: 11px;
+        color: $text-light;
+      }
+    }
+
+    .option-price {
+      grid-area: price;
+      font-size: 15px;
+      font-weight: 700;
+      color: $text-body;
+    }
+
+    .option-radio {
+      grid-area: radio;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid $field-border;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    &.selected .option-radio {
+      border-color: $brand;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 3px;
+        border-radius: 50%;
+        background: $brand;
+      }
+    }
+
+    @include tablet {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        "icon info info"
+        "price price radio";
+      row-gap: 14px;
+      padding: 14px;
+
+      .option-price {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .cost-bar {
+    display: none;
+
+    @include tablet {
+      display: block;
+      background: #eaf6fb;
+      border: 1px solid #cfe9f3;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .cost-summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cost-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #d7eef6;
+      color: $text-dark;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cost-texts {
+      flex: 1;
+      min-width: 0;
+
+      h6 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 700;
+        color: $text-dark;
+      }
+
+      p {
+        margin: 2px 0 0;
+        font-size: 11px;
+        color: $text-light;
+      }
+    }
+
+    .cost-amount {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+
+      strong {
+        font-size: 18px;
+        color: $text-body;
+      }
+
+      button {
+        background: none;
+        border: none;
+        padding: 0;
+        font-family: inherit;
+        font-size: 11px;
+        color: $brand;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    .cost-breakdown {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 12px 0 0;
+      border-top: 1px dashed #bfe0ec;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: $text-light;
+
+        span:last-child {
+          color: $text-body;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

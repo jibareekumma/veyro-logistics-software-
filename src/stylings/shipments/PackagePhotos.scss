@@ -1,0 +1,189 @@
+@use './shared' as *;
+
+.package-photos-container {
+  font-family: $font;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+  .upload-label-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-dark;
+
+    span {
+      font-weight: 400;
+      color: $text-light;
+    }
+  }
+
+  .field-error {
+    font-size: 12px;
+    color: $danger;
+  }
+
+  .photos-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include tablet {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .dropzone-box {
+    border: 2px dashed $accent-color;
+    background-color: $bg-color;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    box-sizing: border-box;
+    text-align: center;
+
+    &:hover,
+    &.dragging {
+      background-color: #edf6f9;
+    }
+
+    &.dragging {
+      border-color: $brand;
+    }
+
+    .upload-icon {
+      font-size: 22px;
+      color: $primary-color;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .upload-main-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: $primary-color;
+      margin-bottom: 4px;
+
+      .text-wide {
+        display: none;
+      }
+    }
+
+    .upload-sub-text {
+      font-size: 12px;
+      color: $text-light;
+    }
+
+    @include tablet {
+      flex: 0 0 230px;
+      height: 96px;
+      padding: 12px;
+
+      .upload-icon {
+        font-size: 18px;
+        margin-bottom: 2px;
+      }
+
+      .upload-main-text {
+        font-size: 12px;
+        margin-bottom: 2px;
+
+        .text-mobile {
+          display: none;
+        }
+
+        .text-wide {
+          display: inline;
+        }
+      }
+
+      .upload-sub-text {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+
+    @include tablet {
+      margin-top: 0;
+      gap: 10px;
+    }
+
+    .photo-thumbnail-card,
+    .add-more-card {
+      width: 76px;
+      height: 76px;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      @include tablet {
+        width: 64px;
+        height: 64px;
+      }
+    }
+
+    .photo-thumbnail-card {
+      border: 1px solid $border-color;
+      background-color: #fff;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .cancel-btn {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 14px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+
+    .add-more-card {
+      border: 1px solid $accent-color;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f0f9fb;
+      }
+
+      .plus-icon {
+        font-size: 24px;
+        color: $primary-color;
+        font-weight: 300;
+      }
+    }
+  }
+}

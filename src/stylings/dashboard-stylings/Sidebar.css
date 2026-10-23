@@ -194,6 +194,9 @@
     box-shadow: none;
     transition: none;
   }
+  .sidebar.drawer {
+    display: none;
+  }
 }
 @media (min-width: 1024px) {
   .sidebar {

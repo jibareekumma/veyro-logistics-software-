@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { NavLink } from 'react-router-dom'
@@ -57,6 +56,8 @@ const Sidebar = function({ showToggle }){
         }
     }, [open])
 
+    const sidebarClass = 'sidebar' + (showToggle ? ' drawer' : '') + (open ? ' open' : '')
+
     const drawer = <>
 
         <div
@@ -64,7 +65,7 @@ const Sidebar = function({ showToggle }){
             onClick={() => setOpen(false)}
         ></div>
 
-        <aside className={open ? 'sidebar open' : 'sidebar'}>
+        <aside className={sidebarClass}>
             <button
                 className='menu-close'
                 onClick={() => setOpen(false)}

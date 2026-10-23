@@ -5,6 +5,7 @@ import arrowRight from "../assets/icons/right-arrow.png"
 import boxIcon from "../assets/icons/nav-shipments.png"
 
 import "../stylings/dashboard-stylings/Shipments.css"
+import { useNavigate } from "react-router-dom"
 
 
 const RecentShipments = function(){
@@ -20,6 +21,9 @@ const RecentShipments = function(){
     const getStatusClass = function(status){
         return status.toLowerCase().replace(/\s+/g, '-')
     }
+
+
+    const navigate = useNavigate();
 
     return<>
 
@@ -58,7 +62,9 @@ const RecentShipments = function(){
         </div>
 
 
-        <button className="create-shipment">
+        <button className="create-shipment"
+            onClick={() => navigate("/createShipments")}
+        >
             <img src={boxIcon} alt="box icon"
             loading="lazy"/>
             <span>Create Shipment</span>

@@ -5,6 +5,8 @@ import Login from "./components/auths/Login";
 import TrackingResults from "./components/TrackingResults";
 
 import UserDashboard from "./components/UserDashboard";
+
+import CreateShipments from "./components/shipments/CreateShipments";
 import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
 
@@ -20,6 +22,10 @@ function App() {
       <Route path = '/dashboard' element = {<ProtectedRoute><UserDashboard/></ProtectedRoute>} />
 
        <Route path = '/tracking' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
+
+       <Route path = '/createShipments' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
+
+       
     </Routes>
    )
 }

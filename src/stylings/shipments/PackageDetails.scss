@@ -1,0 +1,159 @@
+@use './shared' as *;
+
+.toggle-container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-family: $font;
+  gap: 12px;
+  outline: none;
+
+  &:focus-visible .toggle-switch {
+    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.3);
+  }
+
+  .toggle-switch {
+    width: 46px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 12px;
+    position: relative;
+    transition: background-color 0.2s ease-in-out;
+
+    .toggle-thumb {
+      width: 20px;
+      height: 20px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &.active {
+      background-color: #00b4d8;
+
+      .toggle-thumb {
+        transform: translateX(22px);
+      }
+    }
+  }
+
+  .toggle-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #005f73;
+    min-width: 32px;
+  }
+}
+
+.package-details {
+  @include section-card;
+
+  .headings {
+    @include section-headings;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+
+    .item,
+    .item-weight {
+      @include field;
+    }
+
+    .item-physics {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      min-width: 0;
+
+      .item-weight {
+        flex: 0 0 36%;
+      }
+
+      .item-dimension {
+        flex: 1;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+
+        label {
+          grid-column: 1 / -1;
+          font-size: 13px;
+          font-weight: 600;
+          color: $text-dark;
+        }
+
+        input {
+          @include input-base;
+          padding: 0 8px;
+        }
+
+        .field-error {
+          grid-column: 1 / -1;
+          font-size: 12px;
+          color: $danger;
+        }
+
+        &.has-error input {
+          border-color: $danger;
+        }
+      }
+    }
+
+    .fragile {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h5 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: $text-dark;
+      }
+
+      .toggle-container {
+        @include tablet {
+          min-height: 40px;
+        }
+      }
+    }
+
+    @include tablet {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+
+      .item-description {
+        grid-column: span 7;
+      }
+
+      .item-category {
+        grid-column: span 5;
+      }
+
+      .item-physics {
+        grid-column: span 9;
+
+        .item-weight {
+          flex: 0 0 30%;
+        }
+      }
+
+      .fragile {
+        grid-column: span 3;
+        padding-left: 8px;
+      }
+
+      .package-photos-container {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}

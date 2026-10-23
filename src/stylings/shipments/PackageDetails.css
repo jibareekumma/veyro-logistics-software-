@@ -1,0 +1,42 @@
+/* --- TOGGLE SWITCH STYLES --- */
+.toggle-container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  gap: 12px;
+}
+.toggle-container .toggle-switch {
+  width: 46px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 12px;
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+}
+.toggle-container .toggle-switch .toggle-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.toggle-container .toggle-switch.active {
+  background-color: #00b4d8;
+}
+.toggle-container .toggle-switch.active .toggle-thumb {
+  transform: translateX(22px);
+}
+.toggle-container .toggle-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #005f73;
+  min-width: 32px;
+}/*# sourceMappingURL=PackageDetails.css.map */

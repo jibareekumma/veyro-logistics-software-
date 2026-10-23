@@ -1,0 +1,109 @@
+@use './shared' as *;
+
+$active-color: #005f73;
+$inactive-color: #5c88a5;
+$light-border: #d4e8f5;
+$bg-white: #ffffff;
+
+.stepper-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  background-color: $bg-white;
+  font-family: $font;
+
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid $light-border;
+      color: $inactive-color;
+      background-color: $bg-white;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .step-label {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      color: $inactive-color;
+    }
+
+    &.active {
+      .step-circle {
+        background-color: $active-color;
+        border-color: $active-color;
+        color: $bg-white;
+      }
+
+      .step-label {
+        color: $active-color;
+        font-weight: 700;
+      }
+    }
+
+    &.done {
+      .step-circle {
+        background-color: #e0f2f7;
+        border-color: $active-color;
+        color: $active-color;
+      }
+
+      .step-label {
+        color: $active-color;
+      }
+    }
+
+    &.clickable {
+      cursor: pointer;
+    }
+
+    @include tablet {
+      flex-direction: row;
+      gap: 10px;
+      flex-shrink: 0;
+
+      .step-label {
+        margin-top: 0;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .step-line {
+    width: 60px;
+    height: 2px;
+    background-color: $light-border;
+    margin-top: 18px;
+    margin-left: 8px;
+    margin-right: 8px;
+    transition: background-color 0.2s ease-in-out;
+
+    &.done {
+      background-color: $active-color;
+    }
+
+    @include tablet {
+      flex: 1;
+      width: auto;
+      margin: 0 16px;
+    }
+  }
+
+  @include tablet {
+    align-items: center;
+    justify-content: flex-start;
+  }
+}

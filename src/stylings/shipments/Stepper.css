@@ -1,0 +1,51 @@
+.stepper-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  background-color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.stepper-container .step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.stepper-container .step-item .step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #d4e8f5;
+  color: #5c88a5;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+.stepper-container .step-item .step-label {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #5c88a5;
+}
+.stepper-container .step-item.active .step-circle {
+  background-color: #005f73;
+  border-color: #005f73;
+  color: #ffffff;
+}
+.stepper-container .step-item.active .step-label {
+  color: #005f73;
+  font-weight: 700;
+}
+.stepper-container .step-line {
+  width: 60px;
+  height: 2px;
+  background-color: #d4e8f5;
+  margin-top: 18px;
+  margin-left: 8px;
+  margin-right: 8px;
+}/*# sourceMappingURL=Stepper.css.map */
