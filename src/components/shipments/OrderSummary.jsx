@@ -1,10 +1,11 @@
 
+
 import "../../stylings/shipments/OrderSummary.scss"
 
 import { formatPrice } from "./ShipmentHelpers.js";
-import { BoxIcon, LockIcon } from "./ShipmentIcons.jsx";
+import { BoxIcon, LockIcon } from "./ShipmentIcons";
 
-const OrderSummary = function({ pricing, onSubmit }){
+const OrderSummary = function({ pricing, onSubmit, isSubmitting }){
 
     return <>
 
@@ -27,8 +28,8 @@ const OrderSummary = function({ pricing, onSubmit }){
                 <li><span>Insurance (optional)</span><span>{formatPrice(pricing.insurance)}</span></li>
             </ul>
 
-            <button type="button" className="send-btn" onClick={onSubmit}>
-                Send Shipment →
+            <button type="button" className="send-btn" onClick={onSubmit} disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Send Shipment →'}
             </button>
 
             <p className="secure-note">

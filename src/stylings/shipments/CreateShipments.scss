@@ -1,3 +1,5 @@
+
+
 @use '../shipments/Shared.scss' as *;
 
 .shipment-mobile-header {
@@ -293,7 +295,86 @@
     }
   }
 
-  button {
-    @include primary-button;
+  .tracking-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px dashed $brand;
+    background: #f0fafd;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: left;
+
+    .tracking-label {
+      display: block;
+      font-size: 11px;
+      color: $text-light;
+      margin-bottom: 2px;
+    }
+
+    .tracking-id {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: $text-body;
+    }
+
+    .copy-btn {
+      background: #fff;
+      border: 1px solid $field-border;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: $text-dark;
+      cursor: pointer;
+
+      &:hover {
+        background: #f0f9fb;
+      }
+    }
   }
+
+  .success-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    button {
+      @include primary-button;
+    }
+
+    .secondary {
+      background: #fff;
+      color: $text-dark;
+      border: 1px solid $field-border;
+
+      &:hover {
+        background: #f0f9fb;
+      }
+    }
+  }
+}
+
+.submit-error {
+  font-family: $font;
+  margin: 8px 0 12px;
+  padding: 10px 14px;
+  background: #fdecec;
+  border: 1px solid #f5c2c2;
+  border-radius: 8px;
+  color: $danger;
+  font-size: 13px;
+}
+
+.shipment-actions .next-action:disabled,
+.shipment-actions .submit-action:disabled,
+.order-summary .send-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

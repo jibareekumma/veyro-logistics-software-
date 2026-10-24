@@ -13,6 +13,7 @@ import OrderSummary from "./OrderSummary";
 import HelpCard from "./HelpCard";
 import ShipmentSuccess from "./ShipmentSuccess";
 import { initialForm, validatePackage, validateParty, calculatePricing } from "./ShipmentHelpers.js";
+import { createShipment, mapServerErrors } from "../../api/shipment.js";
 
 import "../../stylings/dashboard-stylings/Layout.css"
 import "../../stylings/shipments/CreateShipments.scss"
@@ -37,6 +38,9 @@ const CreateShipments = function(){
     const [photos, setPhotos] = useState([]);
     const [errors, setErrors] = useState(emptyErrors);
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const [createdShipment, setCreatedShipment] = useState(null);
 
     const pricing = calculatePricing(form.deliveryMethod);
 
@@ -96,26 +100,53 @@ const CreateShipments = function(){
         scrollToTop();
     };
 
-    const handleSubmit = function(){
+    const goToFirstInvalidStep = function(nextErrors){
+        const firstInvalid = stepSections.findIndex(function(section){
+            return Object.keys(nextErrors[section]).length > 0;
+        });
+        if (firstInvalid !== -1 && !window.matchMedia('(min-width: 768px)').matches) {
+            setCurrentStep(firstInvalid + 1);
+        }
+        return firstInvalid;
+    };
+
+    const handleSubmit = async function(){
+        if (isSubmitting) return;
+
         const nextErrors = {
             package: validatePackage(form.package),
             sender: validateParty(form.sender),
             receiver: validateParty(form.receiver)
         };
-        const firstInvalid = stepSections.findIndex(function(section){
-            return Object.keys(nextErrors[section]).length > 0;
-        });
-        if (firstInvalid !== -1) {
+        if (goToFirstInvalidStep(nextErrors) !== -1) {
             setErrors(nextErrors);
-            if (!window.matchMedia('(min-width: 768px)').matches) {
-                setCurrentStep(firstInvalid + 1);
-            }
             scrollToFirstError();
             return;
         }
+
         setErrors(emptyErrors);
-        setSubmitted(true);
-        scrollToTop();
+        setSubmitError('');
+        setIsSubmitting(true);
+
+        try {
+            const shipment = await createShipment(form);
+            setCreatedShipment(shipment);
+            setSubmitted(true);
+            scrollToTop();
+        } catch (error) {
+            const mapped = mapServerErrors(error.data);
+            const serverErrors = {
+                package: mapped.package,
+                sender: mapped.sender,
+                receiver: mapped.receiver
+            };
+            setErrors(serverErrors);
+            setSubmitError(mapped.general || 'Could not create the shipment. Please check the details and try again.');
+            goToFirstInvalidStep(serverErrors);
+            scrollToFirstError();
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleReset = function(){
@@ -124,6 +155,8 @@ const CreateShipments = function(){
         setForm(initialForm);
         setErrors(emptyErrors);
         setCurrentStep(1);
+        setCreatedShipment(null);
+        setSubmitError('');
         setSubmitted(false);
         scrollToTop();
     };
@@ -149,8 +182,8 @@ const CreateShipments = function(){
 
                 <div className="shipment-content">
 
-                    {submitted ? (
-                        <ShipmentSuccess form={form} pricing={pricing} onReset={handleReset}/>
+                    {submitted && createdShipment ? (
+                        <ShipmentSuccess shipment={createdShipment} onReset={handleReset}/>
                     ) : (
                         <>
                             <div className="create-shipment-heading">
@@ -167,6 +200,8 @@ const CreateShipments = function(){
                             </div>
 
                             <Stepper currentStep={currentStep} onStepClick={handleStepClick}/>
+
+                            {submitError && <div className="submit-error" role="alert">{submitError}</div>}
 
                             <div className="shipment-layout">
 
@@ -211,7 +246,7 @@ const CreateShipments = function(){
                                 </div>
 
                                 <aside className={`shipment-aside ${isReview ? 'is-current' : ''}`}>
-                                    <OrderSummary pricing={pricing} onSubmit={handleSubmit}/>
+                                    <OrderSummary pricing={pricing} onSubmit={handleSubmit} isSubmitting={isSubmitting}/>
                                     <HelpCard/>
                                 </aside>
 
@@ -225,11 +260,12 @@ const CreateShipments = function(){
                                         type="button"
                                         className="next-action"
                                         onClick={isReview ? handleSubmit : handleNext}
+                                        disabled={isSubmitting}
                                     >
-                                        {isReview ? 'Send Shipment →' : 'Next →'}
+                                        {isReview ? (isSubmitting ? 'Sending...' : 'Send Shipment →') : 'Next →'}
                                     </button>
-                                    <button type="button" className="submit-action" onClick={handleSubmit}>
-                                        Send Shipment →
+                                    <button type="button" className="submit-action" onClick={handleSubmit} disabled={isSubmitting}>
+                                        {isSubmitting ? 'Sending...' : 'Send Shipment →'}
                                     </button>
                                 </div>
 

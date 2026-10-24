@@ -1,13 +1,15 @@
 
 
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/api/auth`
+const API_BASE = `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/api`
 
-const request = async function(path, method, body, token){
+const API_URL = `${API_BASE}/auth`
+
+const request = async function(path, method, body, token, base = API_URL){
     const headers = { 'Content-Type': 'application/json' }
     if (token) {
         headers.Authorization = `Bearer ${token}`
     }
-    const response = await fetch(`${API_URL}${path}`, {
+    const response = await fetch(`${base}${path}`, {
         method: method,
         headers: headers,
         body: body ? JSON.stringify(body) : undefined
@@ -108,9 +110,9 @@ const refreshAccessToken = async function(){
     }
 }
 
-const authRequest = async function(path, method, body){
+const authRequest = async function(path, method, body, base = API_URL){
     try {
-        return await request(path, method, body, getAccessToken())
+        return await request(path, method, body, getAccessToken(), base)
     } catch (error) {
         if (error.status !== 401) {
             throw error
@@ -119,7 +121,7 @@ const authRequest = async function(path, method, body){
         if (!newToken) {
             throw error
         }
-        return request(path, method, body, newToken)
+        return request(path, method, body, newToken, base)
     }
 }
 
@@ -139,4 +141,4 @@ const logoutUser = function(){
     clearSession()
 }
 
-export { registerUser, loginUser, getCurrentUser, saveSession, clearSession, getAccessToken, hasSession, getStoredUser, logoutUser, parseErrors }
+export { API_BASE, authRequest, registerUser, loginUser, getCurrentUser, saveSession, clearSession, getAccessToken, hasSession, getStoredUser, logoutUser, parseErrors }
