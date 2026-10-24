@@ -1,7 +1,7 @@
 
 
 import { useState } from 'react';
-import "../../stylings/shipments/PackagePhotos.css"
+import "../../stylings/shipments/PackagePhotos.scss"
 
 const MAX_PHOTOS = 10;
 const MAX_SIZE = 5 * 1024 * 1024;

@@ -1,199 +1,333 @@
-.create-shipment-container {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f4f7f9;
+@media (min-width: 768px) {
+  .shipment-mobile-header {
+    display: none;
+  }
 }
-.create-shipment-container .container-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-}
-.create-shipment-container .container-main .shipment-content-wrapper {
-  padding: 16px;
-  width: 100%;
+
+.shipment-content {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 0 16px 24px;
   box-sizing: border-box;
 }
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading {
-  max-width: 100%;
-  margin: 0 auto;
+.shipment-content .create-shipment-heading {
+  margin: 0 -16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e1ecf3;
+  background: #fff;
 }
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .texts {
+.shipment-content .create-shipment-heading .texts {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
 }
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .texts img {
-  width: 18px;
-  height: 18px;
+.shipment-content .create-shipment-heading .texts .back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #005f73;
+  font-family: inherit;
+  font-size: 13px;
+}
+.shipment-content .create-shipment-heading .texts .back-btn img {
+  width: 20px;
+  height: 20px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .texts h4 {
+.shipment-content .create-shipment-heading .texts .back-btn span {
+  display: none;
+}
+.shipment-content .create-shipment-heading .texts h4 {
+  margin: 0;
   font-size: 18px;
   font-weight: 700;
   color: #005f73;
-  margin: 0;
 }
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading {
-  /* Mobile default: show single active mobile view */
-}
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .mobile-step-container {
-  display: block;
-  margin-top: 20px;
-}
-.create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid {
+.shipment-content .create-shipment-heading .subtitle {
   display: none;
 }
-
-/* --- TABLET BREAKPOINT (min-width: 768px) --- */
-@media screen and (min-width: 768px) {
-  .create-shipment-container .container-main .shipment-content-wrapper {
-    padding: 24px 32px;
+@media (min-width: 768px) {
+  .shipment-content {
+    padding: 24px 28px 40px;
+    background: #f4f8fb;
+    min-height: 100%;
   }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading {
-    max-width: 720px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .texts h4 {
-    font-size: 22px;
-  }
-}
-/* --- DESKTOP BREAKPOINT (min-width: 1024px) --- */
-@media screen and (min-width: 1024px) {
-  .create-shipment-container .container-main .shipment-content-wrapper {
-    max-width: 1360px;
-    margin: 0 auto;
-    padding: 32px 40px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading {
-    max-width: 100%;
-    /* Hide single-step switcher, display multi-section grid + summary sidebar */
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .mobile-step-container {
-    display: none;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid {
-    display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 28px;
-    margin-top: 24px;
-    align-items: start;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .main-form-flow-column {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .main-form-flow-column .form-section-card {
-    background: #ffffff;
-    padding: 28px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: sticky;
-    top: 24px; /*  */
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card {
-    background: #ffffff;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card h5 {
-    font-size: 16px;
-    font-weight: 700;
-    color: #003049;
-    margin-bottom: 16px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #edf2f4;
-    font-size: 14px;
-    font-weight: 600;
-    color: #003049;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .summary-row .cost-value {
-    font-size: 18px;
-    color: #0077b6;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .summary-breakdown {
-    margin: 14px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .summary-breakdown .breakdown-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: #6c757d;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .send-shipment-main-btn {
-    width: 100%;
-    background-color: #00b4d8;
-    color: #fff;
+  .shipment-content .create-shipment-heading {
+    margin: 0 0 8px;
+    padding: 0;
     border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 10px;
+    background: transparent;
   }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .send-shipment-main-btn:hover {
-    background-color: #0096c7;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .order-summary-card .secure-text {
-    font-size: 11px;
-    color: #6c757d;
-    text-align: center;
-    margin-top: 12px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .need-help-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    display: flex;
+  .shipment-content .create-shipment-heading .texts {
     flex-direction: column;
-    gap: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    align-items: flex-start;
+    gap: 6px;
   }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .need-help-card .help-icon {
-    font-size: 20px;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .need-help-card .help-texts h6 {
-    font-size: 14px;
-    font-weight: 700;
-    color: #003049;
-    margin: 0;
-  }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .need-help-card .help-texts p {
+  .shipment-content .create-shipment-heading .texts .back-btn {
     font-size: 12px;
     color: #6c757d;
-    margin: 0;
   }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .need-help-card .contact-support-btn {
-    margin-top: 8px;
-    background: transparent;
-    border: 1px solid #00b4d8;
-    color: #0077b6;
-    padding: 10px;
-    border-radius: 6px;
+  .shipment-content .create-shipment-heading .texts .back-btn img {
+    width: 12px;
+    height: 12px;
+  }
+  .shipment-content .create-shipment-heading .texts .back-btn span {
+    display: inline;
+  }
+  .shipment-content .create-shipment-heading .texts h4 {
+    font-size: 24px;
+  }
+  .shipment-content .create-shipment-heading .subtitle {
+    display: block;
+    margin: 6px 0 0;
     font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
+    color: #6c757d;
   }
-  .create-shipment-container .container-main .shipment-content-wrapper .create-shipment-heading .desktop-all-sections-grid .order-summary-column .need-help-card .contact-support-btn:hover {
-    background: #f0fdf4;
+  .shipment-content .stepper-container {
+    padding: 12px 0 16px;
+    background: transparent;
   }
+}
+
+.shipment-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+@media (min-width: 768px) {
+  .shipment-layout {
+    padding-top: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .shipment-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 20px;
+    align-items: start;
+  }
+}
+
+.shipment-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.step-panel {
+  display: none;
+}
+.step-panel.is-current {
+  display: block;
+}
+@media (min-width: 768px) {
+  .step-panel {
+    display: block;
+  }
+}
+
+.shipment-aside {
+  display: none;
+}
+.shipment-aside.is-current {
+  display: block;
+}
+@media (min-width: 768px) {
+  .shipment-aside, .shipment-aside.is-current {
+    display: none;
+  }
+}
+@media (min-width: 1024px) {
+  .shipment-aside, .shipment-aside.is-current {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 20px;
+  }
+}
+
+.shipment-actions {
+  display: flex;
+  gap: 12px;
+}
+.shipment-actions .back-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30%;
+  height: 48px;
+  background: #fff;
+  color: #005f73;
+  border: 1px solid #d4e8f5;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.shipment-actions .back-action:hover {
+  background: #f0f9fb;
+}
+.shipment-actions .next-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: #00a6d6;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.shipment-actions .next-action:hover {
+  background: #0090bd;
+}
+.shipment-actions .next-action:active {
+  transform: translateY(1px);
+}
+.shipment-actions .next-action {
+  flex: 1;
+}
+.shipment-actions .submit-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: #00a6d6;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.shipment-actions .submit-action:hover {
+  background: #0090bd;
+}
+.shipment-actions .submit-action:active {
+  transform: translateY(1px);
+}
+.shipment-actions .submit-action {
+  display: none;
+}
+@media (min-width: 768px) {
+  .shipment-actions {
+    justify-content: flex-end;
+  }
+  .shipment-actions .back-action,
+  .shipment-actions .next-action {
+    display: none;
+  }
+  .shipment-actions .submit-action {
+    display: flex;
+    width: auto;
+    min-width: 220px;
+    padding: 0 28px;
+  }
+}
+@media (min-width: 1024px) {
+  .shipment-actions {
+    display: none;
+  }
+}
+
+.shipment-success {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fff;
+  border: 1px solid #e1ecf3;
+  border-radius: 14px;
+  padding: 32px 20px;
+  margin: 24px auto 0;
+  max-width: 520px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.shipment-success .success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e3f4fa;
+  color: #00a6d6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shipment-success h4 {
+  margin: 0;
+  font-size: 22px;
+  color: #005f73;
+}
+.shipment-success > p {
+  margin: 0;
+  font-size: 14px;
+  color: #6c757d;
+}
+.shipment-success .success-details {
+  width: 100%;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+}
+.shipment-success .success-details .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+.shipment-success .success-details .row span:first-child {
+  color: #6c757d;
+}
+.shipment-success .success-details .row span:last-child {
+  color: #0b3b4a;
+  font-weight: 600;
+  text-align: right;
+}
+.shipment-success button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: #00a6d6;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.shipment-success button:hover {
+  background: #0090bd;
+}
+.shipment-success button:active {
+  transform: translateY(1px);
 }/*# sourceMappingURL=CreateShipments.css.map */

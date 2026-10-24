@@ -41,6 +41,28 @@
   color: #005f73;
   font-weight: 700;
 }
+.stepper-container .step-item.done .step-circle {
+  background-color: #e0f2f7;
+  border-color: #005f73;
+  color: #005f73;
+}
+.stepper-container .step-item.done .step-label {
+  color: #005f73;
+}
+.stepper-container .step-item.clickable {
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .stepper-container .step-item {
+    flex-direction: row;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .stepper-container .step-item .step-label {
+    margin-top: 0;
+    font-size: 14px;
+  }
+}
 .stepper-container .step-line {
   width: 60px;
   height: 2px;
@@ -48,4 +70,21 @@
   margin-top: 18px;
   margin-left: 8px;
   margin-right: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+.stepper-container .step-line.done {
+  background-color: #005f73;
+}
+@media (min-width: 768px) {
+  .stepper-container .step-line {
+    flex: 1;
+    width: auto;
+    margin: 0 16px;
+  }
+}
+@media (min-width: 768px) {
+  .stepper-container {
+    align-items: center;
+    justify-content: flex-start;
+  }
 }/*# sourceMappingURL=Stepper.css.map */

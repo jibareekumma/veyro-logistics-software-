@@ -1,8 +1,8 @@
 
-import "../../stylings/shipments/OrderSummary.css"
+import "../../stylings/shipments/OrderSummary.scss"
 
-import { formatPrice } from "./shipmentHelpers";
-import { BoxIcon, LockIcon } from "./ShipmentIcons";
+import { formatPrice } from "./ShipmentHelpers.js";
+import { BoxIcon, LockIcon } from "./ShipmentIcons.jsx";
 
 const OrderSummary = function({ pricing, onSubmit }){
 

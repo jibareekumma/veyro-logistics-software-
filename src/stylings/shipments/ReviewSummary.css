@@ -1,0 +1,69 @@
+.review-panel {
+  display: none;
+}
+.review-panel.is-current {
+  display: block;
+}
+@media (min-width: 768px) {
+  .review-panel, .review-panel.is-current {
+    display: none;
+  }
+}
+
+.review-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.review-summary .review-card {
+  background: #fff;
+  border: 1px solid #e1ecf3;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.review-summary .review-card .review-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.review-summary .review-card .review-card-head h5 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #005f73;
+}
+.review-summary .review-card .review-card-head button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #00a6d6;
+  cursor: pointer;
+}
+.review-summary .review-card dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.review-summary .review-card dl .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+.review-summary .review-card dl .row dt {
+  color: #6c757d;
+  flex-shrink: 0;
+}
+.review-summary .review-card dl .row dd {
+  margin: 0;
+  color: #0b3b4a;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}/*# sourceMappingURL=ReviewSummary.css.map */

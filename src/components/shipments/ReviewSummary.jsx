@@ -1,6 +1,6 @@
 
 
-import "../../stylings/shipments/ReviewSummary.css"
+import "../../stylings/shipments/ReviewSummary.scss"
 
 const ReviewSummary = function({ form, photoCount, onEdit }){
 

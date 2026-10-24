@@ -2,10 +2,10 @@
 
 import packageIcon from "../../assets/icons/nav-shipments.png"
 
-import "../../stylings/shipments/PackageDetails.css"
+import "../../stylings/shipments/PackageDetails.scss"
 
 import PackagePhotos from "./PackagePhotos";
-import { categories } from "./shipmentHelpers";
+import { categories } from "./ShipmentHelpers.js";
 
 const PackageDetails = function({ data, errors, onChange, photos, setPhotos }){
 

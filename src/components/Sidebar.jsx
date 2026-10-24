@@ -21,7 +21,7 @@ const Sidebar = function({ showToggle }){
     const links = [
         { id: 1, label: 'Dashboard', to: '/dashboard', icon: dashboardIcon },
         { id: 2, label: 'Shipments', to: '/shipments', icon: shipmentsIcon },
-        { id: 3, label: 'Track a Package', to: '/track', icon: searchIcon },
+        { id: 3, label: 'Track a Package', to: '/tracking', icon: searchIcon },
         { id: 4, label: 'Addresses', to: '/addresses', icon: addressesIcon },
         { id: 5, label: 'Support', to: '/support', icon: supportIcon },
         { id: 6, label: 'Notifications', to: '/notifications', icon: bellIcon, badge: 3 },

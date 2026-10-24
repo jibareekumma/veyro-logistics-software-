@@ -1,9 +1,8 @@
 
 
+import "../../stylings/shipments/PartyDetails.scss"
 
-import "../../stylings/shipments/PartyDetails.css"
-
-import { countries, savedAddresses } from "./shipmentHelpers";
+import { countries, savedAddresses } from "./ShipmentHelpers.js";
 import { UserIcon } from "./ShipmentIcons";
 
 const PartyDetails = function({ section, title, subtitle, placeholders, data, errors, onChange }){

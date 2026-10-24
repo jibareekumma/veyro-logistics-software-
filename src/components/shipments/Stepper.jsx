@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../stylings/shipments/Stepper.css'
+import '../../stylings/shipments/Stepper.scss'
 
 const steps = [
   { id: 1, label: 'Package' },

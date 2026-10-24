@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom"
 const DashboardAside = function(){
 
     const actions = [
-        { id: 1, icon: boxIcon, title: 'Create Shipment', text: 'Start a new shipment' },
+        { id: 1, icon: boxIcon, title: 'Create Shipment', text: 'Start a new shipment', path: '/createShipments' },
         { id: 2, icon: trackIcon, title: 'Track a Package', text: 'Check shipment status' },
         { id: 3, icon: addressesIcon, title: 'Addresses', text: 'Manage saved addresses' },
         { id: 4, icon: supportIcon, title: 'Support', text: 'Get help & open a ticket' },
@@ -61,7 +61,7 @@ const DashboardAside = function(){
 
             <div className="actions-grid">
                 {actions.map( (a) => (
-                    <div className="action-card" key={a.id}>
+                    <div className="action-card" key={a.id} onClick={() => navigate(a.path)}>
                         <img src={a.icon} alt={a.title + " icon"}
                         loading="lazy"/>
                         <h5>{a.title}</h5>

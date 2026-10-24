@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 
 import Sidebar from "../Sidebar";
@@ -16,7 +14,8 @@ import HelpCard from "./HelpCard";
 import ShipmentSuccess from "./ShipmentSuccess";
 import { initialForm, validatePackage, validateParty, calculatePricing } from "./ShipmentHelpers.js";
 
-import "../../stylings/shipments/CreateShipments.css"
+import "../../stylings/dashboard-stylings/Layout.css"
+import "../../stylings/shipments/CreateShipments.scss"
 
 import leftArr from "../../assets/icons/left-arr.png"
 
@@ -137,11 +136,11 @@ const CreateShipments = function(){
 
     return <>
 
-        <div className="create-shipment-container">
+        <div className="dashboard-layout create-shipment-container">
 
             <Sidebar/>
 
-            <div className="container-main">
+            <div className="dashboard-main container-main">
                 <DesktopTopbar/>
 
                 <div className="shipment-mobile-header">

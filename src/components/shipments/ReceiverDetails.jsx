@@ -1,6 +1,8 @@
 
 
-import PartyDetails from "./PartyDetails";
+import PartyDetails from './PartyDetails.jsx'
+
+import "../../stylings/shipments/PartyDetails.scss";
 
 const placeholders = {
     fullName: 'e.g. Jane Smith',

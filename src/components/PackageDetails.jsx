@@ -1,7 +1,7 @@
 
 
 import { useState } from "react";
-import "../stylings/PackageDetails.css";
+import "../stylings/PackageDetails.scss";
 
 
 import packageImg from "../assets/photos/package2.png"

@@ -1,4 +1,4 @@
-@use './shared' as *;
+@use '../shipments/Shared.scss' as *;
 
 .delivery-method {
   @include section-card;

@@ -1,5 +1,5 @@
 
-import "../../stylings/shipments/OrderSummary.css"
+import "../../stylings/shipments/OrderSummary.scss"
 
 import { HeadsetIcon } from "./ShipmentIcons";
 

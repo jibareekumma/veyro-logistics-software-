@@ -1,6 +1,6 @@
 
 
-import { deliveryOptions, formatPrice } from "./shipmentHelpers";
+import { deliveryOptions, formatPrice } from "./ShipmentHelpers.js";
 import { CheckIcon } from "./ShipmentIcons";
 
 const ShipmentSuccess = function({ form, pricing, onReset }){

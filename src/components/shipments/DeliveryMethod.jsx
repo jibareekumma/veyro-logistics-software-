@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-import "../../stylings/shipments/DeliveryMethod.css"
+import "../../stylings/shipments/DeliveryMethod.scss"
 
-import { deliveryOptions, formatPrice } from "./shipmentHelpers";
+import { deliveryOptions, formatPrice } from "./ShipmentHelpers.js";
 import { BoxIcon, TruckIcon, PlaneIcon, ChevronIcon } from "./ShipmentIcons";
 
 const optionIcons = {
