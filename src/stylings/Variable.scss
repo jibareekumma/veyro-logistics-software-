@@ -1,6 +1,5 @@
 
 
-
 @font-face {
   font-family: fira-sans;
   src: url(fonts/FiraSans-Regular.ttf);
@@ -11,6 +10,24 @@
     src: url(fonts/BebasNeue-Regular.ttf);
 }
 
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+$sidebar-width-tablet: 18rem;
+$sidebar-width-desktop: 24rem;
+
+@mixin tablet {
+  @media (min-width: $bp-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $bp-desktop) {
+    @content;
+  }
+}
+
 $veyro-deep-teal: #205068;
 $veyro-bright-cyan: #58d0e8;
 $veyro-near-black: #181818;
@@ -18,6 +35,19 @@ $veyro-off-white: #f8f8f8;
 $veyro-white: #ffffff;
 $veyro-soft-gray: #e5e7eb;
 $muted-gray: #6b7280;
+
+$filter-accent-dimmed: brightness(0) saturate(100%)
+        invert(63%) sepia(47%) saturate(720%)
+        hue-rotate(155deg) brightness(92%) contrast(92%);
+
+$status-transit-text: #16866e;
+$status-transit-bg: #e0f5ee;
+$status-delivered-text: #21845b;
+$status-delivered-bg: #dff5e8;
+$status-attention-text: #c2410c;
+$status-attention-bg: #ffedd5;
+$status-processing-text: #3b6ea5;
+$status-processing-bg: #e3eefb;
 
 $veyro-identity-colors: (
   "deep-teal": $veyro-deep-teal,
@@ -43,6 +73,26 @@ $dark-color-primary: #58d0e8;
 $dark-color-text-primary: #f3f4f6;
 $dark-color-text-secondary: #9ca3af;
 $dark-color-border: #374151;
+
+$light-theme: (
+  "background": $veyro-off-white,
+  "card-bg": $veyro-white,
+  "primary": $veyro-deep-teal,
+  "accent": $veyro-bright-cyan,
+  "text-primary": $veyro-near-black,
+  "text-secondary": $muted-gray,
+  "border": $veyro-soft-gray
+);
+
+$dark-theme: (
+  "background": $dark-color-background,
+  "card-bg": $dark-color-card-bg,
+  "primary": $dark-color-primary,
+  "accent": $veyro-bright-cyan,
+  "text-primary": $dark-color-text-primary,
+  "text-secondary": $dark-color-text-secondary,
+  "border": $dark-color-border
+);
 
 
 
