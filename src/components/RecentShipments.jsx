@@ -31,7 +31,9 @@ const RecentShipments = function(){
             <div className="shipments-header">
                 <h3>Recent Shipments</h3>
                 <div className="view-all">
-                    <p>View all</p>
+                    <p
+                    onClick = {() => navigate('/recentshipmentspage')}
+                    >View all</p>
                     <img src={arrowRight} alt="Right Arrow"
                     loading="lazy"/>
                 </div>

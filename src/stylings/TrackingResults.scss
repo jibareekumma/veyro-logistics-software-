@@ -1,3 +1,6 @@
+
+
+
 @import "./Variable.scss";
 
 $tr-primary: #205068;
@@ -10,73 +13,74 @@ $tr-muted: #6b7280;
 $tr-tablet: 768px;
 $tr-desktop: 1024px;
 
-
-#tracking-result-container{
+// Tracking Result Container
+#tracking-result-container {
     margin: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
 
-    @media (min-width: $tr-tablet){
+    @media (min-width: $tr-tablet) {
         margin: 2.4rem;
         gap: 2.4rem;
     }
 
-    @media (min-width: $tr-desktop){
+    @media (min-width: $tr-desktop) {
         margin: 3rem;
     }
 }
 
-
-.tracking-texts{
+// Tracking Texts
+.tracking-texts {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 
-    .section1{
+    .section1 {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         padding-bottom: 1rem;
         border-bottom: 1px solid $tr-border;
 
-        .back{
+        .back {
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 0.8rem;
             cursor: pointer;
 
-            img{
+            img {
                 width: 1.4rem;
                 height: auto;
             }
 
-            p{
+            p {
                 margin: 0;
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 letter-spacing: 0.5px;
                 color: $accent-glow;
             }
         }
 
-        h4{
+        h4 {
             margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+            font-size: 1.7rem;
+            letter-spacing: 0.5px;
             color: $tr-text;
 
-            @media (min-width: $tr-tablet){
-                font-size: 2.4rem;
+            @media (min-width: $tr-tablet) {
+                font-size: 2rem;
             }
 
-            @media (min-width: $tr-desktop){
-                font-size: 2.8rem;
+            @media (min-width: $tr-desktop) {
+                font-size: 2.2rem;
             }
         }
     }
 
-    .tracking-header{
+    // Tracking Header
+    .tracking-header {
         display: flex;
         flex-direction: column;
         gap: 1.6rem;
@@ -85,11 +89,11 @@ $tr-desktop: 1024px;
         border: 1px solid $tr-border;
         border-radius: 12px;
 
-        @media (min-width: $tr-tablet){
+        @media (min-width: $tr-tablet) {
             padding: 2rem;
         }
 
-        @media (min-width: $tr-desktop){
+        @media (min-width: $tr-desktop) {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
@@ -97,31 +101,32 @@ $tr-desktop: 1024px;
         }
     }
 
-    .section2{
+    // Tracking ID and Route Details
+    .section2 {
         display: flex;
         flex-direction: column;
         gap: 1rem;
 
-        .id{
+        .id {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             align-items: center;
             gap: 1rem 1.5rem;
 
-            h3{
+            h3 {
                 margin: 0;
-                font-size: 2rem;
-                letter-spacing: 0.5px;
+                font-size: 1.7rem;
+                letter-spacing: 0.3px;
                 font-weight: 550;
                 color: $tr-text;
 
-                @media (min-width: $tr-tablet){
-                    font-size: 2.4rem;
+                @media (min-width: $tr-tablet) {
+                    font-size: 1.9rem;
                 }
             }
 
-            span{
+            span {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -130,39 +135,40 @@ $tr-desktop: 1024px;
                 border-radius: 4px;
                 color: #0b7247;
                 font-weight: 500;
-                letter-spacing: 0.3px;
-                font-size: 1.1rem;
+                letter-spacing: 0.2px;
+                font-size: 1rem;
             }
         }
 
-        .routes{
+        .routes {
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
 
-            p{
+            p {
                 margin: 0;
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 line-height: 1.4;
-                letter-spacing: 0.5px;
-                word-spacing: 1px;
+                letter-spacing: 0.3px;
+                word-spacing: 0.5px;
                 font-weight: 450;
                 color: $tr-muted;
             }
         }
     }
 
-    .details{
+    // Location Details
+    .details {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0.8rem;
 
-        @media (min-width: $tr-desktop){
+        @media (min-width: $tr-desktop) {
             flex: 0 0 52%;
             gap: 1rem;
         }
 
-        .detail{
+        .detail {
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
@@ -171,50 +177,50 @@ $tr-desktop: 1024px;
             border: 1px solid $tr-border;
             border-radius: 8px;
 
-            @media (min-width: $tr-tablet){
+            @media (min-width: $tr-tablet) {
                 flex-direction: row;
                 align-items: center;
                 gap: 1rem;
                 padding: 1.2rem 1.4rem;
             }
 
-            .detail-icon{
+            .detail-icon {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 flex-shrink: 0;
 
-                img{
+                img {
                     width: 1.8rem;
                     height: auto;
 
-                    @media (min-width: $tr-tablet){
+                    @media (min-width: $tr-tablet) {
                         width: 2.2rem;
                     }
                 }
             }
 
-            .detail-text{
+            .detail-text {
                 min-width: 0;
 
-                p{
+                p {
                     margin: 0;
                     font-size: 1rem;
                     color: $tr-muted;
 
-                    @media (min-width: $tr-tablet){
-                        font-size: 1.1rem;
+                    @media (min-width: $tr-tablet) {
+                        font-size: 1.05rem;
                     }
                 }
 
-                h5{
+                h5 {
                     margin: 0.2rem 0 0;
-                    font-size: 1.2rem;
+                    font-size: 1.1rem;
                     font-weight: 600;
                     color: $tr-text;
 
-                    @media (min-width: $tr-tablet){
-                        font-size: 1.4rem;
+                    @media (min-width: $tr-tablet) {
+                        font-size: 1.2rem;
                     }
                 }
             }
@@ -222,15 +228,15 @@ $tr-desktop: 1024px;
     }
 }
 
-
-.tracking-ui{
+// Tracking Map
+.tracking-ui {
     width: 100%;
     border-radius: 12px;
     overflow: hidden;
 }
 
-
-.tracking-lower{
+// Lower Tracking Sections
+.tracking-lower {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -239,11 +245,11 @@ $tr-desktop: 1024px;
         "actions";
     gap: 1.6rem;
 
-    @media (min-width: $tr-tablet){
+    @media (min-width: $tr-tablet) {
         gap: 2rem;
     }
 
-    @media (min-width: $tr-desktop){
+    @media (min-width: $tr-desktop) {
         grid-template-columns: 1.15fr 1fr;
         grid-template-areas:
             "history package"
@@ -252,20 +258,20 @@ $tr-desktop: 1024px;
     }
 }
 
-
-.tracking-package{
+// Package Details
+.tracking-package {
     grid-area: package;
     min-width: 0;
 }
 
-
-.tracking-actions{
+// Tracking Actions
+.tracking-actions {
     grid-area: actions;
     display: flex;
     flex-direction: row;
     gap: 1rem;
 
-    button{
+    button {
         flex: 1;
         display: flex;
         align-items: center;
@@ -273,177 +279,177 @@ $tr-desktop: 1024px;
         gap: 0.8rem;
         height: 4.4rem;
         border-radius: 6px;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
 
-        p{
+        p {
             margin: 0;
         }
     }
 
-    .download{
+    .download {
         background: $tr-accent;
         border: 1px solid $tr-accent;
         color: $tr-primary;
     }
 
-    .report{
+    .report {
         display: none;
         background: $tr-card;
         border: 1px solid $tr-accent;
         color: $tr-primary;
 
-        @media (min-width: $tr-tablet){
+        @media (min-width: $tr-tablet) {
             display: flex;
         }
     }
 }
 
-
+// Tracking History
 .tracking-recent {
-  grid-area: history;
-  width: 100%;
-  padding: 1.6rem;
-  background: $tr-card;
-  border: 1px solid $tr-border;
-  border-radius: 12px;
-
-  @media (min-width: $tr-tablet){
-    padding: 2rem;
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-
-    h4 {
-      margin: 0;
-      color: $tr-primary;
-      font-size: 1.5rem;
-      font-weight: 700;
-
-      @media (min-width: $tr-tablet){
-        font-size: 1.7rem;
-      }
-    }
-  }
-
-  &__live {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: $tr-muted;
-    font-size: 1.1rem;
-
-    span {
-      width: 0.7rem;
-      height: 0.7rem;
-      background: #28c987;
-      border-radius: 50%;
-    }
-  }
-
-  &__timeline {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__item {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: 1.2rem;
-    padding-bottom: 2rem;
-
-    &:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      top: 2rem;
-      bottom: -0.2rem;
-      left: 0.9rem;
-      border-left: 1px dashed $tr-accent;
-    }
-
-    &:last-child {
-      padding-bottom: 0;
-    }
-  }
-
-  &__icon {
-    position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.8rem;
-    height: 1.8rem;
-    border: 1px solid $tr-accent;
-    border-radius: 50%;
+    grid-area: history;
+    width: 100%;
+    padding: 1.6rem;
     background: $tr-card;
-    color: $tr-primary;
-    font-size: 0.9rem;
-    font-weight: 700;
+    border: 1px solid $tr-border;
+    border-radius: 12px;
 
-    &.delivered,
-    &.confirmed {
-      border-color: #b7cbd5;
-      color: #31596b;
-      background: #edf4f7;
-    }
-  }
-
-  &__details {
-    flex: 1;
-    min-width: 0;
-  }
-
-  &__date {
-    display: block;
-    color: $tr-muted;
-    font-size: 1.1rem;
-    line-height: 1.3;
-  }
-
-  &__title {
-    margin: 0.3rem 0 0;
-    color: $tr-text;
-    font-size: 1.3rem;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  &__description {
-    margin: 0.2rem 0 0;
-    color: $tr-muted;
-    font-size: 1.1rem;
-    line-height: 1.4;
-  }
-
-  &__status {
-    flex-shrink: 0;
-    padding: 0.5rem 0.9rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    line-height: 1;
-    white-space: nowrap;
-
-    &.transit {
-      background: #e1f8ff;
-      color: #1599bb;
+    @media (min-width: $tr-tablet) {
+        padding: 2rem;
     }
 
-    &.delivered {
-      background: #eaf1f5;
-      color: #54778a;
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+
+        h4 {
+            margin: 0;
+            color: $tr-primary;
+            font-size: 1.4rem;
+            font-weight: 700;
+
+            @media (min-width: $tr-tablet) {
+                font-size: 1.5rem;
+            }
+        }
     }
 
-    &.confirmed {
-      background: #e4f5fa;
-      color: #43849c;
+    &__live {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: $tr-muted;
+        font-size: 1rem;
+
+        span {
+            width: 0.7rem;
+            height: 0.7rem;
+            background: #28c987;
+            border-radius: 50%;
+        }
     }
-  }
+
+    &__timeline {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.2rem;
+        padding-bottom: 2rem;
+
+        &:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 2rem;
+            bottom: -0.2rem;
+            left: 0.9rem;
+            border-left: 1px dashed $tr-accent;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    &__icon {
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.8rem;
+        height: 1.8rem;
+        border: 1px solid $tr-accent;
+        border-radius: 50%;
+        background: $tr-card;
+        color: $tr-primary;
+        font-size: 0.9rem;
+        font-weight: 700;
+
+        &.delivered,
+        &.confirmed {
+            border-color: #b7cbd5;
+            color: #31596b;
+            background: #edf4f7;
+        }
+    }
+
+    &__details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__date {
+        display: block;
+        color: $tr-muted;
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+
+    &__title {
+        margin: 0.3rem 0 0;
+        color: $tr-text;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+
+    &__description {
+        margin: 0.2rem 0 0;
+        color: $tr-muted;
+        font-size: 1.05rem;
+        line-height: 1.4;
+    }
+
+    &__status {
+        flex-shrink: 0;
+        padding: 0.5rem 0.9rem;
+        border-radius: 5px;
+        font-size: 0.95rem;
+        line-height: 1;
+        white-space: nowrap;
+
+        &.transit {
+            background: #e1f8ff;
+            color: #1599bb;
+        }
+
+        &.delivered {
+            background: #eaf1f5;
+            color: #54778a;
+        }
+
+        &.confirmed {
+            background: #e4f5fa;
+            color: #43849c;
+        }
+    }
 }

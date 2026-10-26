@@ -1,1 +1,761 @@
-/*# sourceMappingURL=RecentShipmentsPage.css.map */
+@charset "UTF-8";
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.recent-shipments-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.recent-shipments-page__sidebar {
+  display: none;
+}
+.recent-shipments-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  min-width: 0;
+}
+.recent-shipments-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
+  padding: 0 1rem 2rem;
+}
+.recent-shipments-page .back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0.8rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.9rem 1.4rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.recent-shipments-page .back img {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(63%) sepia(47%) saturate(720%) hue-rotate(145deg) brightness(88%);
+  transition: transform 0.2s ease;
+}
+.recent-shipments-page .back p {
+  margin: 0;
+  color: #35afc9;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+}
+.recent-shipments-page .back:hover {
+  border-color: #35afc9;
+  background: #f8f8f8;
+  transform: translateX(-2px);
+}
+.recent-shipments-page .back:hover img {
+  transform: translateX(-3px);
+}
+.recent-shipments-page .back:active {
+  transform: translateX(-1px);
+}
+.recent-shipments-page .back:focus-visible {
+  outline: 2px solid #35afc9;
+  outline-offset: 3px;
+}
+@media (min-width: 768px) {
+  .recent-shipments-page {
+    display: grid;
+    grid-template-columns: 18rem minmax(0, 1fr);
+    align-items: start;
+    background: #f8f8f8;
+  }
+  .recent-shipments-page__sidebar {
+    display: block;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .recent-shipments-page__sidebar > * {
+    width: 100%;
+    min-height: 100%;
+  }
+  .recent-shipments-page__main {
+    gap: 2.4rem;
+  }
+  .recent-shipments-page__content {
+    gap: 2.4rem;
+    padding: 0 2.4rem 3.2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .recent-shipments-page {
+    grid-template-columns: 24rem minmax(0, 1fr);
+  }
+  .recent-shipments-page__main {
+    gap: 2.8rem;
+  }
+  .recent-shipments-page__content {
+    gap: 2.8rem;
+    padding: 0 3.2rem 4rem;
+  }
+}
+
+.recent-shipments-header .texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+}
+.recent-shipments-header .texts .eyebrow {
+  display: none;
+}
+.recent-shipments-header .texts h4 {
+  font-size: 2rem;
+  letter-spacing: 0.3px;
+  color: #205068;
+}
+.recent-shipments-header .texts p {
+  letter-spacing: 0.3px;
+  word-spacing: 0.5px;
+  font-size: 1.2rem;
+  font-weight: 450;
+  color: #6b7280;
+}
+.recent-shipments-header .search-bar img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: brightness(0) saturate(100%) invert(63%) sepia(47%) saturate(720%) hue-rotate(155deg) brightness(92%) contrast(92%);
+}
+.recent-shipments-header .search-bar input {
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+  word-spacing: 0.5px;
+  color: #181818;
+  width: 100%;
+  height: 3rem;
+  border: none;
+  font-weight: 450;
+  background-color: transparent;
+}
+.recent-shipments-header .search-bar input::-moz-placeholder {
+  color: #6b7280;
+}
+.recent-shipments-header .search-bar input::placeholder {
+  color: #6b7280;
+}
+.recent-shipments-header .search-bar input:focus {
+  border: none;
+  outline: none;
+}
+.recent-shipments-header .search-bar {
+  width: 100%;
+  height: 3.5rem;
+  padding: 0.8rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+.recent-shipments-header button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #35afc9;
+  width: 100%;
+  height: 4rem;
+  gap: 1.05rem;
+  border: none;
+  border-radius: 4px;
+}
+.recent-shipments-header button:hover {
+  cursor: pointer;
+  background-color: rgb(2, 24, 37);
+}
+.recent-shipments-header button img {
+  width: 1.8rem;
+  height: 1.8rem;
+  filter: brightness(0) invert(1);
+}
+.recent-shipments-header button p {
+  color: white;
+  font-size: 1.3rem;
+  font-family: fira-sans;
+  word-spacing: 0.5px;
+  letter-spacing: 0.3px;
+}
+@media (min-width: 768px) {
+  .recent-shipments-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .recent-shipments-header .texts {
+    margin-bottom: 0;
+    gap: 0.4rem;
+  }
+  .recent-shipments-header .texts .eyebrow {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #35afc9;
+  }
+  .recent-shipments-header .texts h4 {
+    font-size: 2.8rem;
+  }
+  .recent-shipments-header .texts p {
+    font-size: 1.2rem;
+  }
+  .recent-shipments-header .search-bar {
+    display: none;
+  }
+  .recent-shipments-header button {
+    width: auto;
+    height: 4.4rem;
+    padding: 0 2rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 1024px) {
+  .recent-shipments-header .texts h4 {
+    font-size: 3.2rem;
+  }
+  .recent-shipments-header .texts p {
+    font-size: 1.4rem;
+  }
+  .recent-shipments-header button {
+    height: 4.8rem;
+    padding: 0 2.6rem;
+  }
+  .recent-shipments-header button p {
+    font-size: 1.4rem;
+  }
+}
+
+.recent-shipments-list {
+  width: 100%;
+  font-family: fira-sans;
+}
+.recent-shipments-list__container {
+  width: 100%;
+  padding: 0.8rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+.recent-shipments-list__toolbar, .recent-shipments-list__heading, .recent-shipments-list__head, .recent-shipments-list__footer, .recent-shipments-list__action {
+  display: none;
+}
+.recent-shipments-list__filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #e5e7eb;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.recent-shipments-list__filters::-webkit-scrollbar {
+  display: none;
+}
+.recent-shipments-list__filter {
+  flex-shrink: 0;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.65rem;
+  background: #f8f8f8;
+  color: #6b7280;
+  font-family: fira-sans;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.recent-shipments-list__filter:hover {
+  border-color: #58d0e8;
+  color: #205068;
+}
+.recent-shipments-list__filter--active {
+  background: #58d0e8;
+  border-color: #58d0e8;
+  color: #205068;
+  font-weight: 600;
+}
+.recent-shipments-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+}
+.recent-shipments-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.8rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.85rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.recent-shipments-list__item:hover {
+  border-color: rgba(32, 80, 104, 0.35);
+  background: #f8f8f8;
+}
+.recent-shipments-list__package {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 0.6rem;
+  background: #f1f3f4;
+  overflow: hidden;
+}
+.recent-shipments-list__package img {
+  display: block;
+  width: 85%;
+  height: 85%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.recent-shipments-list__details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.recent-shipments-list__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.recent-shipments-list__tracking {
+  margin: 0;
+  color: #205068;
+  font-family: fira-sans;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.recent-shipments-list__status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.4rem 0.65rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.recent-shipments-list__status--transit {
+  color: #16866e;
+  background: #e0f5ee;
+}
+.recent-shipments-list__status--delivered {
+  color: #21845b;
+  background: #dff5e8;
+}
+.recent-shipments-list__status--attention {
+  color: #c2410c;
+  background: #ffedd5;
+}
+.recent-shipments-list__status--processing {
+  color: #3b6ea5;
+  background: #e3eefb;
+}
+.recent-shipments-list__route {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  color: #6b7280;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+.recent-shipments-list__arrow {
+  color: #58d0e8;
+  font-size: 1.3rem;
+}
+.recent-shipments-list__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.recent-shipments-list__eta {
+  color: #6b7280;
+}
+.recent-shipments-list__eta::before {
+  content: "•";
+  margin-right: 0.35rem;
+}
+.recent-shipments-list__empty {
+  margin: 0;
+  padding: 2rem 1rem;
+  color: #6b7280;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+@media (max-width: 350px) {
+  .recent-shipments-list__container {
+    padding: 0.5rem;
+  }
+  .recent-shipments-list__item {
+    gap: 0.6rem;
+    padding: 0.6rem;
+  }
+  .recent-shipments-list__package {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .recent-shipments-list__top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .recent-shipments-list__tracking {
+    font-size: 1.1rem;
+  }
+  .recent-shipments-list__route {
+    font-size: 1rem;
+  }
+  .recent-shipments-list__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.95rem;
+  }
+  .recent-shipments-list__eta::before {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .recent-shipments-list__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+  }
+  .recent-shipments-list__filters {
+    display: none;
+  }
+  .recent-shipments-list__toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem 16rem;
+    gap: 1.2rem;
+  }
+  .recent-shipments-list__search {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 4.2rem;
+    padding: 0 1.2rem;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.8rem;
+  }
+  .recent-shipments-list__search:focus-within {
+    border-color: #58d0e8;
+  }
+  .recent-shipments-list__search img {
+    width: 1.6rem;
+    height: 1.6rem;
+    filter: brightness(0) saturate(100%) invert(63%) sepia(47%) saturate(720%) hue-rotate(155deg) brightness(92%) contrast(92%);
+  }
+  .recent-shipments-list__search input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #181818;
+    font-family: fira-sans;
+    font-size: 1.2rem;
+  }
+  .recent-shipments-list__search input::-moz-placeholder {
+    color: #6b7280;
+  }
+  .recent-shipments-list__search input::placeholder {
+    color: #6b7280;
+  }
+  .recent-shipments-list__select {
+    width: 100%;
+    height: 4.2rem;
+    padding: 0 3.2rem 0 1.2rem;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%236b7280' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.8rem;
+    color: #181818;
+    font-family: fira-sans;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .recent-shipments-list__select:focus {
+    outline: none;
+    border-color: #58d0e8;
+  }
+  .recent-shipments-list__heading {
+    display: block;
+    margin: 0;
+    color: #205068;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .recent-shipments-list__table {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1.2rem;
+    overflow: hidden;
+  }
+  .recent-shipments-list__head {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1.25fr) minmax(0, 1.3fr) minmax(0, 0.95fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+    align-items: center;
+    padding: 1.2rem 1.6rem;
+    background: #f8f8f8;
+    border-bottom: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .recent-shipments-list__head span:first-child {
+    grid-column: 1/3;
+  }
+  .recent-shipments-list__items {
+    gap: 0;
+  }
+  .recent-shipments-list__item {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1.25fr) minmax(0, 1.3fr) minmax(0, 0.95fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+    align-items: center;
+    padding: 1.2rem 1.6rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 0;
+  }
+  .recent-shipments-list__item:last-child {
+    border-bottom: none;
+  }
+  .recent-shipments-list__item:hover {
+    background: #f8f8f8;
+    border-color: #e5e7eb;
+  }
+  .recent-shipments-list__details, .recent-shipments-list__top, .recent-shipments-list__bottom {
+    display: contents;
+  }
+  .recent-shipments-list__package {
+    grid-column: 1;
+    grid-row: 1;
+    width: 4rem;
+    height: 4rem;
+  }
+  .recent-shipments-list__tracking {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 1.2rem;
+  }
+  .recent-shipments-list__route {
+    grid-column: 3;
+    grid-row: 1;
+    font-size: 1.15rem;
+  }
+  .recent-shipments-list__date {
+    grid-column: 4;
+    grid-row: 1;
+    color: #6b7280;
+    font-size: 1.15rem;
+  }
+  .recent-shipments-list__status {
+    grid-column: 5;
+    grid-row: 1;
+    justify-self: start;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 1.05rem;
+  }
+  .recent-shipments-list__status::before {
+    content: "";
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .recent-shipments-list__eta {
+    display: none;
+  }
+  .recent-shipments-list__action {
+    display: inline-flex;
+    grid-column: 6;
+    grid-row: 1;
+    justify-self: start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #35afc9;
+    font-family: fira-sans;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .recent-shipments-list__action:hover {
+    color: #205068;
+  }
+  .recent-shipments-list__empty {
+    padding: 4rem 1rem;
+  }
+  .recent-shipments-list__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 1.2rem 1.6rem;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 1.1rem;
+  }
+  .recent-shipments-list__footer p {
+    margin: 0;
+  }
+  .recent-shipments-list__pages {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .recent-shipments-list__page {
+    min-width: 3.2rem;
+    height: 3.2rem;
+    padding: 0 0.8rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.6rem;
+    color: #6b7280;
+    font-family: fira-sans;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .recent-shipments-list__page:hover:not(:disabled) {
+    border-color: #58d0e8;
+    color: #205068;
+  }
+  .recent-shipments-list__page:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .recent-shipments-list__page--active {
+    background: #58d0e8;
+    border-color: #58d0e8;
+    color: #205068;
+    font-weight: 600;
+  }
+}
+@media (min-width: 1024px) {
+  .recent-shipments-list__container {
+    gap: 2rem;
+  }
+  .recent-shipments-list__toolbar {
+    grid-template-columns: minmax(0, 1fr) 20rem 22rem;
+    gap: 1.6rem;
+  }
+  .recent-shipments-list__search, .recent-shipments-list__select {
+    height: 4.6rem;
+    font-size: 1.3rem;
+  }
+  .recent-shipments-list__search input {
+    font-size: 1.3rem;
+  }
+  .recent-shipments-list__heading {
+    display: none;
+  }
+  .recent-shipments-list__head, .recent-shipments-list__item {
+    grid-template-columns: 4.4rem minmax(0, 1.2fr) minmax(0, 2fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+    -moz-column-gap: 1.6rem;
+         column-gap: 1.6rem;
+    padding: 1.4rem 2.4rem;
+  }
+  .recent-shipments-list__head {
+    font-size: 1.2rem;
+  }
+  .recent-shipments-list__package {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+  .recent-shipments-list__tracking {
+    font-size: 1.3rem;
+  }
+  .recent-shipments-list__route, .recent-shipments-list__date {
+    font-size: 1.25rem;
+  }
+  .recent-shipments-list__status {
+    font-size: 1.15rem;
+  }
+  .recent-shipments-list__action {
+    font-size: 1.2rem;
+  }
+  .recent-shipments-list__footer {
+    padding: 1.4rem 2.4rem;
+    font-size: 1.2rem;
+  }
+  .recent-shipments-list__page {
+    font-size: 1.2rem;
+  }
+}/*# sourceMappingURL=RecentShipmentsPage.css.map */

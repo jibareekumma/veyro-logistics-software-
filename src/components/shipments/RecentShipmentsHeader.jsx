@@ -5,8 +5,13 @@ import download from "../../assets/icons/download-btn.png"
 
 import "../../stylings/shipments/RecentShipmentsPage.scss"
 
+import CreateShipments from "./CreateShipments.jsx";
+import { useNavigate } from "react-router-dom";
+
 
 const RecentShipmentsHeader = function({ query = "", onQueryChange = function(){} }){
+
+    const navigate = useNavigate();
 
     return<>
         
@@ -30,7 +35,8 @@ const RecentShipmentsHeader = function({ query = "", onQueryChange = function(){
             </div>
 
 
-            <button className="create-shipment-btn">
+            <button className="create-shipment-btn"
+            onClick={()=> navigate('/createShipments')}            >
                 <img src={download} alt="Download Button" />
                 <p>Create Shipment</p>
             </button>

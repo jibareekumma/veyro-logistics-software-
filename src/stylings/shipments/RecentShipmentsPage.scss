@@ -1,5 +1,3 @@
-
-
 @import "../Variable.scss";
 
 $cols-tablet: 4rem minmax(0, 1.25fr) minmax(0, 1.3fr) minmax(0, 0.95fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
@@ -31,23 +29,59 @@ $cols-desktop: 4.4rem minmax(0, 1.2fr) minmax(0, 2fr) minmax(0, 1.1fr) minmax(0,
         padding: 0 1rem 2rem;
     }
 
-    .back{
-        display: flex;
-        gap: 0.2rem;
+    .back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         flex-direction: row;
-        &:hover{
-            color: black;
-            cursor: pointer;
-        }
-        img{
-            height: 1.5rem;
-            width: 1.5rem;
+        gap: 0.8rem;
+        width: fit-content;
+        padding: 0.9rem 1.4rem;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 0.6rem;
+        background: $veyro-white;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+
+        img {
+            display: block;
+            width: 1.6rem;
+            height: 1.6rem;
+            object-fit: contain;
             filter: $filter-accent-glow;
+            transition: transform 0.2s ease;
         }
-        p{
-            font-size: 1.2rem;
-            letter-spacing: 0.2px;
+
+        p {
+            margin: 0;
             color: $accent-glow;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            text-transform: capitalize;
+        }
+
+        &:hover {
+            border-color: $accent-glow;
+            background: $veyro-off-white;
+            transform: translateX(-2px);
+
+            img {
+                transform: translateX(-3px);
+            }
+        }
+
+        &:active {
+            transform: translateX(-1px);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $accent-glow;
+            outline-offset: 3px;
         }
     }
 
@@ -79,9 +113,6 @@ $cols-desktop: 4.4rem minmax(0, 1.2fr) minmax(0, 2fr) minmax(0, 1.1fr) minmax(0,
             padding: 0 2.4rem 3.2rem;
         }
 
-        .back{
-            display: none;
-        }
     }
 
     @include desktop{
@@ -849,3 +880,7 @@ $cols-desktop: 4.4rem minmax(0, 1.2fr) minmax(0, 2fr) minmax(0, 1.1fr) minmax(0,
     }
   }
 }
+
+
+
+

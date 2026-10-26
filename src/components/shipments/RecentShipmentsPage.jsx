@@ -15,10 +15,13 @@ import Sidebar from "../Sidebar";
 import "../../stylings/shipments/RecentShipmentsPage.scss"
 
 import leftArr from "../../assets/icons/leftArr.png"
+import { useNavigate } from "react-router-dom";
 
 const RecentShipmentsPage = function(){
 
     const [query, setQuery] = useState("");
+    const navigte = useNavigate();
+
 
     return <>
 
@@ -35,7 +38,9 @@ const RecentShipmentsPage = function(){
 
             <div className="recent-shipments-page__content">
 
-                <div className="back">
+                <div className="back"
+                onClick = {() => navigte(-1)}
+                >
                     <img src={leftArr} alt="Left Arrow" />
                     <p>back</p>
                 </div>
