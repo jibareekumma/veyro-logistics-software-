@@ -10,6 +10,17 @@ const toCamel = function(text){
     })
 }
 
+const buildQuery = function(params){
+    const search = new URLSearchParams()
+    Object.keys(params).forEach(function(key){
+        if (params[key] !== '' && params[key] !== null && params[key] !== undefined) {
+            search.append(key, params[key])
+        }
+    })
+    const text = search.toString()
+    return text ? `?${text}` : ''
+}
+
 const buildPayload = function(form){
     const pkg = form.package
     const sender = form.sender
@@ -42,22 +53,16 @@ const createShipment = function(form){
     return authRequest('/shipments/', 'POST', buildPayload(form), API_BASE)
 }
 
-const listShipments = function(){
-    return authRequest('/shipments/', 'GET', null, API_BASE)
+const listShipments = function(params = {}){
+    return authRequest(`/shipments/${buildQuery(params)}`, 'GET', null, API_BASE)
 }
 
-const trackShipment = async function(trackingId){
-    const response = await fetch(`${API_BASE}/shipments/track/${encodeURIComponent(trackingId.trim())}/`)
-    const data = await response.json().catch(function(){
-        return {}
-    })
-    if (!response.ok) {
-        const error = new Error('Request failed')
-        error.data = data
-        error.status = response.status
-        throw error
-    }
-    return data
+const getShipmentStats = function(){
+    return authRequest('/shipments/stats/', 'GET', null, API_BASE)
+}
+
+const trackShipment = function(trackingId){
+    return authRequest(`/shipments/track/${encodeURIComponent(trackingId.trim())}/`, 'GET', null, API_BASE)
 }
 
 const mapServerErrors = function(data){
@@ -82,4 +87,4 @@ const mapServerErrors = function(data){
     return result
 }
 
-export { createShipment, listShipments, trackShipment, mapServerErrors }
+export { createShipment, listShipments, getShipmentStats, trackShipment, mapServerErrors }

@@ -1,29 +1,53 @@
 
 
+
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 import searchIcon from "../assets/icons/search-icon.png"
 import arrowRight from "../assets/icons/right-arrow.png"
 import boxIcon from "../assets/icons/nav-shipments.png"
 
+import { listShipments } from "../api/shipment.js"
+import { getStatusInfo, formatPlace, getEtaDate } from "../api/shipmentDisplays.js"
+import useTrackSearch from "../api/useTrackSearch.js"
+
 import "../stylings/dashboard-stylings/Shipments.css"
-import { useNavigate } from "react-router-dom"
 
 
 const RecentShipments = function(){
 
-    const shipments = [
-        { id: 1, trackingId: 'VY-82K4-91AX', status: 'Delayed', destination: 'Atlanta, USA', eta: 'Oct 12, 2026' },
-        { id: 2, trackingId: 'VY-77A6-4GPL', status: 'In Transit', destination: 'Chicago, USA', eta: 'Oct 12, 2026' },
-        { id: 3, trackingId: 'VY-33L8-2XMD', status: 'Delivered', destination: 'Toronto, CA', eta: 'Oct 5, 2026' },
-        { id: 4, trackingId: 'VY-16F9-1LNP', status: 'In Transit', destination: 'New York, USA', eta: 'Oct 14, 2026' },
-        { id: 5, trackingId: 'VY-46T3-9B80', status: 'Delivered', destination: 'Miami, USA', eta: 'Oct 3, 2026' },
-    ]
-
-    const getStatusClass = function(status){
-        return status.toLowerCase().replace(/\s+/g, '-')
-    }
-
-
     const navigate = useNavigate();
+    const track = useTrackSearch()
+
+    const [shipments, setShipments] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+
+    useEffect(function(){
+        let active = true
+
+        listShipments({ page_size: 5 })
+            .then(function(data){
+                if (active) {
+                    setShipments(data.results)
+                }
+            })
+            .catch(function(){
+                if (active) {
+                    setError('Could not load your shipments.')
+                }
+            })
+            .finally(function(){
+                if (active) {
+                    setLoading(false)
+                }
+            })
+
+        return function(){
+            active = false
+        }
+    }, [])
 
     return<>
 
@@ -48,18 +72,31 @@ const RecentShipments = function(){
                     <span></span>
                 </div>
 
-                {shipments.map( (a) => (
-                    <div className="table-row" key={a.id}>
-                        <p className="tracking-id">{a.trackingId}</p>
-                        <div className="status-cell">
-                            <span className={`status ${getStatusClass(a.status)}`}>{a.status}</span>
+                {loading && <p className="empty-message">Loading shipments...</p>}
+
+                {!loading && error && <p className="empty-message">{error}</p>}
+
+                {!loading && !error && shipments.length === 0 && (
+                    <p className="empty-message">No recent shipments</p>
+                )}
+
+                {!loading && !error && shipments.map( (a) => {
+                    const info = getStatusInfo(a.status)
+                    return (
+                        <div className="table-row" key={a.tracking_id}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => navigate(`/tracking/${a.tracking_id}`)}>
+                            <p className="tracking-id">{a.tracking_id}</p>
+                            <div className="status-cell">
+                                <span className={`status ${info.dashClass}`}>{info.label}</span>
+                            </div>
+                            <p className="destination">{formatPlace(a.receiver_city, a.receiver_country)}</p>
+                            <p className="eta">{getEtaDate(a)}</p>
+                            <img className="chevron" src={arrowRight} alt="Right Arrow"
+                            loading="lazy"/>
                         </div>
-                        <p className="destination">{a.destination}</p>
-                        <p className="eta">{a.eta}</p>
-                        <img className="chevron" src={arrowRight} alt="Right Arrow"
-                        loading="lazy"/>
-                    </div>
-                ))}
+                    )
+                })}
             </div>
         </div>
 
@@ -79,9 +116,12 @@ const RecentShipments = function(){
             <div className="track-input">
                 <img src={searchIcon} alt="search icon"
                 loading="lazy"/>
-                <input type="text" placeholder='Track by tracking ID'/>
+                <input type="text" placeholder='Track by tracking ID'
+                value={track.value}
+                onChange={(e) => track.setValue(e.target.value)}
+                onKeyDown={track.onKeyDown}/>
             </div>
-            <button>
+            <button onClick={track.submit}>
                 Track
                 <img src={arrowRight} alt="Right Arrow"
                 loading="lazy"/>

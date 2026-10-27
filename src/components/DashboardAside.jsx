@@ -1,5 +1,3 @@
-
-
 import searchIcon from "../assets/icons/search-icon.png"
 import arrowRight from "../assets/icons/right-arrow.png"
 import boxIcon from "../assets/icons/nav-shipments.png"
@@ -13,19 +11,21 @@ import promoBg from "../assets/photos/promo-ship.jpg"
 
 import "../stylings/dashboard-stylings/Aside.css"
 import { useNavigate } from "react-router-dom"
+import useTrackSearch from "../api/useTrackSearch.js"
 
 
 const DashboardAside = function(){
 
     const actions = [
         { id: 1, icon: boxIcon, title: 'Create Shipment', text: 'Start a new shipment', path: '/createShipments' },
-        { id: 2, icon: trackIcon, title: 'Track a Package', text: 'Check shipment status' },
+        { id: 2, icon: trackIcon, title: 'Track a Package', text: 'Check shipment status', path: '/tracking' },
         { id: 3, icon: addressesIcon, title: 'Addresses', text: 'Manage saved addresses' },
         { id: 4, icon: supportIcon, title: 'Support', text: 'Get help & open a ticket' },
     ]
 
     
     const navigate = useNavigate();
+    const track = useTrackSearch();
 
     return <div className="dashboard-aside">
 
@@ -42,10 +42,13 @@ const DashboardAside = function(){
                     <div className="inputs">
                         <img src={searchIcon} alt="search icon"
                         loading="lazy"/>
-                        <input type="text" placeholder='e.g. VY-82K4-91AX'/>
+                        <input type="text" placeholder='e.g. VY-82K4-91AX'
+                        value={track.value}
+                        onChange={(e) => track.setValue(e.target.value)}
+                        onKeyDown={track.onKeyDown}/>
                     </div>
                     <button 
-                    onClick={() => navigate('/tracking')}
+                    onClick={track.submit}
                     >
                         Track
                         <img src={arrowRight} alt="Right Arrow"
@@ -61,7 +64,7 @@ const DashboardAside = function(){
 
             <div className="actions-grid">
                 {actions.map( (a) => (
-                    <div className="action-card" key={a.id} onClick={() => navigate(a.path)}>
+                    <div className="action-card" key={a.id} onClick={() => a.path && navigate(a.path)}>
                         <img src={a.icon} alt={a.title + " icon"}
                         loading="lazy"/>
                         <h5>{a.title}</h5>

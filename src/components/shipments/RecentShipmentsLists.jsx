@@ -1,34 +1,22 @@
 
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import packageImg from "../../assets/photos/package.png";
 import search from "../../assets/icons/search-icon.png";
+import { listShipments } from "../../api/shipment.js";
+import { getStatusInfo, formatDate, formatPlace, getEtaText } from "../../api/shipmentDisplays.js";
 import "../../stylings/shipments/RecentShipmentsPage.scss";
 
-const shipments = [
-  { id: 1, trackingId: "VY-82K4-91AX", status: "In Transit", origin: "Miami, FL", destination: "Toronto, CA", date: "Oct 12, 2026", eta: "ETA Oct 16, 2026" },
-  { id: 2, trackingId: "VY-77A6-4GPL", status: "Delivered", origin: "Chicago, IL", destination: "New York, NY", date: "Oct 5, 2026", eta: "Delivered Oct 9, 2026" },
-  { id: 3, trackingId: "VY-33L8-2XMD", status: "In Transit", origin: "Atlanta, GA", destination: "Miami, FL", date: "Oct 3, 2026", eta: "ETA Oct 8, 2026" },
-  { id: 4, trackingId: "VY-16F8-1LNP", status: "Needs Attention", origin: "New York, NY", destination: "Los Angeles, CA", date: "Sep 28, 2026", eta: "ETA Oct 2, 2026" },
-  { id: 5, trackingId: "VY-46T3-9B80", status: "Delivered", origin: "Miami, FL", destination: "Atlanta, GA", date: "Sep 20, 2026", eta: "Delivered Sep 24, 2026" },
-  { id: 6, trackingId: "VY-19K2-7QPL", status: "In Transit", origin: "Los Angeles, CA", destination: "Dallas, TX", date: "Sep 15, 2026", eta: "ETA Sep 19, 2026" },
-  { id: 7, trackingId: "VY-08M4-3ZRT", status: "Delivered", origin: "Seattle, WA", destination: "Chicago, IL", date: "Sep 10, 2026", eta: "Delivered Sep 14, 2026" },
-  { id: 8, trackingId: "VY-62N7-8LQW", status: "In Transit", origin: "Houston, TX", destination: "New York, NY", date: "Sep 5, 2026", eta: "ETA Sep 9, 2026" },
-  { id: 9, trackingId: "VY-11P9-6KDT", status: "Delivered", origin: "Phoenix, AZ", destination: "Denver, CO", date: "Aug 28, 2026", eta: "Delivered Sep 1, 2026" },
-  { id: 10, trackingId: "VY-03J5-7NMQ", status: "Delivered", origin: "San Francisco, CA", destination: "Seattle, WA", date: "Aug 22, 2026", eta: "Delivered Aug 26, 2026" },
-  { id: 11, trackingId: "VY-27R1-5HVC", status: "Delivered", origin: "Boston, MA", destination: "Washington, DC", date: "Aug 18, 2026", eta: "Delivered Aug 21, 2026" },
-  { id: 12, trackingId: "VY-54D8-0TXZ", status: "Delivered", origin: "Denver, CO", destination: "Chicago, IL", date: "Aug 12, 2026", eta: "Delivered Aug 16, 2026" },
-  { id: 13, trackingId: "VY-90W3-2BNF", status: "Delivered", origin: "Dallas, TX", destination: "Houston, TX", date: "Aug 6, 2026", eta: "Delivered Aug 8, 2026" },
-  { id: 14, trackingId: "VY-38G6-7YCE", status: "Delivered", origin: "Toronto, CA", destination: "Boston, MA", date: "Jul 30, 2026", eta: "Delivered Aug 3, 2026" },
-  { id: 15, trackingId: "VY-72H2-4MKS", status: "Delivered", origin: "Seattle, WA", destination: "Portland, OR", date: "Jul 24, 2026", eta: "Delivered Jul 26, 2026" },
-  { id: 16, trackingId: "VY-15B7-9QDA", status: "Delivered", origin: "Portland, OR", destination: "San Francisco, CA", date: "Jul 18, 2026", eta: "Delivered Jul 22, 2026" },
-  { id: 17, trackingId: "VY-69C4-1RPU", status: "Delivered", origin: "Washington, DC", destination: "Atlanta, GA", date: "Jul 11, 2026", eta: "Delivered Jul 15, 2026" },
-  { id: 18, trackingId: "VY-41S9-6WJH", status: "In Transit", origin: "Orlando, FL", destination: "Miami, FL", date: "Jul 5, 2026", eta: "ETA Jul 8, 2026" },
-  { id: 19, trackingId: "VY-86Z5-3LTG", status: "Processing", origin: "Las Vegas, NV", destination: "Phoenix, AZ", date: "Jun 28, 2026", eta: "ETA Jul 2, 2026" },
-  { id: 20, trackingId: "VY-24X0-8FEB", status: "Processing", origin: "San Diego, CA", destination: "Los Angeles, CA", date: "Jun 20, 2026", eta: "ETA Jun 23, 2026" },
-];
-
 const filters = ["All", "Active", "In Transit", "Delivered"];
+
+const filterKeys = {
+  "All": "",
+  "Active": "active",
+  "In Transit": "in_transit",
+  "Delivered": "delivered",
+  "Needs Attention": "attention",
+};
 
 const statusOptions = [
   { value: "All", label: "All Statuses" },
@@ -43,25 +31,44 @@ const sortOptions = [
   { value: "oldest", label: "Sort by: Oldest First" },
 ];
 
-const statusClasses = {
-  "In Transit": "transit",
-  Delivered: "delivered",
-  "Needs Attention": "attention",
-  Processing: "processing",
-};
-
 const getPageSize = function () {
-  if (typeof window === "undefined") return 1000;
+  if (typeof window === "undefined") return 10;
   if (window.matchMedia("(min-width: 1024px)").matches) return 10;
   if (window.matchMedia("(min-width: 768px)").matches) return 8;
-  return 1000;
+  return 10;
+};
+
+const getPageNumbers = function (current, total) {
+  if (total <= 7) {
+    return Array.from({ length: total }, function (_, index) {
+      return index + 1;
+    });
+  }
+
+  const pages = [1];
+  if (current > 3) pages.push("start-gap");
+
+  const from = Math.max(2, current - 1);
+  const to = Math.min(total - 1, current + 1);
+  for (let number = from; number <= to; number++) {
+    pages.push(number);
+  }
+
+  if (current < total - 2) pages.push("end-gap");
+  pages.push(total);
+  return pages;
 };
 
 const RecentShipmentsLists = function ({ query = "", onQueryChange = function () {} }) {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("All");
   const [sortOrder, setSortOrder] = useState("newest");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(getPageSize);
+  const [shipments, setShipments] = useState([]);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(function () {
     const handleResize = function () {
@@ -77,47 +84,63 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
 
   useEffect(function () {
     setPage(1);
-  }, [query, activeFilter, sortOrder]);
+  }, [query]);
 
-  const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = query.trim();
 
-  const filteredShipments = shipments
-    .filter(function (shipment) {
-      if (activeFilter === "All") return true;
+  useEffect(function () {
+    let cancelled = false;
+    setLoading(true);
 
-      if (activeFilter === "Active") {
-        return shipment.status !== "Delivered";
-      }
+    const timer = setTimeout(function () {
+      listShipments({
+        page: page,
+        page_size: pageSize,
+        status: filterKeys[activeFilter],
+        search: normalizedQuery,
+        ordering: sortOrder,
+      })
+        .then(function (data) {
+          if (cancelled) return;
+          setShipments(data.results);
+          setCount(data.count);
+          setError("");
+        })
+        .catch(function (requestError) {
+          if (cancelled) return;
+          if (requestError.status === 404 && page > 1) {
+            setPage(1);
+            return;
+          }
+          setError("Could not load your shipments. Please try again.");
+        })
+        .finally(function () {
+          if (!cancelled) setLoading(false);
+        });
+    }, normalizedQuery ? 300 : 0);
 
-      return shipment.status === activeFilter;
-    })
-    .filter(function (shipment) {
-      if (!normalizedQuery) return true;
+    return function () {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [page, pageSize, activeFilter, sortOrder, normalizedQuery]);
 
-      return [
-        shipment.trackingId,
-        shipment.origin,
-        shipment.destination,
-        shipment.status,
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalizedQuery);
-    })
-    .sort(function (a, b) {
-      const difference = new Date(a.date) - new Date(b.date);
-      return sortOrder === "newest" ? -difference : difference;
-    });
+  const changeFilter = function (value) {
+    setActiveFilter(value);
+    setPage(1);
+  };
 
-  const totalPages = Math.max(1, Math.ceil(filteredShipments.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const startIndex = (currentPage - 1) * pageSize;
-  const visibleShipments = filteredShipments.slice(startIndex, startIndex + pageSize);
-  const rangeStart = filteredShipments.length === 0 ? 0 : startIndex + 1;
-  const rangeEnd = startIndex + visibleShipments.length;
-  const pageNumbers = Array.from({ length: totalPages }, function (_, index) {
-    return index + 1;
-  });
+  const changeSort = function (value) {
+    setSortOrder(value);
+    setPage(1);
+  };
+
+  const totalPages = Math.max(1, Math.ceil(count / pageSize));
+  const startIndex = (page - 1) * pageSize;
+  const rangeStart = count === 0 ? 0 : startIndex + 1;
+  const rangeEnd = startIndex + shipments.length;
+  const pageNumbers = getPageNumbers(page, totalPages);
+  const hasNoFilters = activeFilter === "All" && !normalizedQuery;
 
   return (
     <section className="recent-shipments-list">
@@ -133,7 +156,7 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
                   ? "recent-shipments-list__filter--active"
                   : ""
               }`}
-              onClick={() => setActiveFilter(filter)}
+              onClick={() => changeFilter(filter)}
             >
               {filter}
             </button>
@@ -157,7 +180,7 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
             className="recent-shipments-list__select"
             value={activeFilter}
             onChange={function (event) {
-              setActiveFilter(event.target.value);
+              changeFilter(event.target.value);
             }}
           >
             {statusOptions.map((option) => (
@@ -171,7 +194,7 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
             className="recent-shipments-list__select"
             value={sortOrder}
             onChange={function (event) {
-              setSortOrder(event.target.value);
+              changeSort(event.target.value);
             }}
           >
             {sortOptions.map((option) => (
@@ -183,7 +206,7 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
         </div>
 
         <h3 className="recent-shipments-list__heading">
-          {activeFilter === "All" ? "All Shipments" : `${activeFilter} Shipments`} ({filteredShipments.length})
+          {activeFilter === "All" ? "All Shipments" : `${activeFilter} Shipments`} ({count})
         </h3>
 
         <div className="recent-shipments-list__table">
@@ -197,11 +220,30 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
           </div>
 
           <div className="recent-shipments-list__items">
-            {visibleShipments.length > 0 ? (
-              visibleShipments.map((shipment) => (
+            {loading && shipments.length === 0 && (
+              <p className="recent-shipments-list__empty">
+                Loading shipments...
+              </p>
+            )}
+
+            {!loading && error && (
+              <p className="recent-shipments-list__empty">
+                {error}
+              </p>
+            )}
+
+            {!loading && !error && shipments.length === 0 && (
+              <p className="recent-shipments-list__empty">
+                {hasNoFilters ? "You don't have any shipments yet." : "No shipments found."}
+              </p>
+            )}
+
+            {!error && shipments.map((shipment) => {
+              const info = getStatusInfo(shipment.status);
+              return (
                 <article
                   className="recent-shipments-list__item"
-                  key={shipment.id}
+                  key={shipment.tracking_id}
                 >
                   <div className="recent-shipments-list__package">
                     <img src={packageImg} alt="Package" />
@@ -210,30 +252,30 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
                   <div className="recent-shipments-list__details">
                     <div className="recent-shipments-list__top">
                       <h3 className="recent-shipments-list__tracking">
-                        {shipment.trackingId}
+                        {shipment.tracking_id}
                       </h3>
 
                       <span
-                        className={`recent-shipments-list__status recent-shipments-list__status--${statusClasses[shipment.status]}`}
+                        className={`recent-shipments-list__status recent-shipments-list__status--${info.listClass}`}
                       >
-                        {shipment.status}
+                        {info.label}
                       </span>
                     </div>
 
                     <p className="recent-shipments-list__route">
-                      <span>{shipment.origin}</span>
+                      <span>{formatPlace(shipment.sender_city, shipment.sender_country)}</span>
                       <span className="recent-shipments-list__arrow">
                         →
                       </span>
-                      <span>{shipment.destination}</span>
+                      <span>{formatPlace(shipment.receiver_city, shipment.receiver_country)}</span>
                     </p>
 
                     <div className="recent-shipments-list__bottom">
                       <span className="recent-shipments-list__date">
-                        {shipment.date}
+                        {formatDate(shipment.created_at)}
                       </span>
                       <span className="recent-shipments-list__eta">
-                        {shipment.eta}
+                        {getEtaText(shipment)}
                       </span>
                     </div>
                   </div>
@@ -241,67 +283,74 @@ const RecentShipmentsLists = function ({ query = "", onQueryChange = function ()
                   <button
                     type="button"
                     className="recent-shipments-list__action"
+                    onClick={function () {
+                      navigate(`/tracking/${shipment.tracking_id}`);
+                    }}
                   >
                     <span>View Details</span>
                     <span>→</span>
                   </button>
                 </article>
-              ))
-            ) : (
-              <p className="recent-shipments-list__empty">
-                No shipments found.
+              );
+            })}
+          </div>
+
+          {count > 0 && (
+            <div className="recent-shipments-list__footer">
+              <p>
+                Showing {rangeStart}-{rangeEnd} of {count} shipments
               </p>
-            )}
-          </div>
 
-          <div className="recent-shipments-list__footer">
-            <p>
-              Showing {rangeStart}-{rangeEnd} of {filteredShipments.length} shipments
-            </p>
+              {totalPages > 1 && (
+                <div className="recent-shipments-list__pages">
+                  <button
+                    type="button"
+                    className="recent-shipments-list__page"
+                    aria-label="Previous page"
+                    disabled={page === 1}
+                    onClick={function () {
+                      setPage(page - 1);
+                    }}
+                  >
+                    ‹
+                  </button>
 
-            <div className="recent-shipments-list__pages">
-              <button
-                type="button"
-                className="recent-shipments-list__page"
-                aria-label="Previous page"
-                disabled={currentPage === 1}
-                onClick={function () {
-                  setPage(currentPage - 1);
-                }}
-              >
-                ‹
-              </button>
+                  {pageNumbers.map((number) => (
+                    typeof number === "number" ? (
+                      <button
+                        key={number}
+                        type="button"
+                        className={`recent-shipments-list__page ${
+                          page === number
+                            ? "recent-shipments-list__page--active"
+                            : ""
+                        }`}
+                        onClick={function () {
+                          setPage(number);
+                        }}
+                      >
+                        {number}
+                      </button>
+                    ) : (
+                      <span key={number} className="recent-shipments-list__ellipsis">…</span>
+                    )
+                  ))}
 
-              {pageNumbers.map((number) => (
-                <button
-                  key={number}
-                  type="button"
-                  className={`recent-shipments-list__page ${
-                    currentPage === number
-                      ? "recent-shipments-list__page--active"
-                      : ""
-                  }`}
-                  onClick={function () {
-                    setPage(number);
-                  }}
-                >
-                  {number}
-                </button>
-              ))}
-
-              <button
-                type="button"
-                className="recent-shipments-list__page"
-                aria-label="Next page"
-                disabled={currentPage === totalPages}
-                onClick={function () {
-                  setPage(currentPage + 1);
-                }}
-              >
-                ›
-              </button>
+                  <button
+                    type="button"
+                    className="recent-shipments-list__page"
+                    aria-label="Next page"
+                    disabled={page === totalPages}
+                    onClick={function () {
+                      setPage(page + 1);
+                    }}
+                  >
+                    ›
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
+          )}
 
         </div>
 

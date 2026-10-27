@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+
 import leftArr from "../assets/icons/left-arr.png"
 
 import locationIcon from "../assets/icons/nav-addresses.png"
@@ -10,82 +13,135 @@ import "../stylings/TrackingResults.css"
 
 import TrackingMap from "./TrackingMap"
 import PackageDetails from "./PackageDetails"
-import { useNavigate } from "react-router-dom"
+
+import { trackShipment } from "../api/shipment.js"
+import { getStatusInfo, getEventType, getDeliveryLabel, formatDate, formatDateTime } from "../api/shipmentDisplays.js"
+import useTrackSearch from "../api/useTrackSearch.js"
 
 
 const TrackingResults = function(){
+
+    const navigate = useNavigate();
+    const { trackingId } = useParams();
+    const track = useTrackSearch();
+
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(Boolean(trackingId));
+    const [problem, setProblem] = useState('');
+
+    useEffect(function(){
+        if (!trackingId) {
+            setData(null);
+            setProblem('');
+            setLoading(false);
+            return;
+        }
+
+        let active = true;
+        setLoading(true);
+        setProblem('');
+        setData(null);
+
+        trackShipment(trackingId)
+            .then(function(result){
+                if (active) {
+                    setData(result);
+                }
+            })
+            .catch(function(error){
+                if (active) {
+                    setProblem(error.status === 404 ? 'notfound' : 'error');
+                }
+            })
+            .finally(function(){
+                if (active) {
+                    setLoading(false);
+                }
+            });
+
+        return function(){
+            active = false;
+        };
+    }, [trackingId]);
+
+    const renderLookup = function(title, message){
+        return <>
+            <Header/>
+            <div className="tracking-lookup">
+                <h4>{title}</h4>
+                <p>{message}</p>
+                <div className="lookup-form">
+                    <input
+                        type="text"
+                        placeholder="e.g. VY-82K4-91AX"
+                        value={track.value}
+                        onChange={function(event){ track.setValue(event.target.value); }}
+                        onKeyDown={track.onKeyDown}
+                    />
+                    <button type="button" onClick={track.submit}>Track</button>
+                </div>
+                <button type="button" onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
+            </div>
+        </>
+    };
+
+    if (!trackingId) {
+        return renderLookup('Track a Package', 'Enter a tracking ID to see where your shipment is.');
+    }
+
+    if (loading) {
+        return <>
+            <Header/>
+            <div className="tracking-lookup">
+                <p>Loading tracking details...</p>
+            </div>
+        </>
+    }
+
+    if (problem === 'notfound') {
+        return renderLookup('Tracking ID not found', `We couldn't find a shipment with the ID ${trackingId}. Check it and try again.`);
+    }
+
+    if (problem === 'error' || !data) {
+        return renderLookup('Something went wrong', 'We could not load this shipment right now. Please try again.');
+    }
+
+    const info = getStatusInfo(data.status);
 
     const LocationUI = [
         {
             id: 1,
             icon: locationIcon,
             title: "Current Location",
-            text: "Chicago, USA"
+            text: data.current_location
         },
         {
             id: 2,
             icon: calendar,
             title: "Estimated Delivery",
-            text: "Oct 18, 2026"
+            text: formatDate(data.estimated_delivery)
         },
         {
             id: 3,
             icon: route,
             title: "Delivery Type",
-            text: "Express"
+            text: getDeliveryLabel(data.delivery_method)
         }
     ]
 
-    const TrackingHistory = [
-        {
-            id: 1,
-            date: "Oct 12, 2026 14:32",
-            title: "Arrived at Chicago Hub",
-            description: "Package arrived and is being processed.",
-            status: "In Transit",
-            type: "transit",
-            icon: "●",
-        },
-        {
-            id: 2,
-            date: "Oct 11, 2026 09:17",
-            title: "Departed Atlanta Hub",
-            description: "Package is on the way to Chicago.",
-            status: "In Transit",
-            type: "transit",
-            icon: "●",
-        },
-        {
-            id: 3,
-            date: "Oct 10, 2026 16:03",
-            title: "Arrived at Atlanta Hub",
-            description: "Package arrived and is being processed.",
-            status: "In Transit",
-            type: "transit",
-            icon: "●",
-        },
-        {
-            id: 4,
-            date: "Oct 10, 2026 10:34",
-            title: "Picked up from Sender",
-            description: "Package collected from Miami, FL.",
-            status: "Delivered",
-            type: "delivered",
-            icon: "C",
-        },
-        {
-            id: 5,
-            date: "Oct 10, 2026 08:12",
-            title: "Label Created",
-            description: "Tracking ID VY-82K4-91AX generated.",
-            status: "Confirmed",
-            type: "confirmed",
-            icon: "D",
-        },
-    ]
-
-
-    const navigate = useNavigate();
+    const TrackingHistory = data.events.map(function(event){
+        const eventInfo = getStatusInfo(event.status);
+        const type = getEventType(event.status);
+        return {
+            id: event.id,
+            date: formatDateTime(event.created_at),
+            title: event.note || eventInfo.label,
+            description: event.location ? `Location: ${event.location}` : `Status: ${eventInfo.label}`,
+            status: eventInfo.label,
+            type: type,
+            icon: type === 'delivered' ? '✓' : '●',
+        };
+    });
 
     return<>
 
@@ -100,7 +156,7 @@ const TrackingResults = function(){
                     onClick = {() => navigate("/dashboard")}
                     >
                         <img src={leftArr} alt="Left Arrow" />
-                        <p>Back to Track a Package</p>
+                        <p>Back to Dashboard</p>
                     </div>
                     <h4>Tracking Results</h4>
                 </div>
@@ -109,12 +165,12 @@ const TrackingResults = function(){
 
                     <div className="section2">
                         <div className="id">
-                            <h3>VY-82K4-91AX</h3>
-                            <span>In Transit</span>
+                            <h3>{data.tracking_id}</h3>
+                            <span>{info.label}</span>
                         </div>
                         <div className="routes">
-                            <p>Shipment from Miami, USA → Toronto, Canada</p>
-                            <p>Last updated Oct 12, 2026, 14:32 (EST)</p>
+                            <p>Shipment from {data.origin_city}, {data.origin_country} → {data.destination_city}, {data.destination_country}</p>
+                            <p>Last updated {formatDateTime(data.updated_at)}</p>
                         </div>
                     </div>
 
@@ -137,7 +193,10 @@ const TrackingResults = function(){
             </div>
 
             <div className="tracking-ui">
-                <TrackingMap/>
+                <TrackingMap
+                    origin={{ city: data.origin_city, country: data.origin_country }}
+                    destination={{ city: data.destination_city, country: data.destination_country }}
+                />
             </div>
 
             <div className="tracking-lower">
@@ -173,9 +232,11 @@ const TrackingResults = function(){
                     </div>
                 </div>
 
-                <div className="tracking-package">
-                    <PackageDetails/>
-                </div>
+                {data.package && (
+                    <div className="tracking-package">
+                        <PackageDetails shipment={data}/>
+                    </div>
+                )}
 
                 <div className="tracking-actions">
 

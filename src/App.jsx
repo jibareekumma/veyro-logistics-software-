@@ -1,3 +1,5 @@
+
+
 import Landing from "./components/auths/Landing"
 import Register from "./components/auths/Register";
 import Login from "./components/auths/Login";
@@ -23,6 +25,7 @@ function App() {
       <Route path = '/dashboard' element = {<ProtectedRoute><UserDashboard/></ProtectedRoute>} />
 
        <Route path = '/tracking' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
+       <Route path = '/tracking/:trackingId' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
 
        <Route path = '/createShipments' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
 

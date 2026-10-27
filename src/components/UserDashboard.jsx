@@ -2,6 +2,7 @@
 
 import { useNavigate } from 'react-router-dom'
 import { getStoredUser, logoutUser } from '../api/auth'
+import useTrackSearch from "../api/useTrackSearch.js"
 import CustomerStats from './CustomerStats'
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -25,6 +26,7 @@ const UserDashboard = function(){
 
     const navigate = useNavigate()
     const user = getStoredUser()
+    const track = useTrackSearch()
 
     // const handleLogout = function(){
     //     logoutUser()
@@ -64,10 +66,13 @@ const UserDashboard = function(){
                             <div className='inputs'>
                                 <img src={searchIcon} alt="search icon" 
                                 loading='lazy'/>
-                                <input type="text" placeholder='Search shipments, tracking ids...'/>
+                                <input type="text" placeholder='Search shipments, tracking ids...'
+                                value={track.value}
+                                onChange={(e) => track.setValue(e.target.value)}
+                                onKeyDown={track.onKeyDown}/>
                             </div>
                             <button
-                            onClick={() => navigate('/tracking')}
+                            onClick={track.submit}
                             >Search</button>
                         </div>
                     </div>

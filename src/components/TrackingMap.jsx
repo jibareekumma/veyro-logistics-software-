@@ -3,13 +3,12 @@
 import "../stylings/TrackingMap.css"
 
 
-
-const trackingData = {
-  locations: [
+const TrackingMap = function({ origin, destination }) {
+  const locations = [
     {
       id: 1,
-      city: "Miami",
-      country: "USA",
+      city: origin.city,
+      country: origin.country,
       x: 12,
       y: 80,
       labelX: 10,
@@ -17,40 +16,17 @@ const trackingData = {
     },
     {
       id: 2,
-      city: "Atlanta",
-      country: "USA",
-      x: 42,
-      y: 48,
-      labelX: 36,
-      labelY: 62,
-    },
-    {
-      id: 3,
-      city: "Chicago",
-      country: "",
-      x: 59,
-      y: 37,
-      labelX: 61,
-      labelY: 29,
-    },
-    {
-      id: 4,
-      city: "Toronto",
-      country: "Canada",
+      city: destination.city,
+      country: destination.country,
       x: 78,
       y: 19,
       labelX: 81,
       labelY: 13,
     },
-  ],
-};
-
-const TrackingMap = function() {
-  const locations = trackingData.locations;
+  ];
 
   return (
     <div className="tracking-map">
-      {/* Background map */}
       <svg
         className="tracking-map__background"
         viewBox="0 0 400 220"
@@ -91,7 +67,6 @@ const TrackingMap = function() {
 
         <rect width="400" height="220" fill="url(#mapGrid)" />
 
-        {/* Stylized North American landmass */}
         <g
           fill="#0c4855"
           stroke="#176071"
@@ -105,7 +80,6 @@ const TrackingMap = function() {
           <path d="M80 0 L95 14 91 31 110 41 119 60 142 66 151 83 174 90 185 109 207 112 221 130 243 135 255 154 278 159 289 178 315 182 329 201 350 206 364 220 H400 V0 Z" />
         </g>
 
-        {/* Subtle geographic details */}
         <g
           fill="none"
           stroke="#238092"
@@ -121,12 +95,11 @@ const TrackingMap = function() {
         </g>
       </svg>
 
-      {/* Route and locations */}
       <svg
         className="tracking-map__route"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
-        aria-label="Shipment route from Miami to Toronto"
+        aria-label={`Shipment route from ${origin.city} to ${destination.city}`}
       >
         <defs>
           <filter id="lineGlow">
@@ -160,7 +133,6 @@ const TrackingMap = function() {
         ))}
       </svg>
 
-      {/* Editable city labels */}
       {locations.map((location) => (
         <div
           key={location.id}
