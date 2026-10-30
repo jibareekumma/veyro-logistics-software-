@@ -394,4 +394,223 @@
 .buttons-container button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Authentication form refinements: scoped to Register/Login only */
+.register-container {
+  box-sizing: border-box;
+}
+.register-container *, .register-container *::before, .register-container *::after {
+  box-sizing: border-box;
+}
+.register-container .form-container {
+  min-width: 0;
+}
+.register-container .form-container form {
+  width: 100%;
+}
+.register-container .form-container .form-item {
+  width: 100%;
+  min-width: 0;
+}
+.register-container .form-container .form-item .input {
+  width: 100%;
+  min-width: 0;
+  min-height: 4.6rem;
+  height: auto;
+  padding: 0 1rem;
+  gap: 1rem;
+  border: 1px solid rgb(83, 119, 119);
+  border-radius: 6px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.register-container .form-container .form-item .input:focus-within {
+  border-color: #35afc9;
+  box-shadow: 0 0 0 2px rgba(0, 220, 255, 0.08);
+}
+.register-container .form-container .form-item .input img {
+  flex-shrink: 0;
+}
+.register-container .form-container .form-item .input input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 4.4rem;
+  padding: 0;
+  font-family: inherit;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+.register-container .form-container .form-item .input input::-moz-placeholder {
+  opacity: 0.75;
+}
+.register-container .form-container .form-item .input input::placeholder {
+  opacity: 0.75;
+}
+.register-container .form-container .form-item .input .password-toggle {
+  flex: 0 0 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: rgb(200, 203, 209);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.register-container .form-container .form-item .input .password-toggle svg {
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.register-container .form-container .form-item .input .password-toggle:hover {
+  color: #35afc9;
+  background: rgba(255, 255, 255, 0.05);
+}
+.register-container .form-container .form-item .input .password-toggle:focus-visible {
+  outline: 2px solid #35afc9;
+  outline-offset: 2px;
+}
+.register-container .password-strength {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+  margin-top: 0.8rem;
+}
+.register-container .password-strength .strength-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.register-container .password-strength .strength-top span {
+  font-size: 1.1rem;
+  color: rgb(200, 203, 209);
+}
+.register-container .password-strength .strength-top .strength-label {
+  font-weight: 600;
+}
+.register-container .password-strength .strength-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.register-container .password-strength .strength-track span {
+  height: 4px;
+  border-radius: 5px;
+  background: rgb(83, 119, 119);
+  transition: background-color 0.2s ease;
+}
+.register-container .password-strength small {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: rgb(200, 203, 209);
+}
+.register-container .password-strength.strength-1 .strength-label {
+  color: #ff6464;
+}
+.register-container .password-strength.strength-1 .strength-track span:nth-child(1).filled {
+  background: #ff6464;
+}
+.register-container .password-strength.strength-2 .strength-label {
+  color: #ffb454;
+}
+.register-container .password-strength.strength-2 .strength-track span:nth-child(-n+2).filled {
+  background: #ffb454;
+}
+.register-container .password-strength.strength-3 .strength-label {
+  color: #e4d65b;
+}
+.register-container .password-strength.strength-3 .strength-track span:nth-child(-n+3).filled {
+  background: #e4d65b;
+}
+.register-container .password-strength.strength-4 .strength-label {
+  color: #3ddc97;
+}
+.register-container .password-strength.strength-4 .strength-track span.filled {
+  background: #3ddc97;
+}
+
+@media (max-width: 767px) {
+  .register-container {
+    padding: 2rem 1.5rem;
+  }
+  .register-container .text-container {
+    padding-right: 0;
+  }
+  .register-container .text-container h3 {
+    font-size: 2.7rem;
+    line-height: 1.15;
+  }
+  .register-container .text-container p {
+    max-width: 100%;
+    line-height: 1.7;
+  }
+  .register-container .form-container {
+    margin-top: 1.5rem;
+  }
+  .register-container .form-container form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+  .register-container .form-container form .form-item {
+    grid-column: 1/-1;
+    margin-bottom: 1rem;
+  }
+  .register-container .form-container .tick-box {
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  .register-container .form-container .tick-box input {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .register-container .form-container .tick-box p {
+    line-height: 1.6;
+  }
+  .register-container .buttons-container button {
+    min-height: 4.5rem;
+  }
+  .register-container .buttons-container .last-texts {
+    flex-wrap: wrap;
+    align-items: center;
+    line-height: 1.6;
+  }
+}
+@media (min-width: 768px) {
+  .register-container .form-container form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
+    row-gap: 0.5rem;
+  }
+  .register-container .form-container form .form-item {
+    min-width: 0;
+  }
+  .register-container .form-container form .form-item:first-child, .register-container .form-container form .form-item:last-child {
+    grid-column: 1/-1;
+  }
+  .register-container.login-container .form-container form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .register-container.login-container .form-container form .form-item {
+    grid-column: 1;
+  }
+}
+@media (min-width: 1224px) {
+  .register-container .form-container form {
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+    row-gap: 0.8rem;
+  }
 }/*# sourceMappingURL=Register.css.map */

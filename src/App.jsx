@@ -10,6 +10,8 @@ import UserDashboard from "./components/UserDashboard";
 
 import CreateShipments from "./components/shipments/CreateShipments";
 import RecentShipmentsPage from "./components/shipments/RecentShipmentsPage";
+
+import Quotes from "./components/quotings/Quotes";
 import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
 
@@ -30,6 +32,8 @@ function App() {
        <Route path = '/createShipments' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
 
        <Route path = '/recentshipmentspage' element = {<ProtectedRoute><RecentShipmentsPage/></ProtectedRoute>} />
+
+       <Route path = '/quotes' element = {<ProtectedRoute><Quotes/></ProtectedRoute>} />
 
        
     </Routes>

@@ -1,0 +1,180 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.quotes-header {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.quotes-header .quotes-banner {
+  position: relative;
+  display: flex;
+}
+.quotes-header .quotes-texts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.quotes-header .quotes-texts h5 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  color: #35afc9;
+}
+.quotes-header .quotes-texts h3 {
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: #205068;
+}
+.quotes-header .quotes-texts p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #6b7280;
+}
+.quotes-header .quotes-texts .quotes-title-wide,
+.quotes-header .quotes-texts .quotes-wide-break {
+  display: none;
+}
+.quotes-header .quotes-banner-image {
+  display: none;
+}
+.quotes-header .quotes-indicators {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+}
+.quotes-header .quotes-indicators .quotes-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 0.3rem;
+  border: 1px solid #d8e7ef;
+  border-radius: 0.6rem;
+  background-color: #ffffff;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.quotes-header .quotes-indicators .quotes-indicator.active {
+  border-color: #35afc9;
+  background-color: #eaf8fc;
+  box-shadow: 0 0 0 1px #35afc9;
+}
+.quotes-header .quotes-indicators .quotes-indicator img {
+  width: 2rem;
+  height: 2rem;
+  filter: brightness(0) saturate(100%) invert(63%) sepia(47%) saturate(720%) hue-rotate(145deg) brightness(88%);
+}
+.quotes-header .quotes-indicators .quotes-indicator .quotes-indicator-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.15rem;
+}
+.quotes-header .quotes-indicators .quotes-indicator .quotes-indicator-text p {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #205068;
+}
+.quotes-header .quotes-indicators .quotes-indicator .quotes-indicator-text span {
+  display: none;
+  font-size: 0.7rem;
+  color: #6b7280;
+}
+
+@media (min-width: 768px) {
+  .quotes-header .quotes-banner {
+    min-height: 9rem;
+    padding: 1.3rem 1.5rem;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    background-color: #eaf4f9;
+    border: 1px solid #d8e7ef;
+  }
+  .quotes-header .quotes-texts {
+    width: 55%;
+    gap: 0.4rem;
+  }
+  .quotes-header .quotes-texts h3 {
+    font-size: 1.6rem;
+  }
+  .quotes-header .quotes-texts p {
+    font-size: 0.78rem;
+  }
+  .quotes-header .quotes-texts .quotes-title-mobile {
+    display: none;
+  }
+  .quotes-header .quotes-texts .quotes-title-wide {
+    display: inline;
+  }
+  .quotes-header .quotes-texts .quotes-wide-break {
+    display: inline;
+  }
+  .quotes-header .quotes-banner-image {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 55%;
+    background: linear-gradient(135deg, #9fd3e6 0%, #205068 100%);
+    background-size: cover;
+    background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 45%);
+    mask-image: linear-gradient(to right, transparent, #000 45%);
+  }
+  .quotes-header .quotes-indicators {
+    gap: 1rem;
+  }
+  .quotes-header .quotes-indicators .quotes-indicator {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+  .quotes-header .quotes-indicators .quotes-indicator img {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .quotes-header .quotes-indicators .quotes-indicator .quotes-indicator-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .quotes-header .quotes-indicators .quotes-indicator .quotes-indicator-text p {
+    font-size: 0.85rem;
+  }
+  .quotes-header .quotes-indicators .quotes-indicator .quotes-indicator-text span {
+    display: block;
+  }
+}
+@media (min-width: 1024px) {
+  .quotes-header .quotes-banner {
+    min-height: 11rem;
+    padding: 1.8rem 2rem;
+  }
+  .quotes-header .quotes-texts {
+    width: 50%;
+  }
+  .quotes-header .quotes-texts h3 {
+    font-size: 2rem;
+  }
+  .quotes-header .quotes-texts p {
+    font-size: 0.85rem;
+  }
+  .quotes-header .quotes-banner-image {
+    width: 60%;
+  }
+}/*# sourceMappingURL=QuotesHeader.css.map */

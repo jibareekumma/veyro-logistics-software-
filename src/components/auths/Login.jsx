@@ -30,6 +30,7 @@ const Login = function(){
     const [remember, setRemember] = useState(false)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const navLinks = ['Home', 'Track Shipment', 'Services', 'About', 'Contact']
 
@@ -144,13 +145,38 @@ const Login = function(){
                                 <div className='form-item' key={a.id}>
                                     <label>{a.label}</label>
                                     <div className='input'>
-                                        <img src={a.icon} />
-                                        <input type={a.type} 
-                                         name={a.name}
-                                         value={values[a.name]}
-                                         onChange={handleChange}
-                                         placeholder={a.placeholder}   
+                                        <img src={a.icon} alt="" />
+                                        <input
+                                            type={a.name === 'password' && showPassword ? 'text' : a.type}
+                                            name={a.name}
+                                            value={values[a.name]}
+                                            onChange={handleChange}
+                                            placeholder={a.placeholder}
+                                            autoComplete={a.name === 'password' ? 'current-password' : 'email'}
                                         />
+                                        {a.name === 'password' && (
+                                            <button
+                                                type="button"
+                                                className="password-toggle"
+                                                onClick={() => setShowPassword(prev => !prev)}
+                                                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                                aria-pressed={showPassword}
+                                            >
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    {showPassword ? (
+                                                        <>
+                                                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                                                            <circle cx="12" cy="12" r="3" />
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <path d="M3 3l18 18" />
+                                                            <path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7a10 10 0 0 0 4-.8" />
+                                                        </>
+                                                    )}
+                                                </svg>
+                                            </button>
+                                        )}
                                     </div>
                                     {errors[a.name] && <p className='error-text'>{errors[a.name]}</p>}
                                 </div>

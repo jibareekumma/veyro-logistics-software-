@@ -10,6 +10,7 @@ import addressesIcon from "../assets/icons/nav-addresses.png"
 import supportIcon from "../assets/icons/nav-support.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import profileIcon from "../assets/icons/nav-profile.png"
+import quoting from "../assets/icons/quoting.png"
 
 import "../stylings/dashboard-stylings/Sidebar.css"
 
@@ -21,7 +22,7 @@ const Sidebar = function({ showToggle }){
     const links = [
         { id: 1, label: 'Dashboard', to: '/dashboard', icon: dashboardIcon },
         { id: 2, label: 'Shipments', to: '/recentshipmentspage', icon: shipmentsIcon },
-        
+        { id: 3, label: 'Quotings', to: '/quotes', icon: shipmentsIcon },
         { id: 4, label: 'Addresses', to: '/addresses', icon: addressesIcon },
         { id: 5, label: 'Support', to: '/support', icon: supportIcon },
         { id: 6, label: 'Notifications', to: '/notifications', icon: bellIcon, badge: 3 },

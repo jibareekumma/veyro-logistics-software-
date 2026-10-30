@@ -1,3 +1,5 @@
+
+
 import '../../stylings/Register.css'
 
 import { useState } from 'react'
@@ -35,6 +37,25 @@ const Register = function(){
     const [agreed, setAgreed] = useState(false)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+    const getPasswordStrength = (password) => {
+        if (!password) return { label: '', level: 0 }
+
+        let score = 0
+        if (password.length >= 8) score++
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++
+        if (/\d/.test(password)) score++
+        if (/[^a-zA-Z0-9]/.test(password)) score++
+
+        if (score <= 1) return { label: 'Weak', level: 1 }
+        if (score === 2) return { label: 'Good', level: 2 }
+        if (score === 3) return { label: 'Very Good', level: 3 }
+        return { label: 'Strong', level: 4 }
+    }
+
+    const passwordStrength = getPasswordStrength(values.password)
 
     const navLinks = ['Home', 'Track Shipment', 'Services', 'About', 'Contact']
 
@@ -185,14 +206,76 @@ const Register = function(){
                                 <div className='form-item' key={a.id}>
                                     <label>{a.label}</label>
                                     <div className='input'>
-                                        <img src={a.icon} />
-                                        <input type={a.type} 
-                                         name={a.name}
-                                         value={values[a.name]}
-                                         onChange={handleChange}
-                                         placeholder={a.placeholder}   
+                                        <img src={a.icon} alt="" />
+                                        <input
+                                            type={
+                                                a.name === 'password'
+                                                    ? (showPassword ? 'text' : 'password')
+                                                    : a.name === 'confirm_password'
+                                                        ? (showConfirmPassword ? 'text' : 'password')
+                                                        : a.type
+                                            }
+                                            name={a.name}
+                                            value={values[a.name]}
+                                            onChange={handleChange}
+                                            placeholder={a.placeholder}
+                                            autoComplete={
+                                                a.name === 'password' || a.name === 'confirm_password'
+                                                    ? 'new-password'
+                                                    : a.name === 'email' ? 'email' : 'off'
+                                            }
                                         />
+                                        {(a.name === 'password' || a.name === 'confirm_password') && (
+                                            <button
+                                                type="button"
+                                                className="password-toggle"
+                                                onClick={() => a.name === 'password'
+                                                    ? setShowPassword(prev => !prev)
+                                                    : setShowConfirmPassword(prev => !prev)
+                                                }
+                                                aria-label={
+                                                    (a.name === 'password' ? showPassword : showConfirmPassword)
+                                                        ? 'Hide password' : 'Show password'
+                                                }
+                                                aria-pressed={a.name === 'password' ? showPassword : showConfirmPassword}
+                                            >
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                    {(a.name === 'password' ? showPassword : showConfirmPassword) ? (
+                                                        <>
+                                                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                                                            <circle cx="12" cy="12" r="3" />
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <path d="M3 3l18 18" />
+                                                            <path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7a10 10 0 0 0 4-.8" />
+                                                        </>
+                                                    )}
+                                                </svg>
+                                            </button>
+                                        )}
                                     </div>
+                                    {a.name === 'password' && values.password && (
+                                        <div className={`password-strength strength-${passwordStrength.level}`}>
+                                            <div className="strength-top">
+                                                <span>Password strength</span>
+                                                <span className="strength-label">{passwordStrength.label}</span>
+                                            </div>
+                                            <div
+                                                className="strength-track"
+                                                role="progressbar"
+                                                aria-valuemin={0}
+                                                aria-valuemax={4}
+                                                aria-valuenow={passwordStrength.level}
+                                                aria-label={`Password strength: ${passwordStrength.label}`}
+                                            >
+                                                {[1, 2, 3, 4].map(level => (
+                                                    <span key={level} className={level <= passwordStrength.level ? 'filled' : ''} />
+                                                ))}
+                                            </div>
+                                            <small>Use 8+ characters with uppercase and lowercase letters, a number, and a symbol.</small>
+                                        </div>
+                                    )}
                                     {errors[a.name] && <p className='error-text'>{errors[a.name]}</p>}
                                 </div>
                             ) )}

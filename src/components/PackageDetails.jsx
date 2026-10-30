@@ -3,7 +3,7 @@
 import { useState } from "react";
 import "../stylings/PackageDetails.scss";
 
-import { getStatusInfo, formatDate, formatPlace, getCountryCode } from "../api/shipmentDisplays.js";
+import { getStatusInfo, formatDate, formatPlace, getCountryCode } from "../api/shipmentDisplays";
 
 import packageImg from "../assets/photos/package2.png"
 import packageIcon from "../assets/icons/pacakge-info.png"
