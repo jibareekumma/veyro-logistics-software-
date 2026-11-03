@@ -1,23 +1,20 @@
 
 
+
 @import "../Variable.scss";
 
-
-.quotes-header{
-
+.quotes-header {
     margin: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 
-
-    .quotes-banner{
+    .quotes-banner {
         position: relative;
         display: flex;
     }
 
-
-    .quotes-texts{
+    .quotes-texts {
         position: relative;
         z-index: 1;
         display: flex;
@@ -25,46 +22,42 @@
         gap: 0.5rem;
         width: 100%;
 
-
-        h5{
-            font-size: 0.75rem;
+        h5 {
+            font-size: calc(0.75rem + 1.5px);
             font-weight: 600;
             letter-spacing: 0.1rem;
             color: $accent-glow;
         }
 
-        h3{
-            font-size: 1.7rem;
+        h3 {
+            font-size: calc(1.7rem + 1.5px);
             line-height: 1.2;
             color: $veyro-deep-teal;
         }
 
-        p{
-            font-size: 0.85rem;
+        p {
+            font-size: calc(0.85rem + 1.5px);
             line-height: 1.5;
             color: $muted-gray;
         }
 
         .quotes-title-wide,
-        .quotes-wide-break{
+        .quotes-wide-break {
             display: none;
         }
     }
 
-
-    .quotes-banner-image{
+    .quotes-banner-image {
         display: none;
     }
 
-
-    .quotes-indicators{
+    .quotes-indicators {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0.6rem;
         width: 100%;
 
-
-        .quotes-indicator{
+        .quotes-indicator {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -78,48 +71,46 @@
             cursor: pointer;
             transition: border-color 0.2s ease, background-color 0.2s ease;
 
-            &.active{
+            &.active {
                 border-color: $accent-glow;
                 background-color: #eaf8fc;
                 box-shadow: 0 0 0 1px $accent-glow;
             }
 
-            img{
+            img {
                 width: 2rem;
                 height: 2rem;
                 filter: $filter-accent-glow;
             }
 
-            .quotes-indicator-text{
+            .quotes-indicator-text {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
                 gap: 0.15rem;
 
-                p{
-                    font-size: 0.75rem;
+                p {
+                    font-size: calc(0.75rem + 1.5px);
                     font-weight: 600;
                     color: $veyro-deep-teal;
                 }
 
-                span{
+                span {
                     display: none;
-                    font-size: 0.7rem;
+                    font-size: calc(0.7rem + 1.5px);
                     color: $muted-gray;
                 }
             }
         }
     }
-
 }
 
+@include tablet {
 
-@include tablet{
+    .quotes-header {
 
-    .quotes-header{
-
-        .quotes-banner{
+        .quotes-banner {
             min-height: 9rem;
             padding: 1.3rem 1.5rem;
             border-radius: 0.8rem;
@@ -128,32 +119,32 @@
             border: 1px solid #d8e7ef;
         }
 
-        .quotes-texts{
+        .quotes-texts {
             width: 55%;
             gap: 0.4rem;
 
-            h3{
-                font-size: 1.6rem;
+            h3 {
+                font-size: calc(1.6rem + 1.5px);
             }
 
-            p{
-                font-size: 0.78rem;
+            p {
+                font-size: calc(0.78rem + 1.5px);
             }
 
-            .quotes-title-mobile{
+            .quotes-title-mobile {
                 display: none;
             }
 
-            .quotes-title-wide{
+            .quotes-title-wide {
                 display: inline;
             }
 
-            .quotes-wide-break{
+            .quotes-wide-break {
                 display: inline;
             }
         }
 
-        .quotes-banner-image{
+        .quotes-banner-image {
             display: block;
             position: absolute;
             top: 0;
@@ -167,29 +158,29 @@
             mask-image: linear-gradient(to right, transparent, #000 45%);
         }
 
-        .quotes-indicators{
+        .quotes-indicators {
             gap: 1rem;
 
-            .quotes-indicator{
+            .quotes-indicator {
                 flex-direction: row;
                 justify-content: flex-start;
                 gap: 0.8rem;
                 padding: 1rem;
 
-                img{
+                img {
                     width: 2.4rem;
                     height: 2.4rem;
                 }
 
-                .quotes-indicator-text{
+                .quotes-indicator-text {
                     align-items: flex-start;
                     text-align: left;
 
-                    p{
-                        font-size: 0.85rem;
+                    p {
+                        font-size: calc(0.85rem + 1.5px);
                     }
 
-                    span{
+                    span {
                         display: block;
                     }
                 }
@@ -198,29 +189,28 @@
     }
 }
 
+@include desktop {
 
-@include desktop{
+    .quotes-header {
 
-    .quotes-header{
-
-        .quotes-banner{
+        .quotes-banner {
             min-height: 11rem;
             padding: 1.8rem 2rem;
         }
 
-        .quotes-texts{
+        .quotes-texts {
             width: 50%;
 
-            h3{
-                font-size: 2rem;
+            h3 {
+                font-size: calc(2rem + 1.5px);
             }
 
-            p{
-                font-size: 0.85rem;
+            p {
+                font-size: calc(0.85rem + 1.5px);
             }
         }
 
-        .quotes-banner-image{
+        .quotes-banner-image {
             width: 60%;
         }
     }

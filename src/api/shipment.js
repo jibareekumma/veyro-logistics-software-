@@ -4,6 +4,8 @@ import { API_BASE, authRequest } from './auth'
 
 const packageKeys = ['description', 'category', 'weight', 'length', 'width', 'height']
 
+const quoteModes = { 1: 'ocean', 2: 'air', 3: 'road' }
+
 const toCamel = function(text){
     return text.replace(/_([a-z])/g, function(match, letter){
         return letter.toUpperCase()
@@ -49,8 +51,39 @@ const buildPayload = function(form){
     }
 }
 
+const buildQuotePayload = function(form){
+    return {
+        mode: quoteModes[form.category],
+        delivery_method: form.delivery.toLowerCase().startsWith('express') ? 'express' : 'standard',
+        freight_method: form.method.toLowerCase().startsWith('lcl') ? 'lcl' : 'fcl',
+        origin: form.from,
+        destination: form.to,
+        packages: Number(form.packages),
+        weight: Number(form.weight),
+        length: Number(form.length),
+        width: Number(form.width),
+        height: Number(form.height)
+    }
+}
+
+const shipmentPath = function(trackingId){
+    return `/shipments/${encodeURIComponent(trackingId.trim())}/`
+}
+
 const createShipment = function(form){
     return authRequest('/shipments/', 'POST', buildPayload(form), API_BASE)
+}
+
+const getShipment = function(trackingId){
+    return authRequest(shipmentPath(trackingId), 'GET', null, API_BASE)
+}
+
+const updateShipment = function(trackingId, form){
+    return authRequest(shipmentPath(trackingId), 'PATCH', buildPayload(form), API_BASE)
+}
+
+const deleteShipment = function(trackingId){
+    return authRequest(shipmentPath(trackingId), 'DELETE', null, API_BASE)
 }
 
 const listShipments = function(params = {}){
@@ -63,6 +96,10 @@ const getShipmentStats = function(){
 
 const trackShipment = function(trackingId){
     return authRequest(`/shipments/track/${encodeURIComponent(trackingId.trim())}/`, 'GET', null, API_BASE)
+}
+
+const requestQuote = function(form){
+    return authRequest('/quotes/', 'POST', buildQuotePayload(form), API_BASE)
 }
 
 const mapServerErrors = function(data){
@@ -87,4 +124,4 @@ const mapServerErrors = function(data){
     return result
 }
 
-export { createShipment, listShipments, getShipmentStats, trackShipment, mapServerErrors }
+export { createShipment, getShipment, updateShipment, deleteShipment, listShipments, getShipmentStats, trackShipment, requestQuote, mapServerErrors }

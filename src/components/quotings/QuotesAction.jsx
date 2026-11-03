@@ -6,6 +6,8 @@ import "../../stylings/quotings/QuotesAction.scss";
 import shipmentIcon from "../../assets/icons/pacakge-info.png"
 import locationIcon from "../../assets/icons/nav-addresses.png"
 
+import uploadIcon from "../../assets/icons/upload.png"
+
 const QuotesAction = function ({ form, updateForm, onGetQuote }) {
 
     const [photos, setPhotos] = useState([])
@@ -276,7 +278,9 @@ const QuotesAction = function ({ form, updateForm, onGetQuote }) {
                             onDragOver={function(e){ e.preventDefault() }}
                             onDrop={handleDrop}
                         >
-                            <span className="quotes-icon-placeholder"></span>
+                            <img className="quotes-icon-upload"
+                            src={uploadIcon}
+                            />
                             <p>Click to upload or drag and drop</p>
                             <small>JPG, PNG (Max 5MB each)</small>
                         </label>

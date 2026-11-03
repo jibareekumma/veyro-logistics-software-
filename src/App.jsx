@@ -30,6 +30,7 @@ function App() {
        <Route path = '/tracking/:trackingId' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
 
        <Route path = '/createShipments' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
+       <Route path = '/editShipments/:trackingId' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
 
        <Route path = '/recentshipmentspage' element = {<ProtectedRoute><RecentShipmentsPage/></ProtectedRoute>} />
 

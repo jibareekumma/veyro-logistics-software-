@@ -1,0 +1,112 @@
+.tracking-actions .edit-shipment,
+.tracking-actions .delete-shipment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tracking-actions .edit-shipment p,
+.tracking-actions .delete-shipment p {
+  margin: 0;
+}
+
+.tracking-actions .edit-shipment {
+  border: 1px solid #35afc9;
+  color: #205068;
+}
+
+.tracking-actions .edit-shipment:hover {
+  background-color: #e8f7fb;
+}
+
+.tracking-actions .delete-shipment {
+  border: 1px solid #dc2626;
+  color: #dc2626;
+}
+
+.tracking-actions .delete-shipment:hover {
+  background-color: #fef2f2;
+}
+
+.manage-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(17, 24, 39, 0.55);
+}
+
+.manage-dialog {
+  width: 100%;
+  max-width: 24rem;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  background-color: #ffffff;
+  color: #16466a;
+}
+
+.manage-dialog h4 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+}
+
+.manage-dialog p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #64849c;
+}
+
+.manage-dialog .manage-error {
+  margin-top: 0.8rem;
+  color: #c2410c;
+}
+
+.manage-dialog-actions {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1.4rem;
+}
+
+.manage-dialog-actions button {
+  flex: 1;
+  height: 2.7rem;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.manage-dialog-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.manage-cancel {
+  border: 1px solid #d8e7ef;
+  background-color: #ffffff;
+  color: #16466a;
+}
+
+.manage-confirm {
+  border: none;
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.manage-confirm:hover:not(:disabled) {
+  background-color: #b91c1c;
+}/*# sourceMappingURL=ShipmentManage.css.map */

@@ -1,4 +1,7 @@
-import { useState } from "react";
+
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Sidebar from "../Sidebar";
 import DesktopTopbar from "../DesktopTopbar";
@@ -12,8 +15,8 @@ import ReviewSummary from "./ReviewSummary";
 import OrderSummary from "./OrderSummary";
 import HelpCard from "./HelpCard";
 import ShipmentSuccess from "./ShipmentSuccess";
-import { initialForm, validatePackage, validateParty, calculatePricing } from "./ShipmentHelpers.js";
-import { createShipment, mapServerErrors } from "../../api/shipment.js";
+import { initialForm, validatePackage, validateParty, calculatePricing, shipmentToForm } from "./ShipmentHelpers.js";
+import { createShipment, getShipment, updateShipment, mapServerErrors } from "../../api/shipment.js";
 
 import "../../stylings/dashboard-stylings/Layout.css"
 import "../../stylings/shipments/CreateShipments.scss"
@@ -33,6 +36,9 @@ const emptyErrors = { package: {}, sender: {}, receiver: {} };
 
 const CreateShipments = function(){
 
+    const { trackingId } = useParams();
+    const isEditing = Boolean(trackingId);
+
     const [currentStep, setCurrentStep] = useState(1);
     const [form, setForm] = useState(initialForm);
     const [photos, setPhotos] = useState([]);
@@ -41,8 +47,48 @@ const CreateShipments = function(){
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState('');
     const [createdShipment, setCreatedShipment] = useState(null);
+    const [loadingShipment, setLoadingShipment] = useState(Boolean(trackingId));
+    const [loadError, setLoadError] = useState('');
 
     const pricing = calculatePricing(form.deliveryMethod);
+
+    useEffect(function(){
+        if (!trackingId) {
+            return;
+        }
+
+        let active = true;
+        setLoadingShipment(true);
+        setLoadError('');
+
+        getShipment(trackingId)
+            .then(function(shipment){
+                if (!active) {
+                    return;
+                }
+                if (shipment.status !== 'pending') {
+                    setLoadError('This shipment is already being processed and can no longer be edited.');
+                    return;
+                }
+                setForm(shipmentToForm(shipment));
+            })
+            .catch(function(error){
+                if (active) {
+                    setLoadError(error.status === 404
+                        ? 'We could not find this shipment.'
+                        : 'We could not load this shipment right now. Please try again.');
+                }
+            })
+            .finally(function(){
+                if (active) {
+                    setLoadingShipment(false);
+                }
+            });
+
+        return function(){
+            active = false;
+        };
+    }, [trackingId]);
 
     const scrollToTop = function(){
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -129,6 +175,11 @@ const CreateShipments = function(){
         setIsSubmitting(true);
 
         try {
+            if (isEditing) {
+                await updateShipment(trackingId, form);
+                window.location.assign(`/tracking/${trackingId}`);
+                return;
+            }
             const shipment = await createShipment(form);
             setCreatedShipment(shipment);
             setSubmitted(true);
@@ -141,7 +192,9 @@ const CreateShipments = function(){
                 receiver: mapped.receiver
             };
             setErrors(serverErrors);
-            setSubmitError(mapped.general || 'Could not create the shipment. Please check the details and try again.');
+            setSubmitError(mapped.general || (isEditing
+                ? 'Could not save the changes. Please check the details and try again.'
+                : 'Could not create the shipment. Please check the details and try again.'));
             goToFirstInvalidStep(serverErrors);
             scrollToFirstError();
         } finally {
@@ -167,6 +220,9 @@ const CreateShipments = function(){
 
     const isReview = currentStep === TOTAL_STEPS;
 
+    const idleLabel = isEditing ? 'Save Changes →' : 'Send Shipment →';
+    const busyLabel = isEditing ? 'Saving...' : 'Sending...';
+
     return <>
 
         <div className="dashboard-layout create-shipment-container">
@@ -184,6 +240,15 @@ const CreateShipments = function(){
 
                     {submitted && createdShipment ? (
                         <ShipmentSuccess shipment={createdShipment} onReset={handleReset}/>
+                    ) : loadingShipment ? (
+                        <p>Loading shipment...</p>
+                    ) : loadError ? (
+                        <div className="submit-error" role="alert">
+                            <p>{loadError}</p>
+                            <button type="button" className="back-action" onClick={function(){ window.history.back(); }}>
+                                Go Back
+                            </button>
+                        </div>
                     ) : (
                         <>
                             <div className="create-shipment-heading">
@@ -192,10 +257,12 @@ const CreateShipments = function(){
                                         <img src={leftArr} alt="Back Arrow" />
                                         <span>Back</span>
                                     </button>
-                                    <h4>Create Shipment</h4>
+                                    <h4>{isEditing ? 'Edit Shipment' : 'Create Shipment'}</h4>
                                 </div>
                                 <p className="subtitle">
-                                    Fill in the details below to create a new shipment. You can track it anytime from your dashboard.
+                                    {isEditing
+                                        ? `Update the details of shipment ${trackingId}. Changes are only allowed while it is still processing.`
+                                        : 'Fill in the details below to create a new shipment. You can track it anytime from your dashboard.'}
                                 </p>
                             </div>
 
@@ -246,7 +313,12 @@ const CreateShipments = function(){
                                 </div>
 
                                 <aside className={`shipment-aside ${isReview ? 'is-current' : ''}`}>
-                                    <OrderSummary pricing={pricing} onSubmit={handleSubmit} isSubmitting={isSubmitting}/>
+                                    <OrderSummary
+                                        pricing={pricing}
+                                        onSubmit={handleSubmit}
+                                        isSubmitting={isSubmitting}
+                                        isEditing={isEditing}
+                                    />
                                     <HelpCard/>
                                 </aside>
 
@@ -262,10 +334,10 @@ const CreateShipments = function(){
                                         onClick={isReview ? handleSubmit : handleNext}
                                         disabled={isSubmitting}
                                     >
-                                        {isReview ? (isSubmitting ? 'Sending...' : 'Send Shipment →') : 'Next →'}
+                                        {isReview ? (isSubmitting ? busyLabel : idleLabel) : 'Next →'}
                                     </button>
                                     <button type="button" className="submit-action" onClick={handleSubmit} disabled={isSubmitting}>
-                                        {isSubmitting ? 'Sending...' : 'Send Shipment →'}
+                                        {isSubmitting ? busyLabel : idleLabel}
                                     </button>
                                 </div>
 

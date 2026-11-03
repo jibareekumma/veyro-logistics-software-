@@ -1,3 +1,5 @@
+
+
 export const categories = [
     'Electronics',
     'Clothing',
@@ -62,6 +64,39 @@ export const initialForm = {
         useSaved: false
     },
     deliveryMethod: 'standard'
+};
+
+export const shipmentToForm = function(shipment){
+    return {
+        package: {
+            description: shipment.description,
+            category: shipment.category,
+            weight: String(Number(shipment.weight)),
+            length: String(Number(shipment.length)),
+            width: String(Number(shipment.width)),
+            height: String(Number(shipment.height)),
+            fragile: shipment.fragile
+        },
+        sender: {
+            fullName: shipment.sender_full_name,
+            phone: shipment.sender_phone,
+            email: shipment.sender_email || '',
+            address: shipment.sender_address,
+            city: shipment.sender_city,
+            country: shipment.sender_country,
+            useSaved: false
+        },
+        receiver: {
+            fullName: shipment.receiver_full_name,
+            phone: shipment.receiver_phone,
+            email: shipment.receiver_email || '',
+            address: shipment.receiver_address,
+            city: shipment.receiver_city,
+            country: shipment.receiver_country,
+            useSaved: false
+        },
+        deliveryMethod: shipment.delivery_method
+    };
 };
 
 const isPositiveNumber = function(value){

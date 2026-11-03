@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react"
+
+
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { toPng } from "html-to-image"
 
 import leftArr from "../assets/icons/left-arr.png"
 
@@ -10,11 +13,13 @@ import route from "../assets/icons/route.png"
 import Header from "./Header"
 
 import "../stylings/TrackingResults.css"
+import "../stylings/ShipmentManage.css"
 
 import TrackingMap from "./TrackingMap"
 import PackageDetails from "./PackageDetails"
+import Receipt from "./Receipt"
 
-import { trackShipment } from "../api/shipment.js"
+import { trackShipment, deleteShipment } from "../api/shipment.js"
 import { getStatusInfo, getEventType, getDeliveryLabel, formatDate, formatDateTime } from "../api/shipmentDisplays.js"
 import useTrackSearch from "../api/useTrackSearch.js"
 
@@ -28,6 +33,12 @@ const TrackingResults = function(){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(Boolean(trackingId));
     const [problem, setProblem] = useState('');
+    const [downloading, setDownloading] = useState(false);
+    const [receiptError, setReceiptError] = useState('');
+    const [confirmingDelete, setConfirmingDelete] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [manageError, setManageError] = useState('');
+    const receiptRef = useRef(null);
 
     useEffect(function(){
         if (!trackingId) {
@@ -63,6 +74,60 @@ const TrackingResults = function(){
             active = false;
         };
     }, [trackingId]);
+
+    const downloadReceipt = async function(){
+        if (!receiptRef.current || downloading) {
+            return;
+        }
+
+        setDownloading(true);
+        setReceiptError('');
+
+        try {
+            const options = { pixelRatio: 2, backgroundColor: '#ffffff', cacheBust: true };
+            await toPng(receiptRef.current, options);
+            const dataUrl = await toPng(receiptRef.current, options);
+
+            const link = document.createElement('a');
+            link.download = `VEYRO-Receipt-${data.tracking_id}.png`;
+            link.href = dataUrl;
+            link.click();
+        } catch (error) {
+            setReceiptError('Could not create the receipt. Please try again.');
+        } finally {
+            setDownloading(false);
+        }
+    };
+
+    const openDelete = function(){
+        setManageError('');
+        setConfirmingDelete(true);
+    };
+
+    const closeDelete = function(){
+        if (deleting) {
+            return;
+        }
+        setConfirmingDelete(false);
+    };
+
+    const confirmDelete = async function(){
+        if (deleting) {
+            return;
+        }
+
+        setDeleting(true);
+        setManageError('');
+
+        try {
+            await deleteShipment(data.tracking_id);
+            navigate("/dashboard");
+        } catch (error) {
+            const detail = error.data && error.data.detail;
+            setManageError(detail || 'Could not delete this shipment. Please try again.');
+            setDeleting(false);
+        }
+    };
 
     const renderLookup = function(title, message){
         return <>
@@ -240,7 +305,7 @@ const TrackingResults = function(){
 
                 <div className="tracking-actions">
 
-                    <button className="download">
+                    <button className="download" onClick={downloadReceipt} disabled={downloading}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -256,8 +321,55 @@ const TrackingResults = function(){
                             <path d="M7 10l5 5 5-5" />
                             <path d="M12 15V3" />
                         </svg>
-                        <p>Download Receipt</p>
+                        <p>{downloading ? 'Preparing...' : 'Download Receipt'}</p>
                     </button>
+
+                    {data.can_modify && (
+                        <button
+                            type="button"
+                            className="edit-shipment"
+                            onClick={() => navigate(`/editShipments/${data.tracking_id}`)}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                            </svg>
+                            <p>Edit Shipment</p>
+                        </button>
+                    )}
+
+                    {data.can_modify && (
+                        <button type="button" className="delete-shipment" onClick={openDelete}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M3 6h18" />
+                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                <path d="M10 11v6" />
+                                <path d="M14 11v6" />
+                            </svg>
+                            <p>Delete Shipment</p>
+                        </button>
+                    )}
 
                     <button className="report">
                         <svg
@@ -278,11 +390,40 @@ const TrackingResults = function(){
                         <p>Report a Problem</p>
                     </button>
 
+                    {receiptError && <p>{receiptError}</p>}
+
                 </div>
 
             </div>
 
         </div>
+
+        <Receipt shipment={data} receiptRef={receiptRef}/>
+
+        {confirmingDelete && (
+            <div className="manage-overlay" onClick={closeDelete}>
+                <div
+                    className="manage-dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    <h4>Delete this shipment?</h4>
+                    <p>Shipment {data.tracking_id} will be permanently removed. This cannot be undone.</p>
+
+                    {manageError && <p className="manage-error">{manageError}</p>}
+
+                    <div className="manage-dialog-actions">
+                        <button type="button" className="manage-cancel" onClick={closeDelete} disabled={deleting}>
+                            Keep Shipment
+                        </button>
+                        <button type="button" className="manage-confirm" onClick={confirmDelete} disabled={deleting}>
+                            {deleting ? 'Deleting...' : 'Yes, Delete'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
 
     </>
 }

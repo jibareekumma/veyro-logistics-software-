@@ -5,7 +5,10 @@ import "../../stylings/shipments/OrderSummary.scss"
 import { formatPrice } from "./ShipmentHelpers.js";
 import { BoxIcon, LockIcon } from "./ShipmentIcons";
 
-const OrderSummary = function({ pricing, onSubmit, isSubmitting }){
+const OrderSummary = function({ pricing, onSubmit, isSubmitting, isEditing }){
+
+    const idleLabel = isEditing ? 'Save Changes →' : 'Send Shipment →'
+    const busyLabel = isEditing ? 'Saving...' : 'Sending...'
 
     return <>
 
@@ -29,7 +32,7 @@ const OrderSummary = function({ pricing, onSubmit, isSubmitting }){
             </ul>
 
             <button type="button" className="send-btn" onClick={onSubmit} disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : 'Send Shipment →'}
+                {isSubmitting ? busyLabel : idleLabel}
             </button>
 
             <p className="secure-note">
