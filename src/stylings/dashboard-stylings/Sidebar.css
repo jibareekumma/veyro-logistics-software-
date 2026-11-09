@@ -173,6 +173,31 @@
   margin-top: 0.6rem;
   background-color: #58d0e8;
 }
+.sidebar .logout-section {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.sidebar .logout-section .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1.15rem;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.sidebar .logout-section .nav-link img {
+  width: 1.2rem;
+  height: 1.2rem;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+.sidebar .logout-section .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
 
 @media (min-width: 768px) {
   .menu-toggle,

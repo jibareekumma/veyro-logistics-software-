@@ -1,3 +1,5 @@
+
+
 @import '../Variable.scss';
 
 
@@ -78,43 +80,110 @@
                 }
             }
 
-            .profile{
-                display: flex;
-                align-items: center;
-                gap: 0.7rem;
-                cursor: pointer;
+            .profile-container{
+                position: relative;
 
-                .avatar{
-                    width: 2.6rem;
-                    height: 2.6rem;
+                .profile{
                     display: flex;
                     align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    background-color: $veyro-deep-teal;
-                    color: white;
-                    font-size: 1.05rem;
-                    font-weight: 550;
-                }
+                    gap: 0.7rem;
+                    cursor: pointer;
+                    user-select: none;
 
-                .names{
-                    h5{
-                        font-size: 1.1rem;
+                    .avatar{
+                        width: 2.6rem;
+                        height: 2.6rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        background-color: $veyro-deep-teal;
+                        color: white;
+                        font-size: 1.05rem;
                         font-weight: 550;
-                        color: $veyro-near-black;
                     }
-                    p{
-                        font-size: 0.95rem;
-                        color: #6b7280;
+
+                    .names{
+                        h5{
+                            font-size: 1.1rem;
+                            font-weight: 550;
+                            color: $veyro-near-black;
+                        }
+
+                        p{
+                            font-size: 0.95rem;
+                            color: #6b7280;
+                        }
+                    }
+
+                    > img{
+                        width: 0.8rem;
+                        height: 0.8rem;
+                        transition: transform 0.25s ease;
+
+                        &.rotate{
+                            transform: rotate(180deg);
+                        }
                     }
                 }
 
-                > img{
-                    width: 0.8rem;
-                    height: 0.8rem;
+                .profile-dropdown{
+                    position: absolute;
+                    top: calc(100% + 0.9rem);
+                    right: 0;
+                    z-index: 100;
+                    width: 12rem;
+                    padding: 0.5rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.25rem;
+                    background-color: white;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+                    animation: dropdownFade 0.2s ease;
+
+                    a,
+                    button{
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                        padding: 0.75rem 0.8rem;
+                        border: none;
+                        border-radius: 5px;
+                        background: transparent;
+                        text-decoration: none;
+                        text-align: left;
+                        font-family: ubuntu;
+                        font-size: 0.95rem;
+                        color: $veyro-near-black;
+                        cursor: pointer;
+                        transition: background-color 0.2s ease;
+
+                        &:hover{
+                            background-color: rgba(88, 208, 232, 0.12);
+                        }
+                    }
+
+                    button{
+                        color: #dc3545;
+                    }
                 }
             }
         }
+    }
+}
+
+
+@keyframes dropdownFade{
+    from{
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to{
+        opacitya: 1;
+        transform: translateY(0);
     }
 }
 

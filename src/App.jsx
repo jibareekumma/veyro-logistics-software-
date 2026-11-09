@@ -14,6 +14,8 @@ import RecentShipmentsPage from "./components/shipments/RecentShipmentsPage";
 import Quotes from "./components/quotings/Quotes";
 import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
+import Profile from "./components/user/Profile";
+
 
 import {Routes, Route} from "react-router-dom";
 
@@ -36,9 +38,10 @@ function App() {
 
        <Route path = '/quotes' element = {<ProtectedRoute><Quotes/></ProtectedRoute>} />
 
-       
+       <Route path = '/profile' element = {<ProtectedRoute><Profile/></ProtectedRoute>} />
+
     </Routes>
    )
-}
+};
 
 export default App

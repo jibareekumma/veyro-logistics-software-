@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { NavLink } from 'react-router-dom'
@@ -10,6 +12,8 @@ import addressesIcon from "../assets/icons/nav-addresses.png"
 import supportIcon from "../assets/icons/nav-support.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import profileIcon from "../assets/icons/nav-profile.png"
+
+import logout from "../assets/icons/logout-icon.png"
 import quoting from "../assets/icons/quoting.png"
 
 import "../stylings/dashboard-stylings/Sidebar.css"
@@ -92,6 +96,15 @@ const Sidebar = function({ showToggle }){
                 <p>GLOBAL LOGISTICS.</p>
                 <p>SIMPLIFIED.</p>
             </div>
+
+            <div className='logout-section'>
+                <NavLink to='/profile' className='nav-link'
+                onClick={() => setOpen(false)}>
+                    <img src={logout} alt="Log Out icon" loading='lazy'/>
+                    <span>Log Out</span>
+                </NavLink>
+            </div>
+
         </aside>
     </>
 

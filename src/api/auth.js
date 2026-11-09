@@ -5,14 +5,15 @@ const API_BASE = `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/api
 const API_URL = `${API_BASE}/auth`
 
 const request = async function(path, method, body, token, base = API_URL){
-    const headers = { 'Content-Type': 'application/json' }
+    const isForm = body instanceof FormData
+    const headers = isForm ? {} : { 'Content-Type': 'application/json' }
     if (token) {
         headers.Authorization = `Bearer ${token}`
     }
     const response = await fetch(`${base}${path}`, {
         method: method,
         headers: headers,
-        body: body ? JSON.stringify(body) : undefined
+        body: body ? (isForm ? body : JSON.stringify(body)) : undefined
     })
     const data = await response.json().catch(function(){
         return {}
@@ -67,6 +68,13 @@ const saveSession = function(data, remember){
     store.setItem('veyro_access', data.tokens.access)
     store.setItem('veyro_refresh', data.tokens.refresh)
     store.setItem('veyro_user', JSON.stringify(data.user))
+}
+
+const updateStoredUser = function(user){
+    const storage = getStorage()
+    if (storage) {
+        storage.setItem('veyro_user', JSON.stringify(user))
+    }
 }
 
 const getAccessToken = function(){
@@ -137,8 +145,22 @@ const getCurrentUser = function(){
     return authRequest('/me/', 'GET', null)
 }
 
+const uploadAvatar = async function(file){
+    const formData = new FormData()
+    formData.append('avatar', file)
+    const user = await authRequest('/avatar/', 'POST', formData)
+    updateStoredUser(user)
+    return user
+}
+
+const removeAvatar = async function(){
+    const user = await authRequest('/avatar/', 'DELETE', null)
+    updateStoredUser(user)
+    return user
+}
+
 const logoutUser = function(){
     clearSession()
 }
 
-export { API_BASE, authRequest, registerUser, loginUser, getCurrentUser, saveSession, clearSession, getAccessToken, hasSession, getStoredUser, logoutUser, parseErrors }
+export { API_BASE, authRequest, registerUser, loginUser, getCurrentUser, uploadAvatar, removeAvatar, updateStoredUser, saveSession, clearSession, getAccessToken, hasSession, getStoredUser, logoutUser, parseErrors }
