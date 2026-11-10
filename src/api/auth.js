@@ -74,6 +74,7 @@ const updateStoredUser = function(user){
     const storage = getStorage()
     if (storage) {
         storage.setItem('veyro_user', JSON.stringify(user))
+        window.dispatchEvent(new Event('veyro-user-updated'))
     }
 }
 

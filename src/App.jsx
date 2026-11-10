@@ -15,6 +15,7 @@ import Quotes from "./components/quotings/Quotes";
 import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
 import Profile from "./components/user/Profile";
+import SavedAddresses from "./components/user/SavedAddresses";
 
 
 import {Routes, Route} from "react-router-dom";
@@ -39,6 +40,7 @@ function App() {
        <Route path = '/quotes' element = {<ProtectedRoute><Quotes/></ProtectedRoute>} />
 
        <Route path = '/profile' element = {<ProtectedRoute><Profile/></ProtectedRoute>} />
+       <Route path = '/addresses' element = {<ProtectedRoute><SavedAddresses/></ProtectedRoute>} />
 
     </Routes>
    )

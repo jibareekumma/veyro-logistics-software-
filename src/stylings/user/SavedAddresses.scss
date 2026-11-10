@@ -1,0 +1,600 @@
+
+@import "../Variable.scss";
+
+
+// ==========================================
+// MOBILE FIRST (DEFAULT)
+// ==========================================
+
+.addresses-mobile-header {
+    @include tablet {
+        display: none;
+    }
+}
+
+
+.addresses-content {
+    font-family: $fira-sans;
+    width: 100%;
+    padding: 16px 16px 24px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+
+    // ======================================
+    // PAGE HEADING
+    // ======================================
+
+    .addresses-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .addresses-texts {
+
+            .headings {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 5px;
+
+                img {
+                    width: 23px;
+                    height: 23px;
+                    object-fit: contain;
+                }
+
+                h3 {
+                    font-size: 21px;
+                    font-weight: 700;
+                    color: $veyro-deep-teal;
+                    margin: 0;
+                }
+            }
+
+            p {
+                font-size: 13px;
+                line-height: 1.5;
+                color: $muted-gray;
+                margin: 0;
+            }
+        }
+
+
+        // ADD ADDRESS BUTTON
+
+        .add-address-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            width: 100%;
+            min-height: 43px;
+            padding: 10px 16px;
+
+            background: $accent-gradient;
+            border: none;
+            border-radius: 7px;
+
+            cursor: pointer;
+            transition: 0.25s ease;
+
+            img {
+                width: 15px;
+                height: 15px;
+                object-fit: contain;
+                filter: $filter-white;
+            }
+
+            p {
+                font-family: $fira-sans;
+                font-size: 13px;
+                font-weight: 600;
+                color: $veyro-white;
+                margin: 0;
+            }
+
+            &:hover {
+                filter: brightness(0.95);
+                transform: translateY(-1px);
+            }
+        }
+    }
+
+
+    // ======================================
+    // SAVED ADDRESSES CONTAINER
+    // ======================================
+
+    .saved-container {
+        order: 1;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        width: 100%;
+
+        .address-saved {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            width: 100%;
+            min-height: 80px;
+            padding: 13px 12px;
+
+            box-sizing: border-box;
+
+            background: $veyro-white;
+            border: 1px solid rgba(88, 208, 232, 0.25);
+            border-radius: 9px;
+
+            transition: 0.25s ease;
+
+
+            // ADDRESS ICON
+
+            .icon1 {
+                width: 35px;
+                height: 35px;
+                min-width: 35px;
+                object-fit: contain;
+            }
+
+
+            // ADDRESS TEXTS
+
+            .texts {
+                flex: 1;
+                min-width: 0;
+
+                h5 {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: $veyro-deep-teal;
+                    margin: 0 0 5px;
+                }
+
+                p {
+                    font-size: 11px;
+                    line-height: 1.5;
+                    color: $muted-gray;
+                    margin: 0;
+                    overflow-wrap: anywhere;
+                }
+            }
+
+
+            // DEFAULT BADGE
+
+            .default-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 5px 9px;
+
+                background: rgba(88, 208, 232, 0.2);
+                color: $veyro-deep-teal;
+
+                border-radius: 6px;
+
+                font-size: 10px;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+
+            // ADDRESS ACTIONS
+
+            .address-actions {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .edit-btn,
+                .delete-btn {
+                    display: none;
+                }
+
+
+                // MORE OPTIONS
+
+                .more-btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    width: 25px;
+                    height: 30px;
+
+                    padding: 0;
+
+                    background: transparent;
+                    border: none;
+
+                    cursor: pointer;
+
+                    .dot-icon {
+                        width: 17px;
+                        height: 17px;
+                        object-fit: contain;
+                    }
+                }
+            }
+
+
+            &:hover {
+                border-color: $veyro-bright-cyan;
+                box-shadow: 0 3px 12px rgba(32, 80, 104, 0.06);
+            }
+        }
+    }
+
+
+    // ======================================
+    // NOTICE / INFORMATION CARD
+    // ======================================
+
+    .notice {
+        order: 2;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        width: 100%;
+        min-height: 55px;
+        padding: 12px;
+
+        box-sizing: border-box;
+
+        background: rgba(88, 208, 232, 0.12);
+        border: 1px solid rgba(88, 208, 232, 0.12);
+        border-radius: 8px;
+
+        .notice-icon {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            object-fit: contain;
+        }
+
+        p {
+            font-size: 11px;
+            line-height: 1.5;
+            color: $veyro-deep-teal;
+            margin: 0;
+        }
+    }
+}
+
+
+
+// ==========================================
+// TABLET (768px AND ABOVE)
+// ==========================================
+
+@include tablet {
+
+    .addresses-content {
+        padding: 24px 20px 30px;
+        gap: 20px;
+
+
+        // ==================================
+        // PAGE HEADING
+        // ==================================
+
+        .addresses-heading {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            .addresses-texts {
+
+                .headings {
+                    gap: 11px;
+
+                    img {
+                        width: 25px;
+                        height: 25px;
+                    }
+
+                    h3 {
+                        font-size: 22px;
+                    }
+                }
+
+                p {
+                    font-size: 13px;
+                }
+            }
+
+
+            .add-address-btn {
+                width: auto;
+                min-width: 155px;
+                padding: 12px 16px;
+            }
+        }
+
+
+        // ==================================
+        // SAVED ADDRESSES
+        // ==================================
+
+        .saved-container {
+            gap: 10px;
+
+            .address-saved {
+                min-height: 80px;
+                padding: 15px 17px;
+                gap: 12px;
+
+
+                .icon1 {
+                    width: 38px;
+                    height: 38px;
+                }
+
+
+                .texts {
+
+                    h5 {
+                        font-size: 14px;
+                    }
+
+                    p {
+                        font-size: 12px;
+                    }
+                }
+
+
+                // DEFAULT BADGE
+
+                .default-badge {
+                    padding: 6px 10px;
+                    font-size: 11px;
+                }
+
+
+                // EDIT / DELETE / MORE OPTIONS
+
+                .address-actions {
+                    margin-left: auto;
+                    gap: 8px;
+
+                    .edit-btn,
+                    .delete-btn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+
+                        padding: 9px 11px;
+
+                        background: $veyro-white;
+                        border: 1px solid rgba(88, 208, 232, 0.3);
+                        border-radius: 20px;
+
+                        color: $veyro-deep-teal;
+                        font-family: $fira-sans;
+                        font-size: 11px;
+                        font-weight: 600;
+
+                        white-space: nowrap;
+                        cursor: pointer;
+
+                        transition: 0.2s ease;
+
+                        .action-icon {
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            font-size: 15px;
+                            color: $veyro-deep-teal;
+                        }
+
+                        &:hover {
+                            background: rgba(88, 208, 232, 0.12);
+                            border-color: $veyro-bright-cyan;
+                        }
+                    }
+
+
+                    // DELETE BUTTON
+
+                    .delete-btn {
+
+                        &:hover {
+                            background: #fff1f1;
+                            border-color: #e5a0a0;
+                            color: #c0392b;
+                        }
+
+                        .delete-icon {
+                            color: #c0392b;
+                        }
+                    }
+
+
+                    // MORE OPTIONS
+
+                    .more-btn {
+                        width: 23px;
+                        height: 32px;
+
+                        .dot-icon {
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // ==================================
+        // NOTICE
+        // ==================================
+
+        .notice {
+            justify-content: center;
+            min-height: 58px;
+            padding: 14px 18px;
+
+            .notice-icon {
+                width: 19px;
+                height: 19px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+
+
+// ==========================================
+// DESKTOP (1024px AND ABOVE)
+// ==========================================
+
+@include desktop {
+
+    .addresses-content {
+        padding: 28px 24px 35px;
+        gap: 17px;
+
+
+        // ==================================
+        // PAGE HEADING
+        // ==================================
+
+        .addresses-heading {
+            margin-bottom: 0;
+
+            .addresses-texts {
+
+                .headings {
+
+                    img {
+                        width: 27px;
+                        height: 27px;
+                    }
+
+                    h3 {
+                        font-size: 23px;
+                    }
+                }
+
+                p {
+                    font-size: 13px;
+                }
+            }
+
+
+            .add-address-btn {
+                min-width: 165px;
+                min-height: 43px;
+            }
+        }
+
+
+        // ==================================
+        // NOTICE
+        // MOVES ABOVE THE ADDRESS LIST
+        // ==================================
+
+        .notice {
+            order: 1;
+
+            justify-content: flex-start;
+
+            min-height: 58px;
+            padding: 15px 20px;
+
+            .notice-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
+
+
+        // ==================================
+        // SAVED ADDRESSES
+        // ==================================
+
+        .saved-container {
+            order: 2;
+            gap: 10px;
+
+            .address-saved {
+                min-height: 73px;
+                padding: 14px 18px;
+                gap: 15px;
+
+                border-radius: 9px;
+
+
+                .icon1 {
+                    width: 40px;
+                    height: 40px;
+                }
+
+
+                .texts {
+
+                    h5 {
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                    }
+
+                    p {
+                        font-size: 12px;
+                    }
+                }
+
+
+                // DEFAULT BADGE
+
+                .default-badge {
+                    padding: 6px 11px;
+                    font-size: 11px;
+                }
+
+
+                // ADDRESS ACTIONS
+
+                .address-actions {
+                    gap: 9px;
+
+                    .edit-btn,
+                    .delete-btn {
+                        padding: 9px 13px;
+                        font-size: 12px;
+                    }
+
+                    .more-btn {
+                        width: 22px;
+                        height: 34px;
+                    }
+                }
+            }
+        }
+    }
+}

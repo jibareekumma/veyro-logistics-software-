@@ -2,12 +2,13 @@
 
 
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../Sidebar";
 import DesktopTopbar from "../DesktopTopbar";
 import Header from "../Header";
 
-import { getCurrentUser, getStoredUser, parseErrors, updateStoredUser, uploadAvatar } from "../../api/auth";
+import { getCurrentUser, getStoredUser, logoutUser, parseErrors, updateStoredUser, uploadAvatar } from "../../api/auth";
 
 import "../../stylings/dashboard-stylings/Layout.css";
 import "../../stylings/user/Profile.scss";
@@ -27,10 +28,14 @@ import signOut from "../../assets/icons/logout-icon.png";
 import pencil from "../../assets/icons/pencil.png"
 import rightArr2 from "../../assets/icons/right-arrow.png"
 import verified from "../../assets/icons/secured-icon.png"
+import quoting from "../../assets/icons/quotings.png"
+
 
 const MAX_AVATAR_SIZE = 2 * 1024 * 1024;
 
 const Profile = function(){
+
+    const navigate = useNavigate();
 
     const storedUser = getStoredUser();
 
@@ -51,6 +56,11 @@ const Profile = function(){
             active = false;
         };
     }, []);
+
+    const handleLogout = function(){
+        logoutUser();
+        navigate("/login", { replace: true });
+    };
 
     const handleAvatarChange = async function(event){
         const file = event.target.files[0];
@@ -89,12 +99,16 @@ const Profile = function(){
             icon: packageIcon,
             title: "View Shipments",
             texts: "Track and manage all shipments",
+            onClick: () => navigate('/recentshipmentspage')
+            
         },
         {
             id: 2,
             icon: address,
             title: "Addresses",
             texts: "Manage your addresses",
+            onClick: () => navigate('/addresses')
+            
         },
         {
             id: 3,
@@ -105,9 +119,10 @@ const Profile = function(){
         },
         {
             id: 4,
-            icon: settings,
-            title: "Settings",
-            texts: "Account settings & preferences",
+            icon: quoting,
+            title: "Quoting",
+            texts: "Get a quick and easy Quoting",
+            onClick: () => navigate('/quotes')
         },
         {
             id: 5,
@@ -216,7 +231,7 @@ const Profile = function(){
 
                         {profileLinks.map((a) =>(
 
-                            <div className="container" key={a.id}>
+                            <div className="container" key={a.id} onClick = {a.onClick}>
 
                                 <img
                                     src={a.icon}
@@ -241,7 +256,7 @@ const Profile = function(){
                         ))}
 
 
-                        <div className="logout">
+                        <div className="logout" onClick={handleLogout}>
                             <img src={signOut} alt=""/>
                             <p>Log Out</p>
                         </div>
@@ -260,7 +275,7 @@ const Profile = function(){
 
                             {quickAccess.map((a) =>(
 
-                                <div className="access-card" key={a.id}>
+                                <div className="access-card" key={a.id} onClick={a.onClick}>
 
                                     <div className="access-icon">
                                         <img src={a.icon} alt=""/>
@@ -336,7 +351,7 @@ const Profile = function(){
 
                     {/* LOGOUT - TABLET AND DESKTOP */}
 
-                    <div className="profile-desktop-logout">
+                    <div className="profile-desktop-logout" onClick={handleLogout}>
 
                         <img src={signOut} alt=""/>
 

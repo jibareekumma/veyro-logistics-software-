@@ -1,0 +1,386 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+@media (min-width: 768px) {
+  .addresses-mobile-header {
+    display: none;
+  }
+}
+
+.addresses-content {
+  font-family: fira-sans;
+  width: 100%;
+  padding: 16px 16px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.addresses-content .addresses-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.addresses-content .addresses-heading .addresses-texts .headings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.addresses-content .addresses-heading .addresses-texts .headings img {
+  width: 23px;
+  height: 23px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.addresses-content .addresses-heading .addresses-texts .headings h3 {
+  font-size: 21px;
+  font-weight: 700;
+  color: #205068;
+  margin: 0;
+}
+.addresses-content .addresses-heading .addresses-texts p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 0;
+}
+.addresses-content .addresses-heading .add-address-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 43px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.addresses-content .addresses-heading .add-address-btn img {
+  width: 15px;
+  height: 15px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.addresses-content .addresses-heading .add-address-btn p {
+  font-family: fira-sans;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+.addresses-content .addresses-heading .add-address-btn:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+.addresses-content .saved-container {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.addresses-content .saved-container .address-saved {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 80px;
+  padding: 13px 12px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(88, 208, 232, 0.25);
+  border-radius: 9px;
+  transition: 0.25s ease;
+}
+.addresses-content .saved-container .address-saved .icon1 {
+  width: 35px;
+  height: 35px;
+  min-width: 35px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.addresses-content .saved-container .address-saved .texts {
+  flex: 1;
+  min-width: 0;
+}
+.addresses-content .saved-container .address-saved .texts h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #205068;
+  margin: 0 0 5px;
+}
+.addresses-content .saved-container .address-saved .texts p {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.addresses-content .saved-container .address-saved .default-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  background: rgba(88, 208, 232, 0.2);
+  color: #205068;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.addresses-content .saved-container .address-saved .address-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addresses-content .saved-container .address-saved .address-actions .edit-btn,
+.addresses-content .saved-container .address-saved .address-actions .delete-btn {
+  display: none;
+}
+.addresses-content .saved-container .address-saved .address-actions .more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.addresses-content .saved-container .address-saved .address-actions .more-btn .dot-icon {
+  width: 17px;
+  height: 17px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.addresses-content .saved-container .address-saved:hover {
+  border-color: #58d0e8;
+  box-shadow: 0 3px 12px rgba(32, 80, 104, 0.06);
+}
+.addresses-content .notice {
+  order: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 55px;
+  padding: 12px;
+  box-sizing: border-box;
+  background: rgba(88, 208, 232, 0.12);
+  border: 1px solid rgba(88, 208, 232, 0.12);
+  border-radius: 8px;
+}
+.addresses-content .notice .notice-icon {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.addresses-content .notice p {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #205068;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .addresses-content {
+    padding: 24px 20px 30px;
+    gap: 20px;
+  }
+  .addresses-content .addresses-heading {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .addresses-content .addresses-heading .addresses-texts .headings {
+    gap: 11px;
+  }
+  .addresses-content .addresses-heading .addresses-texts .headings img {
+    width: 25px;
+    height: 25px;
+  }
+  .addresses-content .addresses-heading .addresses-texts .headings h3 {
+    font-size: 22px;
+  }
+  .addresses-content .addresses-heading .addresses-texts p {
+    font-size: 13px;
+  }
+  .addresses-content .addresses-heading .add-address-btn {
+    width: auto;
+    min-width: 155px;
+    padding: 12px 16px;
+  }
+  .addresses-content .saved-container {
+    gap: 10px;
+  }
+  .addresses-content .saved-container .address-saved {
+    min-height: 80px;
+    padding: 15px 17px;
+    gap: 12px;
+  }
+  .addresses-content .saved-container .address-saved .icon1 {
+    width: 38px;
+    height: 38px;
+  }
+  .addresses-content .saved-container .address-saved .texts h5 {
+    font-size: 14px;
+  }
+  .addresses-content .saved-container .address-saved .texts p {
+    font-size: 12px;
+  }
+  .addresses-content .saved-container .address-saved .default-badge {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  .addresses-content .saved-container .address-saved .address-actions {
+    margin-left: auto;
+    gap: 8px;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .edit-btn,
+  .addresses-content .saved-container .address-saved .address-actions .delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 11px;
+    background: #ffffff;
+    border: 1px solid rgba(88, 208, 232, 0.3);
+    border-radius: 20px;
+    color: #205068;
+    font-family: fira-sans;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .edit-btn .action-icon,
+  .addresses-content .saved-container .address-saved .address-actions .delete-btn .action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #205068;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .edit-btn:hover,
+  .addresses-content .saved-container .address-saved .address-actions .delete-btn:hover {
+    background: rgba(88, 208, 232, 0.12);
+    border-color: #58d0e8;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .delete-btn:hover {
+    background: #fff1f1;
+    border-color: #e5a0a0;
+    color: #c0392b;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .delete-btn .delete-icon {
+    color: #c0392b;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .more-btn {
+    width: 23px;
+    height: 32px;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .more-btn .dot-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .addresses-content .notice {
+    justify-content: center;
+    min-height: 58px;
+    padding: 14px 18px;
+  }
+  .addresses-content .notice .notice-icon {
+    width: 19px;
+    height: 19px;
+  }
+  .addresses-content .notice p {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1024px) {
+  .addresses-content {
+    padding: 28px 24px 35px;
+    gap: 17px;
+  }
+  .addresses-content .addresses-heading {
+    margin-bottom: 0;
+  }
+  .addresses-content .addresses-heading .addresses-texts .headings img {
+    width: 27px;
+    height: 27px;
+  }
+  .addresses-content .addresses-heading .addresses-texts .headings h3 {
+    font-size: 23px;
+  }
+  .addresses-content .addresses-heading .addresses-texts p {
+    font-size: 13px;
+  }
+  .addresses-content .addresses-heading .add-address-btn {
+    min-width: 165px;
+    min-height: 43px;
+  }
+  .addresses-content .notice {
+    order: 1;
+    justify-content: flex-start;
+    min-height: 58px;
+    padding: 15px 20px;
+  }
+  .addresses-content .notice .notice-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .addresses-content .notice p {
+    font-size: 12px;
+  }
+  .addresses-content .saved-container {
+    order: 2;
+    gap: 10px;
+  }
+  .addresses-content .saved-container .address-saved {
+    min-height: 73px;
+    padding: 14px 18px;
+    gap: 15px;
+    border-radius: 9px;
+  }
+  .addresses-content .saved-container .address-saved .icon1 {
+    width: 40px;
+    height: 40px;
+  }
+  .addresses-content .saved-container .address-saved .texts h5 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .addresses-content .saved-container .address-saved .texts p {
+    font-size: 12px;
+  }
+  .addresses-content .saved-container .address-saved .default-badge {
+    padding: 6px 11px;
+    font-size: 11px;
+  }
+  .addresses-content .saved-container .address-saved .address-actions {
+    gap: 9px;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .edit-btn,
+  .addresses-content .saved-container .address-saved .address-actions .delete-btn {
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+  .addresses-content .saved-container .address-saved .address-actions .more-btn {
+    width: 22px;
+    height: 34px;
+  }
+}/*# sourceMappingURL=SavedAddresses.css.map */

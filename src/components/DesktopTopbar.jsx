@@ -1,8 +1,9 @@
 
 
+
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
-import { getStoredUser } from '../api/auth'
+import { getStoredUser, logoutUser } from '../api/auth'
 
 import searchIcon from "../assets/icons/search-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
@@ -13,14 +14,14 @@ import "../stylings/dashboard-stylings/Topbar.css"
 
 const DesktopTopbar = function(){
 
-    const user = getStoredUser()
+    const [user, setUser] = useState(getStoredUser())
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
     const dropdownRef = useRef(null)
     const navigate = useNavigate()
 
     const getInitials = function(name){
-        return name
+        return (name || '')
             .split(' ')
             .filter(Boolean)
             .slice(0, 2)
@@ -43,12 +44,18 @@ const DesktopTopbar = function(){
             }
         }
 
+        const handleUserUpdated = function(){
+            setUser(getStoredUser())
+        }
+
         document.addEventListener('mousedown', handleClickOutside)
         document.addEventListener('keydown', handleEscape)
+        window.addEventListener('veyro-user-updated', handleUserUpdated)
 
         return function(){
             document.removeEventListener('mousedown', handleClickOutside)
             document.removeEventListener('keydown', handleEscape)
+            window.removeEventListener('veyro-user-updated', handleUserUpdated)
         }
 
     }, [])
@@ -56,9 +63,7 @@ const DesktopTopbar = function(){
 
     const handleLogout = function(){
 
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('refresh_token')
-        localStorage.removeItem('user')
+        logoutUser()
 
         setDropdownOpen(false)
         navigate('/login')
@@ -98,7 +103,16 @@ const DesktopTopbar = function(){
                     }}
                 >
 
-                    <div className='avatar'>{getInitials(user.full_name)}</div>
+                    <div className='avatar' style={{ overflow: 'hidden' }}>
+                        {user.avatar
+                            ? <img
+                                src={user.avatar}
+                                alt="Profile"
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
+                            />
+                            : getInitials(user.full_name)
+                        }
+                    </div>
 
                     <div className='names'>
                         <h5>{user.full_name}</h5>

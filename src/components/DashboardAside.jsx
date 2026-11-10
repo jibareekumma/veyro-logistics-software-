@@ -19,7 +19,7 @@ const DashboardAside = function(){
     const actions = [
         { id: 1, icon: boxIcon, title: 'Create Shipment', text: 'Start a new shipment', path: '/createShipments' },
         { id: 2, icon: trackIcon, title: 'Track a Package', text: 'Check shipment status', path: '/tracking' },
-        { id: 3, icon: addressesIcon, title: 'Addresses', text: 'Manage saved addresses' },
+        { id: 3, icon: addressesIcon, title: 'Addresses', text: 'Manage saved addresses', path: '/addresses' },
         { id: 4, icon: supportIcon, title: 'Support', text: 'Get help & open a ticket' },
     ]
 
