@@ -1,0 +1,237 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.address-prompt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(24, 24, 24, 0.45);
+  backdrop-filter: blur(3px);
+}
+.address-prompt-overlay .address-prompt-modal {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -5px 25px rgba(24, 24, 24, 0.12);
+  font-family: fira-sans;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-header .address-prompt-heading h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #181818;
+  margin: 0 0 6px;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-header .address-prompt-heading p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 0;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-header .address-prompt-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #181818;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card {
+  padding: 12px;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  border: 1px solid rgba(88, 208, 232, 0.25);
+  border-radius: 9px;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-check input {
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  accent-color: #58d0e8;
+  cursor: pointer;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-check .address-prompt-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-check .address-prompt-text strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #205068;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-check .address-prompt-text small {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6b7280;
+  overflow-wrap: anywhere;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(88, 208, 232, 0.2);
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  min-width: 0;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #205068;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group input,
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group select {
+  width: 100%;
+  height: 38px;
+  padding: 0 11px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(88, 208, 232, 0.35);
+  border-radius: 6px;
+  outline: none;
+  font-family: fira-sans;
+  font-size: 12px;
+  color: #205068;
+  transition: 0.2s ease;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group input::-moz-placeholder, .address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group select::-moz-placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group input::placeholder,
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group select::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group input:focus,
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group select:focus {
+  border-color: #58d0e8;
+  box-shadow: 0 0 0 2px rgba(88, 208, 232, 0.1);
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-list .address-prompt-card .address-prompt-fields .address-prompt-group select {
+  cursor: pointer;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-hint {
+  margin: 12px 0 0;
+  padding: 9px 12px;
+  background: #ffedd5;
+  border-radius: 7px;
+  font-size: 12px;
+  color: #c2410c;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(88, 208, 232, 0.15);
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-family: fira-sans;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions .address-prompt-skip {
+  background: #ffffff;
+  border: 1px solid #58d0e8;
+  color: #205068;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions .address-prompt-skip:hover {
+  background: rgba(88, 208, 232, 0.1);
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions .address-prompt-confirm {
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  color: #ffffff;
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions .address-prompt-confirm:hover:not(:disabled) {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+.address-prompt-overlay .address-prompt-modal .address-prompt-actions .address-prompt-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .address-prompt-overlay {
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .address-prompt-overlay .address-prompt-modal {
+    max-width: 480px;
+    max-height: 85vh;
+    padding: 24px 22px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(24, 24, 24, 0.15);
+  }
+  .address-prompt-overlay .address-prompt-modal .address-prompt-actions {
+    justify-content: flex-end;
+  }
+  .address-prompt-overlay .address-prompt-modal .address-prompt-actions button {
+    width: auto;
+    min-width: 120px;
+  }
+}/*# sourceMappingURL=SaveAddressPrompt.css.map */

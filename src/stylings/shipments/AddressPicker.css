@@ -1,0 +1,44 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.address-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(88, 208, 232, 0.25);
+  border-radius: 10px;
+  font-family: fira-sans;
+}
+.address-picker label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #205068;
+}
+.address-picker select {
+  width: 100%;
+  height: 40px;
+  padding: 0 11px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(88, 208, 232, 0.35);
+  border-radius: 6px;
+  outline: none;
+  font-family: fira-sans;
+  font-size: 12px;
+  color: #205068;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.address-picker select:focus {
+  border-color: #58d0e8;
+  box-shadow: 0 0 0 2px rgba(88, 208, 232, 0.1);
+}/*# sourceMappingURL=AddressPicker.css.map */

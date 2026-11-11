@@ -15,8 +15,11 @@ import ReviewSummary from "./ReviewSummary";
 import OrderSummary from "./OrderSummary";
 import HelpCard from "./HelpCard";
 import ShipmentSuccess from "./ShipmentSuccess";
+import AddressPicker from "./AddressPicker";
+import SaveAddressPrompt from "./SaveAddressPrompt";
 import { initialForm, validatePackage, validateParty, calculatePricing, shipmentToForm } from "./ShipmentHelpers.js";
 import { createShipment, getShipment, updateShipment, mapServerErrors } from "../../api/shipment.js";
+import { API_BASE, authRequest } from "../../api/auth";
 
 import "../../stylings/dashboard-stylings/Layout.css"
 import "../../stylings/shipments/CreateShipments.scss"
@@ -32,6 +35,17 @@ const validators = {
     receiver: validateParty
 };
 const emptyErrors = { package: {}, sender: {}, receiver: {} };
+const partyLabels = [
+    ['sender', 'Sender address'],
+    ['receiver', 'Receiver address']
+];
+
+
+const addressKey = function(address, city, country){
+    return [address, city, country].map(function(value){
+        return (value || '').trim().toLowerCase();
+    }).join('|');
+};
 
 
 const CreateShipments = function(){
@@ -49,8 +63,23 @@ const CreateShipments = function(){
     const [createdShipment, setCreatedShipment] = useState(null);
     const [loadingShipment, setLoadingShipment] = useState(Boolean(trackingId));
     const [loadError, setLoadError] = useState('');
+    const [savedAddresses, setSavedAddresses] = useState([]);
+    const [saveCandidates, setSaveCandidates] = useState(null);
 
     const pricing = calculatePricing(form.deliveryMethod);
+
+    const loadSavedAddresses = async function(){
+        try {
+            const data = await authRequest("/", "GET", null, `${API_BASE}/addresses`);
+            setSavedAddresses(Array.isArray(data) ? data : []);
+        } catch (error) {
+            setSavedAddresses([]);
+        }
+    };
+
+    useEffect(function(){
+        loadSavedAddresses();
+    }, []);
 
     useEffect(function(){
         if (!trackingId) {
@@ -112,6 +141,14 @@ const CreateShipments = function(){
         });
     };
 
+    const handlePickAddress = function(section, item){
+        updateSection(section, {
+            address: item.address_line,
+            city: item.city,
+            country: item.country
+        });
+    };
+
     const handleSelectMethod = function(id){
         setForm(function(prev){
             return { ...prev, deliveryMethod: id };
@@ -156,22 +193,64 @@ const CreateShipments = function(){
         return firstInvalid;
     };
 
-    const handleSubmit = async function(){
-        if (isSubmitting) return;
+    const getSaveCandidates = function(){
+        const seen = [];
+        const candidates = [];
 
-        const nextErrors = {
-            package: validatePackage(form.package),
-            sender: validateParty(form.sender),
-            receiver: validateParty(form.receiver)
-        };
-        if (goToFirstInvalidStep(nextErrors) !== -1) {
-            setErrors(nextErrors);
-            scrollToFirstError();
-            return;
+        partyLabels.forEach(function(entry){
+            const section = entry[0];
+            const party = form[section];
+            const key = addressKey(party.address, party.city, party.country);
+
+            const alreadySaved = savedAddresses.some(function(item){
+                return addressKey(item.address_line, item.city, item.country) === key;
+            });
+
+            if (seen.includes(key) || alreadySaved) {
+                return;
+            }
+
+            seen.push(key);
+            candidates.push({
+                section: section,
+                label: entry[1],
+                text: [party.address, party.city, party.country].filter(Boolean).join(', ')
+            });
+        });
+
+        return candidates;
+    };
+
+    const saveNewAddresses = async function(drafts){
+        const results = await Promise.allSettled(drafts.map(function(draft){
+            const party = form[draft.section];
+            return authRequest(
+                "/",
+                "POST",
+                {
+                    category: draft.category,
+                    address_line: party.address,
+                    city: party.city,
+                    state_province: draft.stateProvince,
+                    postal_code: draft.postalCode,
+                    country: party.country
+                },
+                `${API_BASE}/addresses`
+            );
+        }));
+
+        const created = results
+            .filter(function(result){ return result.status === 'fulfilled'; })
+            .map(function(result){ return result.value; });
+
+        if (created.length > 0) {
+            setSavedAddresses(function(prev){
+                return [...created, ...prev];
+            });
         }
+    };
 
-        setErrors(emptyErrors);
-        setSubmitError('');
+    const submitShipment = async function(addressDrafts){
         setIsSubmitting(true);
 
         try {
@@ -181,6 +260,9 @@ const CreateShipments = function(){
                 return;
             }
             const shipment = await createShipment(form);
+            if (addressDrafts.length > 0) {
+                await saveNewAddresses(addressDrafts);
+            }
             setCreatedShipment(shipment);
             setSubmitted(true);
             scrollToTop();
@@ -200,6 +282,39 @@ const CreateShipments = function(){
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    const handleSubmit = async function(){
+        if (isSubmitting) return;
+
+        const nextErrors = {
+            package: validatePackage(form.package),
+            sender: validateParty(form.sender),
+            receiver: validateParty(form.receiver)
+        };
+        if (goToFirstInvalidStep(nextErrors) !== -1) {
+            setErrors(nextErrors);
+            scrollToFirstError();
+            return;
+        }
+
+        setErrors(emptyErrors);
+        setSubmitError('');
+
+        if (!isEditing) {
+            const candidates = getSaveCandidates();
+            if (candidates.length > 0) {
+                setSaveCandidates(candidates);
+                return;
+            }
+        }
+
+        await submitShipment([]);
+    };
+
+    const handleConfirmSave = async function(drafts){
+        setSaveCandidates(null);
+        await submitShipment(drafts);
     };
 
     const handleReset = function(){
@@ -284,6 +399,11 @@ const CreateShipments = function(){
                                     </div>
 
                                     <div className={panelClass(2)}>
+                                        <AddressPicker
+                                            label="sender"
+                                            addresses={savedAddresses}
+                                            onPick={function(item){ handlePickAddress('sender', item); }}
+                                        />
                                         <SenderDetails
                                             data={form.sender}
                                             errors={errors.sender}
@@ -292,6 +412,11 @@ const CreateShipments = function(){
                                     </div>
 
                                     <div className={panelClass(3)}>
+                                        <AddressPicker
+                                            label="receiver"
+                                            addresses={savedAddresses}
+                                            onPick={function(item){ handlePickAddress('receiver', item); }}
+                                        />
                                         <ReceiverDetails
                                             data={form.receiver}
                                             errors={errors.receiver}
@@ -351,6 +476,13 @@ const CreateShipments = function(){
 
         </div>
 
+        {saveCandidates && (
+            <SaveAddressPrompt
+                candidates={saveCandidates}
+                onConfirm={handleConfirmSave}
+                onClose={function(){ setSaveCandidates(null); }}
+            />
+        )}
 
     </>
 }
@@ -358,3 +490,4 @@ const CreateShipments = function(){
 
 
 export default CreateShipments;
+

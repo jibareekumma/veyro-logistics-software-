@@ -1,0 +1,274 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.new-address-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(8, 24, 35, 0.45);
+  backdrop-filter: blur(3px);
+}
+.new-address-overlay .new-address-modal {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 27px 20px calc(20px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.12);
+}
+.new-address-overlay .new-address-modal::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+.new-address-overlay .new-address-modal .new-address-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 23px;
+}
+.new-address-overlay .new-address-modal .new-address-modal-header .modal-heading h3 {
+  font-family: fira-sans;
+  font-size: 19px;
+  font-weight: 700;
+  color: #181818;
+  margin: 0 0 7px;
+}
+.new-address-overlay .new-address-modal .new-address-modal-header .modal-heading p {
+  font-family: fira-sans;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 0;
+}
+.new-address-overlay .new-address-modal .new-address-modal-header .close-modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #000;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+.new-address-overlay .new-address-modal .new-address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group label {
+  font-family: fira-sans;
+  font-size: 11px;
+  font-weight: 600;
+  color: #205068;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group input,
+.new-address-overlay .new-address-modal .new-address-form .form-group select {
+  width: 100%;
+  height: 40px;
+  padding: 0 11px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid rgba(88, 208, 232, 0.35);
+  border-radius: 6px;
+  outline: none;
+  font-family: fira-sans;
+  font-size: 11px;
+  color: #205068;
+  transition: 0.2s ease;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group input::-moz-placeholder, .new-address-overlay .new-address-modal .new-address-form .form-group select::-moz-placeholder {
+  color: #7290b0;
+  opacity: 1;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group input::placeholder,
+.new-address-overlay .new-address-modal .new-address-form .form-group select::placeholder {
+  color: #7290b0;
+  opacity: 1;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group input:focus,
+.new-address-overlay .new-address-modal .new-address-form .form-group select:focus {
+  border-color: #58d0e8;
+  box-shadow: 0 0 0 2px rgba(88, 208, 232, 0.1);
+}
+.new-address-overlay .new-address-modal .new-address-form .form-group select {
+  cursor: pointer;
+  -webkit-appearance: auto;
+     -moz-appearance: auto;
+          appearance: auto;
+}
+.new-address-overlay .new-address-modal .new-address-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  min-width: 0;
+}
+.new-address-overlay .new-address-modal .new-address-form .country-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.new-address-overlay .new-address-modal .new-address-form .country-select-wrapper .country-placeholder {
+  position: absolute;
+  left: 12px;
+  width: 13px;
+  height: 13px;
+  background: #000;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.new-address-overlay .new-address-modal .new-address-form .country-select-wrapper select {
+  padding-left: 34px;
+  cursor: pointer;
+}
+.new-address-overlay .new-address-modal .new-address-form .new-address-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 5px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(88, 208, 232, 0.15);
+}
+.new-address-overlay .new-address-modal .new-address-form .new-address-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-family: fira-sans;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.new-address-overlay .new-address-modal .new-address-form .new-address-actions .cancel-address-btn {
+  background: #ffffff;
+  border: 1px solid #58d0e8;
+  color: #205068;
+}
+.new-address-overlay .new-address-modal .new-address-form .new-address-actions .cancel-address-btn:hover {
+  background: rgba(88, 208, 232, 0.1);
+}
+.new-address-overlay .new-address-modal .new-address-form .new-address-actions .save-address-btn {
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  color: #ffffff;
+}
+.new-address-overlay .new-address-modal .new-address-form .new-address-actions .save-address-btn:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+@media (min-width: 768px) {
+  .new-address-overlay {
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .new-address-overlay .new-address-modal {
+    width: 100%;
+    max-width: 460px;
+    max-height: 85vh;
+    padding: 25px 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  }
+  .new-address-overlay .new-address-modal::before {
+    display: none;
+  }
+  .new-address-overlay .new-address-modal .new-address-modal-header {
+    margin-bottom: 22px;
+  }
+  .new-address-overlay .new-address-modal .new-address-modal-header .modal-heading h3 {
+    font-size: 18px;
+  }
+  .new-address-overlay .new-address-modal .new-address-modal-header .modal-heading p {
+    font-size: 11px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form {
+    gap: 14px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .form-group label {
+    font-size: 11px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .form-group input,
+  .new-address-overlay .new-address-modal .new-address-form .form-group select {
+    height: 40px;
+    font-size: 11px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .new-address-actions {
+    justify-content: flex-end;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .new-address-actions button {
+    width: auto;
+    min-width: 115px;
+  }
+}
+@media (min-width: 1024px) {
+  .new-address-overlay .new-address-modal {
+    max-width: 445px;
+    padding: 21px 19px 15px;
+  }
+  .new-address-overlay .new-address-modal .new-address-modal-header {
+    margin-bottom: 22px;
+  }
+  .new-address-overlay .new-address-modal .new-address-modal-header .modal-heading h3 {
+    font-size: 18px;
+  }
+  .new-address-overlay .new-address-modal .new-address-modal-header .modal-heading p {
+    font-size: 12px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form {
+    gap: 14px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .form-group label {
+    font-size: 11px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .form-group input,
+  .new-address-overlay .new-address-modal .new-address-form .form-group select {
+    height: 36px;
+    font-size: 11px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .new-address-actions {
+    margin-top: 0;
+    padding-top: 12px;
+  }
+  .new-address-overlay .new-address-modal .new-address-form .new-address-actions button {
+    min-width: 92px;
+    min-height: 36px;
+    font-size: 11px;
+  }
+}/*# sourceMappingURL=NewAddressModal.css.map */

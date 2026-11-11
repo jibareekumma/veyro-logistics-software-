@@ -384,6 +384,19 @@
     height: 34px;
   }
 }
+.address-error {
+  color: #e05252;
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+.address-status {
+  padding: 25px 0;
+  text-align: center;
+  color: #68738c;
+  font-size: 14px;
+}
+
 .delete-icon {
   width: 1.85rem;
   height: 1.85rem;
