@@ -129,6 +129,8 @@ $fira-sans: fira-sans;
 
 $bebas-nue: bebas-nue;
 
+$filter-red: brightness(0) saturate(100%) invert(16%) sepia(95%) saturate(7480%) hue-rotate(0deg) brightness(100%) contrast(110%);
+
 @mixin apply-theme($theme) {
   @each $name, $value in $theme {
     --color-#{$name}: #{$value};

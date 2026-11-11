@@ -383,4 +383,9 @@
     width: 22px;
     height: 34px;
   }
+}
+.delete-icon {
+  width: 1.85rem;
+  height: 1.85rem;
+  filter: brightness(0) saturate(100%) invert(16%) sepia(95%) saturate(7480%) hue-rotate(0deg) brightness(100%) contrast(110%);
 }/*# sourceMappingURL=SavedAddresses.css.map */
