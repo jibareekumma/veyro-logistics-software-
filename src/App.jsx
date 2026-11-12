@@ -17,6 +17,7 @@ import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 import Profile from "./components/user/Profile";
 import SavedAddresses from "./components/user/SavedAddresses";
 import Notifications from "./components/notifications/Notifications";
+import NotFound from "./components/NotFound";
 
 import { NotificationProvider } from "./context/NotificationContext";
 
@@ -47,6 +48,8 @@ function App() {
          <Route path = '/addresses' element = {<ProtectedRoute><SavedAddresses/></ProtectedRoute>} />
 
          <Route path = '/notifications' element = {<ProtectedRoute><Notifications/></ProtectedRoute>} />
+
+         <Route path = '*' element = {<NotFound/>} />
 
       </Routes>
     </NotificationProvider>

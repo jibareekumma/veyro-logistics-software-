@@ -1,0 +1,184 @@
+
+
+@import "./Variable.scss";
+
+
+.not-found {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    padding: 24px 16px;
+
+    box-sizing: border-box;
+
+    background: $veyro-off-white;
+
+    font-family: $fira-sans;
+
+
+    .not-found-logo {
+        height: 34px;
+        object-fit: contain;
+    }
+
+
+    .not-found-card {
+        width: 100%;
+        max-width: 440px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+
+        padding: 32px 22px;
+
+        box-sizing: border-box;
+
+        background: $veyro-white;
+        border: 1px solid rgba($veyro-bright-cyan, 0.25);
+        border-radius: 14px;
+
+        box-shadow: 0 8px 28px rgba($veyro-deep-teal, 0.08);
+
+        text-align: center;
+
+
+        .not-found-code {
+            font-family: $bebas-nue;
+            font-size: 92px;
+            line-height: 1;
+            letter-spacing: 4px;
+
+            background: $accent-gradient;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+
+        h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: $veyro-deep-teal;
+
+            margin: 0;
+        }
+
+
+        p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: $muted-gray;
+
+            margin: 0 0 8px;
+        }
+
+
+        .not-found-actions {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+
+            .not-found-back,
+            .not-found-home {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                min-height: 43px;
+
+                padding: 10px 16px;
+
+                box-sizing: border-box;
+
+                border-radius: 7px;
+
+                font-family: $fira-sans;
+                font-size: 13px;
+                font-weight: 600;
+                text-decoration: none;
+
+                cursor: pointer;
+                transition: 0.25s ease;
+            }
+
+
+            .not-found-back {
+                background: $veyro-white;
+                border: 1px solid $veyro-bright-cyan;
+
+                color: $veyro-deep-teal;
+
+
+                &:hover {
+                    background: rgba($veyro-bright-cyan, 0.1);
+                }
+            }
+
+
+            .not-found-home {
+                background: $accent-gradient;
+                border: none;
+
+                color: $veyro-white;
+
+
+                &:hover {
+                    filter: brightness(0.95);
+                    transform: translateY(-1px);
+                }
+            }
+        }
+
+
+        .not-found-track {
+            margin-top: 6px;
+
+            font-size: 12px;
+            font-weight: 600;
+            color: $veyro-deep-teal;
+            text-decoration: underline;
+        }
+    }
+}
+
+
+@include tablet {
+
+    .not-found {
+
+        .not-found-card {
+            padding: 40px 36px;
+
+
+            .not-found-code {
+                font-size: 120px;
+            }
+
+
+            h3 {
+                font-size: 24px;
+            }
+
+
+            p {
+                font-size: 14px;
+            }
+
+
+            .not-found-actions {
+                flex-direction: row;
+            }
+        }
+    }
+}
