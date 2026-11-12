@@ -16,6 +16,9 @@ import { ProtectedRoute, PublicRoute } from "./components/RouteGuards";
 
 import Profile from "./components/user/Profile";
 import SavedAddresses from "./components/user/SavedAddresses";
+import Notifications from "./components/notifications/Notifications";
+
+import { NotificationProvider } from "./context/NotificationContext";
 
 
 import {Routes, Route} from "react-router-dom";
@@ -23,26 +26,30 @@ import {Routes, Route} from "react-router-dom";
 function App() {
 
   return (
-    <Routes>
-      <Route path = '/' element = {<Landing/>} />
-      <Route path = '/login' element = {<PublicRoute><Login/></PublicRoute>} />
-      <Route path = '/register' element = {<PublicRoute><Register/></PublicRoute>} />
-      <Route path = '/dashboard' element = {<ProtectedRoute><UserDashboard/></ProtectedRoute>} />
+    <NotificationProvider>
+      <Routes>
+        <Route path = '/' element = {<Landing/>} />
+        <Route path = '/login' element = {<PublicRoute><Login/></PublicRoute>} />
+        <Route path = '/register' element = {<PublicRoute><Register/></PublicRoute>} />
+        <Route path = '/dashboard' element = {<ProtectedRoute><UserDashboard/></ProtectedRoute>} />
 
-       <Route path = '/tracking' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
-       <Route path = '/tracking/:trackingId' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
+         <Route path = '/tracking' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
+         <Route path = '/tracking/:trackingId' element = {<ProtectedRoute><TrackingResults/></ProtectedRoute>} />
 
-       <Route path = '/createShipments' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
-       <Route path = '/editShipments/:trackingId' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
+         <Route path = '/createShipments' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
+         <Route path = '/editShipments/:trackingId' element = {<ProtectedRoute><CreateShipments/></ProtectedRoute>} />
 
-       <Route path = '/recentshipmentspage' element = {<ProtectedRoute><RecentShipmentsPage/></ProtectedRoute>} />
+         <Route path = '/recentshipmentspage' element = {<ProtectedRoute><RecentShipmentsPage/></ProtectedRoute>} />
 
-       <Route path = '/quotes' element = {<ProtectedRoute><Quotes/></ProtectedRoute>} />
+         <Route path = '/quotes' element = {<ProtectedRoute><Quotes/></ProtectedRoute>} />
 
-       <Route path = '/profile' element = {<ProtectedRoute><Profile/></ProtectedRoute>} />
-       <Route path = '/addresses' element = {<ProtectedRoute><SavedAddresses/></ProtectedRoute>} />
+         <Route path = '/profile' element = {<ProtectedRoute><Profile/></ProtectedRoute>} />
+         <Route path = '/addresses' element = {<ProtectedRoute><SavedAddresses/></ProtectedRoute>} />
 
-    </Routes>
+         <Route path = '/notifications' element = {<ProtectedRoute><Notifications/></ProtectedRoute>} />
+
+      </Routes>
+    </NotificationProvider>
    )
 };
 

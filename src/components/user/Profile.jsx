@@ -115,6 +115,7 @@ const Profile = function(){
             icon: notification,
             title: "Notifications",
             texts: "View your notifications",
+            onClick: () => navigate('/notifications'),
             badge: 3,
         },
         {

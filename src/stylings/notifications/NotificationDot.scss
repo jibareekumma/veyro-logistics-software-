@@ -1,0 +1,40 @@
+
+
+@import "../Variable.scss";
+
+
+.notif-dot {
+    display: inline-block;
+
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+
+    background: $status-attention-text;
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 2px $veyro-white;
+
+
+    &.inline {
+        margin-left: auto;
+    }
+
+
+    &.floating {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+    }
+}
+
+
+.header-bell {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}

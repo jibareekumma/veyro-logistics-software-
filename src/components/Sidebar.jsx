@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { NavLink } from 'react-router-dom'
 
+import NotificationDot from './notifications/NotificationDot'
+
 import logo from "../assets/logo2.png"
 import dashboardIcon from "../assets/icons/nav-dashboard.png"
 import shipmentsIcon from "../assets/icons/nav-shipments.png"
@@ -29,7 +31,7 @@ const Sidebar = function({ showToggle }){
         { id: 3, label: 'Quotings', to: '/quotes', icon: shipmentsIcon },
         { id: 4, label: 'Addresses', to: '/addresses', icon: addressesIcon },
         { id: 5, label: 'Support', to: '/support', icon: supportIcon },
-        { id: 6, label: 'Notifications', to: '/notifications', icon: bellIcon, badge: 3 },
+        { id: 6, label: 'Notifications', to: '/notifications', icon: bellIcon },
         { id: 7, label: 'Profile', to: '/profile', icon: profileIcon },
     ]
 
@@ -88,6 +90,7 @@ const Sidebar = function({ showToggle }){
                         loading='lazy'/>
                         <span>{a.label}</span>
                         {a.badge && <span className='badge'>{a.badge}</span>}
+                        {a.to === '/notifications' && <NotificationDot className='inline'/>}
                     </NavLink>
                 ))}
             </nav>

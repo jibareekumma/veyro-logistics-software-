@@ -1,9 +1,9 @@
 
 
-
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
 import { getStoredUser, logoutUser } from '../api/auth'
+import { useNotifications } from '../context/NotificationContext'
 
 import searchIcon from "../assets/icons/search-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
@@ -19,6 +19,8 @@ const DesktopTopbar = function(){
 
     const dropdownRef = useRef(null)
     const navigate = useNavigate()
+
+    const { unreadCount } = useNotifications()
 
     const getInitials = function(name){
         return (name || '')
@@ -81,10 +83,23 @@ const DesktopTopbar = function(){
 
         <div className='topbar-actions'>
 
-            <div className='bell'>
+            <div
+                className='bell'
+                role='button'
+                tabIndex={0}
+                aria-label='Notifications'
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/notifications')}
+                onKeyDown={(e) => {
+                    if(e.key === 'Enter' || e.key === ' '){
+                        e.preventDefault()
+                        navigate('/notifications')
+                    }
+                }}
+            >
                 <img src={bellIcon} alt="notifications icon"
                 loading='lazy'/>
-                <span className='dot'>3</span>
+                {unreadCount > 0 && <span className='dot'>{unreadCount > 9 ? '9+' : unreadCount}</span>}
             </div>
 
             {user && <div className='profile-container' ref={dropdownRef}>
