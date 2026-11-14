@@ -1,0 +1,1036 @@
+
+
+@import "../Variable.scss";
+
+
+.support-mobile-header {
+    @include tablet {
+        display: none;
+    }
+}
+
+
+.support-content {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: $fira-sans;
+    background: $veyro-off-white;
+
+
+    // ICON PLACEHOLDERS
+
+    .icon-placeholder {
+        width: 16px;
+        height: 16px;
+        background: #000;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+
+    // SUPPORT HEADING
+
+    .support-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+
+
+        .heading-texts {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+
+            .heading-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 43px;
+                height: 43px;
+                flex-shrink: 0;
+                border-radius: 50%;
+                background: $veyro-white;
+
+
+                .icon-placeholder {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+
+
+            h3 {
+                font-size: 19px;
+                font-weight: 700;
+                color: $veyro-deep-teal;
+                margin: 0 0 5px;
+            }
+
+
+            p {
+                font-size: 12px;
+                color: $muted-gray;
+                margin: 0;
+            }
+        }
+
+
+        .create-ticket-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: $veyro-bright-cyan;
+            border: 1px solid $veyro-bright-cyan;
+            border-radius: 7px;
+            color: $veyro-white;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+
+
+            .icon-placeholder {
+                width: 12px;
+                height: 12px;
+            }
+
+
+            &:hover {
+                background: $veyro-deep-teal;
+                border-color: $veyro-deep-teal;
+            }
+        }
+    }
+
+
+    // TICKET STATISTICS
+
+    .support-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 22px;
+
+
+        .stat-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 13px;
+            min-height: 105px;
+            box-sizing: border-box;
+            background: $veyro-white;
+            border: 1px solid $veyro-soft-gray;
+            border-radius: 9px;
+            transition: 0.2s ease;
+
+
+            .stat-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 34px;
+                height: 34px;
+                background: $veyro-off-white;
+                border-radius: 50%;
+
+
+                .icon-placeholder {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+
+            .stat-info {
+
+                h4 {
+                    font-size: 17px;
+                    font-weight: 700;
+                    color: $veyro-deep-teal;
+                    margin: 0 0 3px;
+                }
+
+
+                p {
+                    font-size: 10px;
+                    color: $muted-gray;
+                    margin: 0;
+                }
+            }
+
+
+            .stat-arrow {
+                position: absolute;
+                top: 50%;
+                right: 12px;
+                transform: translateY(-50%);
+
+
+                .icon-placeholder {
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+
+
+            &:hover {
+                border-color: $veyro-bright-cyan;
+            }
+        }
+    }
+
+
+    // SUPPORT REQUESTS
+
+    .support-requests {
+        padding: 13px;
+        margin-bottom: 18px;
+        background: $veyro-white;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 10px;
+
+
+        .requests-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 14px;
+
+
+            h3 {
+                font-size: 15px;
+                font-weight: 700;
+                color: $veyro-deep-teal;
+                margin: 0;
+            }
+
+
+            .request-filters {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 7px;
+
+
+                .ticket-search {
+                    grid-column: 1 / -1;
+                    display: flex;
+                    align-items: center;
+                    gap: 7px;
+                    padding: 0 9px;
+                    height: 36px;
+                    border: 1px solid $veyro-soft-gray;
+                    border-radius: 6px;
+
+
+                    .icon-placeholder {
+                        width: 14px;
+                        height: 14px;
+                    }
+
+
+                    input {
+                        width: 100%;
+                        min-width: 0;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                        font-family: inherit;
+                        font-size: 11px;
+                        color: $veyro-near-black;
+
+
+                        &::placeholder {
+                            color: $muted-gray;
+                        }
+                    }
+                }
+
+
+                select {
+                    width: 100%;
+                    min-width: 0;
+                    height: 34px;
+                    padding: 0 6px;
+                    border: 1px solid $veyro-soft-gray;
+                    border-radius: 6px;
+                    background: $veyro-white;
+                    color: $veyro-deep-teal;
+                    font-family: inherit;
+                    font-size: 10px;
+                    outline: none;
+                }
+            }
+        }
+
+
+        // MOBILE AND TABLET TICKET CARDS
+
+        .ticket-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+
+
+            .ticket-card {
+                padding: 12px;
+                border: 1px solid $veyro-soft-gray;
+                border-radius: 8px;
+                background: $veyro-white;
+
+
+                .ticket-card-top {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 8px;
+                    margin-bottom: 9px;
+
+
+                    .ticket-id {
+                        font-size: 11px;
+                        font-weight: 700;
+                        color: $veyro-deep-teal;
+                    }
+                }
+
+
+                h4 {
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: $veyro-near-black;
+                    margin: 0 0 12px;
+                }
+
+
+                .ticket-details {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                    padding-bottom: 11px;
+
+
+                    span {
+                        display: block;
+                        font-size: 10px;
+                        color: $muted-gray;
+                        margin-bottom: 4px;
+                    }
+
+
+                    p {
+                        font-size: 10px;
+                        font-weight: 600;
+                        color: $veyro-deep-teal;
+                        margin: 0;
+                        overflow-wrap: anywhere;
+                    }
+                }
+
+
+                .ticket-card-bottom {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 8px;
+                    padding-top: 10px;
+                    border-top: 1px solid $veyro-soft-gray;
+
+
+                    > span {
+                        font-size: 9px;
+                        color: $muted-gray;
+                    }
+
+
+                    button {
+                        display: flex;
+                        align-items: center;
+                        gap: 7px;
+                        padding: 5px 8px;
+                        background: transparent;
+                        border: 1px solid $veyro-bright-cyan;
+                        border-radius: 5px;
+                        color: $veyro-deep-teal;
+                        font-family: inherit;
+                        font-size: 10px;
+                        font-weight: 600;
+                        cursor: pointer;
+
+
+                        .icon-placeholder {
+                            width: 9px;
+                            height: 9px;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // STATUS BADGES
+
+        .ticket-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 600;
+            white-space: nowrap;
+
+
+            &.open {
+                background: $status-processing-bg;
+                color: $status-processing-text;
+            }
+
+
+            &.in-progress {
+                background: $status-attention-bg;
+                color: $status-attention-text;
+            }
+
+
+            &.resolved {
+                background: $status-delivered-bg;
+                color: $status-delivered-text;
+            }
+
+
+            &.closed {
+                background: $status-processing-bg;
+                color: $status-processing-text;
+            }
+        }
+
+
+        // DESKTOP TABLE
+
+        .ticket-table-container {
+            display: none;
+        }
+
+
+        // PAGINATION
+
+        .ticket-pagination {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding-top: 13px;
+
+
+            p {
+                font-size: 10px;
+                color: $muted-gray;
+                margin: 0;
+            }
+
+
+            .pagination-buttons {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+
+                button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 27px;
+                    height: 27px;
+                    border: 1px solid $veyro-soft-gray;
+                    border-radius: 5px;
+                    background: $veyro-white;
+                    color: $veyro-deep-teal;
+                    font-family: inherit;
+                    font-size: 11px;
+                    cursor: pointer;
+
+
+                    .icon-placeholder {
+                        width: 9px;
+                        height: 9px;
+                    }
+
+
+                    &.active {
+                        background: $veyro-bright-cyan;
+                        border-color: $veyro-bright-cyan;
+                        color: $veyro-white;
+                    }
+                }
+            }
+        }
+    }
+
+
+    // FREQUENTLY ASKED QUESTIONS
+
+    .support-faq {
+        padding: 14px;
+        background: $veyro-white;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 10px;
+
+
+        .faq-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding-bottom: 12px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid $veyro-soft-gray;
+
+
+            .faq-title {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+
+                .icon-placeholder {
+                    width: 19px;
+                    height: 19px;
+                }
+
+
+                h3 {
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: $veyro-deep-teal;
+                    margin: 0;
+                }
+            }
+
+
+            > button {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 0;
+                background: transparent;
+                border: none;
+                color: $veyro-deep-teal;
+                font-family: inherit;
+                font-size: 9px;
+                font-weight: 600;
+                white-space: nowrap;
+                cursor: pointer;
+
+
+                .icon-placeholder {
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+        }
+
+
+        .faq-list {
+
+            details {
+                border-bottom: 1px solid $veyro-soft-gray;
+
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+
+                summary {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 10px;
+                    padding: 12px 0;
+                    color: $veyro-near-black;
+                    font-size: 11px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    list-style: none;
+
+
+                    &::-webkit-details-marker {
+                        display: none;
+                    }
+
+
+                    .faq-arrow {
+                        font-size: 16px;
+                        color: $veyro-deep-teal;
+                        flex-shrink: 0;
+                        transition: transform 0.3s ease;
+                    }
+                }
+
+
+                &[open] {
+
+                    summary {
+
+                        .faq-arrow {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+
+
+                > p {
+                    font-size: 11px;
+                    line-height: 1.6;
+                    color: $muted-gray;
+                    margin: 0;
+                    padding: 0 15px 12px 0;
+                }
+            }
+        }
+    }
+}
+
+
+
+// TABLET
+
+@include tablet {
+
+    .support-content {
+        padding: 24px 28px 40px;
+
+
+        // HEADING
+
+        .support-heading {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+
+            .heading-texts {
+
+                h3 {
+                    font-size: 23px;
+                }
+
+
+                p {
+                    font-size: 13px;
+                }
+            }
+
+
+            .create-ticket-btn {
+                width: auto;
+                padding: 11px 14px;
+                flex-shrink: 0;
+            }
+        }
+
+
+        // STATISTICS
+
+        .support-stats {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 9px;
+            margin-bottom: 20px;
+
+
+            .stat-card {
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                min-height: 105px;
+                padding: 10px 5px;
+
+
+                .stat-info {
+
+                    h4 {
+                        font-size: 18px;
+                    }
+
+
+                    p {
+                        font-size: 10px;
+                    }
+                }
+
+
+                .stat-arrow {
+                    right: 7px;
+                }
+            }
+        }
+
+
+        // SUPPORT REQUESTS
+
+        .support-requests {
+            padding: 16px;
+
+
+            .requests-heading {
+
+                h3 {
+                    font-size: 16px;
+                }
+
+
+                .request-filters {
+                    grid-template-columns: minmax(0, 1fr) auto auto;
+
+
+                    .ticket-search {
+                        grid-column: auto;
+                        min-width: 0;
+                    }
+
+
+                    select {
+                        width: auto;
+                        max-width: 135px;
+                    }
+                }
+            }
+
+
+            .ticket-pagination {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+
+        // FAQ
+
+        .support-faq {
+            padding: 16px;
+
+
+            .faq-heading {
+
+                .faq-title {
+
+                    h3 {
+                        font-size: 15px;
+                    }
+                }
+            }
+
+
+            .faq-list {
+
+                details {
+
+                    summary {
+                        font-size: 12px;
+                    }
+
+
+                    > p {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+// DESKTOP
+
+@include desktop {
+
+    .support-content {
+        padding: 0 28px 40px;
+
+
+        // HEADING
+
+        .support-heading {
+            min-height: 100px;
+            margin: 0 -28px 0;
+            padding: 0 28px;
+            box-sizing: border-box;
+
+
+            .heading-texts {
+
+                h3 {
+                    font-size: 25px;
+                }
+            }
+
+
+            .create-ticket-btn {
+                padding: 11px 16px;
+            }
+        }
+
+
+        // STATISTICS
+
+        .support-stats {
+            gap: 10px;
+            margin-bottom: 20px;
+
+
+            .stat-card {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 12px;
+                min-height: 80px;
+                padding: 12px;
+
+
+                .stat-icon {
+                    width: 42px;
+                    height: 42px;
+                    flex-shrink: 0;
+
+
+                    .icon-placeholder {
+                        width: 23px;
+                        height: 23px;
+                    }
+                }
+
+
+                .stat-info {
+                    text-align: left;
+
+
+                    h4 {
+                        font-size: 18px;
+                    }
+
+
+                    p {
+                        font-size: 11px;
+                    }
+                }
+
+
+                .stat-arrow {
+                    right: 12px;
+                }
+            }
+        }
+
+
+        // SUPPORT REQUESTS
+
+        .support-requests {
+            padding: 15px;
+            margin-bottom: 18px;
+
+
+            .requests-heading {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                margin-bottom: 14px;
+
+
+                h3 {
+                    font-size: 17px;
+                    white-space: nowrap;
+                }
+
+
+                .request-filters {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+
+                    .ticket-search {
+                        width: 175px;
+                        height: 34px;
+                    }
+
+
+                    select {
+                        height: 34px;
+                        max-width: none;
+                        font-size: 10px;
+                    }
+                }
+            }
+
+
+            // HIDE CARDS ON DESKTOP
+
+            .ticket-list {
+                display: none;
+            }
+
+
+            // TICKET TABLE
+
+            .ticket-table-container {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+
+
+                .ticket-table {
+                    width: 100%;
+                    min-width: 750px;
+                    border-collapse: collapse;
+                    text-align: left;
+
+
+                    thead {
+                        background: $veyro-off-white;
+
+
+                        th {
+                            padding: 11px 8px;
+                            font-size: 10px;
+                            font-weight: 600;
+                            color: $veyro-deep-teal;
+                            white-space: nowrap;
+                            border-bottom: 1px solid $veyro-soft-gray;
+                        }
+                    }
+
+
+                    tbody {
+
+                        tr {
+                            border-bottom: 1px solid $veyro-soft-gray;
+
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+
+
+                            &:hover {
+                                background: $veyro-off-white;
+                            }
+
+
+                            td {
+                                padding: 13px 8px;
+                                font-size: 10px;
+                                color: $veyro-near-black;
+                                vertical-align: middle;
+
+
+                                &:first-child {
+                                    font-weight: 600;
+                                    color: $veyro-deep-teal;
+                                    white-space: nowrap;
+                                }
+                            }
+                        }
+                    }
+
+
+                    .table-time {
+                        display: block;
+                        margin-top: 4px;
+                        font-size: 9px;
+                        color: $muted-gray;
+                    }
+
+
+                    .view-ticket {
+                        padding: 5px 9px;
+                        background: $veyro-white;
+                        border: 1px solid $veyro-bright-cyan;
+                        border-radius: 5px;
+                        color: $veyro-deep-teal;
+                        font-family: inherit;
+                        font-size: 10px;
+                        cursor: pointer;
+
+
+                        &:hover {
+                            background: $veyro-bright-cyan;
+                            color: $veyro-white;
+                        }
+                    }
+                }
+            }
+
+
+            // PAGINATION
+
+            .ticket-pagination {
+                padding-top: 13px;
+
+
+                p {
+                    font-size: 10px;
+                }
+            }
+        }
+
+
+        // FAQ
+
+        .support-faq {
+            padding: 16px;
+
+
+            .faq-heading {
+
+                .faq-title {
+
+                    h3 {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+
+            .faq-list {
+
+                details {
+
+                    summary {
+                        font-size: 12px;
+                        padding: 11px 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+// SUPPORT ICONS
+
+.support-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    filter: $filter-accent-dimmed;
+}
+
+
+.smaller-icons {
+    width: 1.6rem;
+    height: 1.6rem;
+    filter: $filter-accent-dimmed;
+}

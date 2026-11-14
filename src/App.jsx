@@ -21,6 +21,8 @@ import NotFound from "./components/NotFound";
 
 import { NotificationProvider } from "./context/NotificationContext";
 
+import Support from "./components/support/Support";
+
 
 import {Routes, Route} from "react-router-dom";
 
@@ -48,6 +50,8 @@ function App() {
          <Route path = '/addresses' element = {<ProtectedRoute><SavedAddresses/></ProtectedRoute>} />
 
          <Route path = '/notifications' element = {<ProtectedRoute><Notifications/></ProtectedRoute>} />
+
+         <Route path = '/support' element = {<ProtectedRoute><Support/></ProtectedRoute>} />
 
          <Route path = '*' element = {<NotFound/>} />
 
