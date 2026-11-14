@@ -1,0 +1,581 @@
+
+
+@import "../Variable.scss";
+
+
+.ticket-sheet-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    background: rgba(8, 24, 35, 0.45);
+    backdrop-filter: blur(3px);
+
+
+    .ticket-sheet {
+        position: relative;
+
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+
+        padding: 27px 20px calc(20px + env(safe-area-inset-bottom));
+        box-sizing: border-box;
+
+        background: $veyro-white;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.12);
+
+        font-family: $fira-sans;
+
+
+        &::before {
+            content: "";
+
+            position: absolute;
+            top: 9px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 42px;
+            height: 4px;
+
+            background: $veyro-soft-gray;
+            border-radius: 10px;
+        }
+
+
+        .sheet-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+
+            margin-bottom: 20px;
+
+
+            .sheet-heading {
+
+                h3 {
+                    font-size: 19px;
+                    font-weight: 700;
+                    color: $veyro-near-black;
+                    margin: 0 0 7px;
+                }
+
+                p {
+                    font-size: 11px;
+                    line-height: 1.5;
+                    color: $muted-gray;
+                    margin: 0;
+                }
+            }
+
+
+            .sheet-close-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 27px;
+                height: 27px;
+                min-width: 27px;
+
+                padding: 0;
+
+                background: transparent;
+                border: none;
+
+                color: #000;
+                font-size: 25px;
+                line-height: 1;
+
+                cursor: pointer;
+            }
+        }
+
+
+        .sheet-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+
+            .sheet-group {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                min-width: 0;
+
+
+                label {
+                    font-size: 11px;
+                    font-weight: 600;
+                    color: $veyro-deep-teal;
+                }
+
+
+                input,
+                select,
+                textarea {
+                    width: 100%;
+
+                    padding: 0 11px;
+                    box-sizing: border-box;
+
+                    background: $veyro-white;
+                    border: 1px solid rgba(88, 208, 232, 0.35);
+                    border-radius: 6px;
+
+                    outline: none;
+
+                    font-family: $fira-sans;
+                    font-size: 11px;
+                    color: $veyro-deep-teal;
+
+                    transition: 0.2s ease;
+
+
+                    &::placeholder {
+                        color: #7290b0;
+                        opacity: 1;
+                    }
+
+
+                    &:focus {
+                        border-color: $veyro-bright-cyan;
+                        box-shadow: 0 0 0 2px rgba(88, 208, 232, 0.1);
+                    }
+
+
+                    &.has-error {
+                        border-color: #e05252;
+                    }
+                }
+
+
+                input,
+                select {
+                    height: 40px;
+                }
+
+
+                select {
+                    cursor: pointer;
+                    appearance: auto;
+                }
+
+
+                textarea {
+                    min-height: 110px;
+                    padding: 10px 11px;
+                    resize: vertical;
+                    line-height: 1.5;
+                }
+            }
+
+
+            .sheet-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+
+            .field-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+
+            .field-count {
+                font-size: 10px;
+                color: $muted-gray;
+            }
+
+
+            .field-error {
+                font-size: 10px;
+                color: #e05252;
+            }
+
+
+            .sheet-actions {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+
+                margin-top: 5px;
+                padding-top: 14px;
+
+                border-top: 1px solid rgba(88, 208, 232, 0.15);
+
+
+                button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    width: 50%;
+                    min-height: 42px;
+
+                    padding: 9px 12px;
+
+                    border-radius: 7px;
+
+                    font-family: $fira-sans;
+                    font-size: 11px;
+                    font-weight: 600;
+
+                    cursor: pointer;
+                    transition: 0.2s ease;
+
+
+                    &:disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
+                }
+
+
+                .sheet-cancel-btn {
+                    background: $veyro-white;
+                    border: 1px solid $veyro-bright-cyan;
+                    color: $veyro-deep-teal;
+                }
+
+
+                .sheet-submit-btn {
+                    background: $accent-gradient;
+                    border: none;
+                    color: $veyro-white;
+                }
+            }
+        }
+
+
+        .sheet-error {
+            font-size: 12px;
+            color: #e05252;
+            margin: 0;
+        }
+
+
+        .sheet-message {
+            padding: 20px 0;
+            text-align: center;
+            font-size: 12px;
+            color: $muted-gray;
+            margin: 0;
+        }
+
+
+        .sheet-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+
+            .detail-top {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 10px;
+
+
+                h4 {
+                    font-size: 15px;
+                    font-weight: 700;
+                    color: $veyro-near-black;
+                    margin: 0;
+                    overflow-wrap: anywhere;
+                }
+            }
+
+
+            .sheet-status {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 4px 9px;
+                border-radius: 20px;
+
+                font-size: 10px;
+                font-weight: 600;
+                white-space: nowrap;
+
+
+                &.open {
+                    background: $status-processing-bg;
+                    color: $status-processing-text;
+                }
+
+
+                &.in-progress {
+                    background: $status-attention-bg;
+                    color: $status-attention-text;
+                }
+
+
+                &.resolved {
+                    background: $status-delivered-bg;
+                    color: $status-delivered-text;
+                }
+
+
+                &.closed {
+                    background: $veyro-soft-gray;
+                    color: $muted-gray;
+                }
+            }
+
+
+            .detail-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+
+                padding: 12px;
+
+                background: $veyro-off-white;
+                border-radius: 8px;
+
+
+                span {
+                    display: block;
+                    font-size: 10px;
+                    color: $muted-gray;
+                    margin-bottom: 4px;
+                }
+
+
+                p {
+                    font-size: 11px;
+                    font-weight: 600;
+                    color: $veyro-deep-teal;
+                    margin: 0;
+                    overflow-wrap: anywhere;
+                }
+            }
+
+
+            .detail-block {
+
+                h5 {
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: $veyro-deep-teal;
+                    margin: 0 0 8px;
+                }
+
+
+                > p {
+                    font-size: 12px;
+                    line-height: 1.6;
+                    color: $veyro-near-black;
+                    margin: 0;
+                    white-space: pre-wrap;
+                    overflow-wrap: anywhere;
+                }
+
+
+                .reply-empty {
+                    padding: 12px;
+                    background: $veyro-off-white;
+                    border-radius: 8px;
+                    color: $muted-gray;
+                }
+            }
+
+
+            .reply-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+
+                .reply-item {
+                    padding: 11px 12px;
+
+                    background: $veyro-off-white;
+                    border: 1px solid $veyro-soft-gray;
+                    border-radius: 8px;
+
+
+                    &.staff {
+                        border-left: 3px solid $veyro-bright-cyan;
+                    }
+
+
+                    .reply-meta {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+
+                        margin-bottom: 6px;
+
+
+                        strong {
+                            font-size: 11px;
+                            color: $veyro-deep-teal;
+                        }
+
+
+                        span {
+                            font-size: 10px;
+                            color: $muted-gray;
+                        }
+                    }
+
+
+                    p {
+                        font-size: 12px;
+                        line-height: 1.6;
+                        color: $veyro-near-black;
+                        margin: 0;
+                        white-space: pre-wrap;
+                        overflow-wrap: anywhere;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@include tablet {
+
+    .ticket-sheet-overlay {
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+
+
+        .ticket-sheet {
+            max-width: 480px;
+            max-height: 85vh;
+
+            padding: 25px 22px 20px;
+
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+
+
+            &::before {
+                display: none;
+            }
+
+
+            .sheet-form {
+
+                .sheet-row {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+
+                .sheet-actions {
+                    justify-content: flex-end;
+
+                    button {
+                        width: auto;
+                        min-width: 115px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@include desktop {
+
+    .ticket-sheet-overlay {
+
+        .ticket-sheet {
+            max-width: 500px;
+
+            padding: 22px 22px 18px;
+
+
+            .sheet-form {
+
+                .sheet-group {
+
+                    input,
+                    select {
+                        height: 36px;
+                    }
+                }
+
+
+                .sheet-actions {
+
+                    button {
+                        min-width: 100px;
+                        min-height: 36px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.ticket-notice {
+    margin: 0 0 16px;
+    padding: 11px 14px;
+
+    background: $status-delivered-bg;
+    border-radius: 8px;
+
+    font-family: $fira-sans;
+    font-size: 12px;
+    color: $status-delivered-text;
+}
+
+
+.ticket-feedback {
+    padding: 24px 0;
+    margin: 0;
+
+    text-align: center;
+    font-family: $fira-sans;
+    font-size: 12px;
+    color: $muted-gray;
+
+
+    &.error {
+        color: #e05252;
+    }
+}
+
+
+.replied-tag {
+    margin-left: 6px;
+    padding: 2px 6px;
+
+    background: rgba(88, 208, 232, 0.2);
+    border-radius: 10px;
+
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 600;
+    color: $veyro-deep-teal;
+}
+
+
+.ticket-pagination .pagination-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

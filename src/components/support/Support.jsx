@@ -1,11 +1,19 @@
 
 
+import { useEffect, useState } from "react";
+
 import Sidebar from "../Sidebar";
 import DesktopTopbar from "../DesktopTopbar";
 import Header from "../Header";
+import CreateTicketModal from "./CreateTicketModal";
+import TicketDetailModal from "./TicketDetailModal";
+
+import { createTicket, getTicketStats, listTickets, mapTicketErrors } from "../../api/support";
+import { CATEGORY_OPTIONS, STATUS_OPTIONS, formatDate, formatTime, statusClass } from "./SupportHelpers";
 
 import "../../stylings/dashboard-stylings/Layout.css";
 import "../../stylings/support/Support.scss"
+import "../../stylings/support/TicketModal.scss"
 
 
 import supportIcon from "../../assets/icons/nav-support.png"
@@ -21,89 +29,33 @@ import faq from "../../assets/icons/faq.png"
 import downArr from "../../assets/icons/chevron-down.png"
 
 
-const ticketStats = [
+const PAGE_SIZE = 5;
+
+
+const statCards = [
     {
         id: 1,
         title: "Total Tickets",
-        count: 12,
+        key: "total",
         icon: plus,
     },
     {
         id: 2,
         title: "Open",
-        count: 3,
+        key: "open",
         icon: opened
     },
     {
         id: 3,
         title: "In Progress",
-        icon: spinner,
-        count: 4
+        key: "in_progress",
+        icon: spinner
     },
     {
         id: 4,
         title: "Resolved",
-        icon: completed,
-        count: 5
-    }
-];
-
-
-const supportTickets = [
-    {
-        id: 1,
-        ticketId: "#SV-1001",
-        subject: "Delivery delay inquiry",
-        category: "Shipments",
-        trackingId: "VY-82K4-91AX",
-        dateCreated: "Oct 30, 2026",
-        lastUpdated: "Oct 31, 2026",
-        time: "09:14 AM",
-        status: "Open"
-    },
-    {
-        id: 2,
-        ticketId: "#SV-1002",
-        subject: "Change delivery address",
-        category: "Account",
-        trackingId: "VY-77A6-49PL",
-        dateCreated: "Oct 29, 2026",
-        lastUpdated: "Oct 30, 2026",
-        time: "04:22 PM",
-        status: "In Progress"
-    },
-    {
-        id: 3,
-        ticketId: "#SV-1003",
-        subject: "Package not updated",
-        category: "Tracking",
-        trackingId: "VY-33LB-2XMD",
-        dateCreated: "Oct 28, 2026",
-        lastUpdated: "Oct 29, 2026",
-        time: "11:37 AM",
-        status: "Resolved"
-    },
-    {
-        id: 4,
-        ticketId: "#SV-1004",
-        subject: "Request for invoice",
-        category: "Billing",
-        trackingId: "VY-21QK-8HNV",
-        dateCreated: "Oct 27, 2026",
-        lastUpdated: "Oct 28, 2026",
-        time: "02:19 PM",
-        status: "Resolved"
-    },
-    {
-        id: 5,
-        ticketId: "#SV-1005",
-        subject: "General inquiry",
-        category: "General",
-        trackingId: "VY-19MN-7KPL",
-        dateCreated: "Oct 26, 2026",
-        lastUpdated: "Oct 27, 2026",
-        time: "10:45 AM",
-        status: "Closed"
+        key: "resolved",
+        icon: completed
     }
 ];
 
@@ -134,6 +86,198 @@ const faqs = [
 
 const Support = function(){
 
+    const [tickets, setTickets] = useState([]);
+    const [stats, setStats] = useState({ total: 0, open: 0, in_progress: 0, resolved: 0, closed: 0 });
+    const [totalCount, setTotalCount] = useState(0);
+    const [page, setPage] = useState(1);
+    const [searchInput, setSearchInput] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState("");
+    const [showCreate, setShowCreate] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
+    const [selectedTicketId, setSelectedTicketId] = useState(null);
+    const [refreshKey, setRefreshKey] = useState(0);
+    const [notice, setNotice] = useState("");
+
+
+    useEffect(function(){
+
+        const timer = setTimeout(function(){
+            setSearchTerm(searchInput.trim());
+            setPage(1);
+        }, 350);
+
+        return function(){
+            clearTimeout(timer);
+        };
+
+    }, [searchInput]);
+
+
+    useEffect(function(){
+
+        let cancelled = false;
+
+        const load = async function(){
+
+            try {
+
+                setIsLoading(true);
+                setError("");
+
+                const data = await listTickets({
+                    page: page,
+                    search: searchTerm,
+                    status: statusFilter,
+                    category: categoryFilter
+                });
+
+                if (!cancelled) {
+                    setTickets(data.results);
+                    setTotalCount(data.count);
+                }
+
+            } catch (err) {
+
+                if (!cancelled) {
+                    setError(err.data?.detail || "Unable to load your support tickets.");
+                }
+
+            } finally {
+
+                if (!cancelled) {
+                    setIsLoading(false);
+                }
+
+            }
+
+        };
+
+        load();
+
+        return function(){
+            cancelled = true;
+        };
+
+    }, [page, searchTerm, statusFilter, categoryFilter, refreshKey]);
+
+
+    useEffect(function(){
+
+        const loadStats = async function(){
+
+            try {
+                const data = await getTicketStats();
+                setStats(data);
+            } catch (err) {
+                return;
+            }
+
+        };
+
+        loadStats();
+
+    }, [refreshKey]);
+
+
+    useEffect(function(){
+
+        if (!notice) {
+            return undefined;
+        }
+
+        const timer = setTimeout(function(){
+            setNotice("");
+        }, 5000);
+
+        return function(){
+            clearTimeout(timer);
+        };
+
+    }, [notice]);
+
+
+    const handleOpenCreate = function(){
+        setFormErrors({});
+        setShowCreate(true);
+    };
+
+
+    const handleCloseCreate = function(){
+        setShowCreate(false);
+        setFormErrors({});
+    };
+
+
+    const handleCreateTicket = async function(form){
+
+        try {
+
+            setIsSaving(true);
+            setFormErrors({});
+
+            await createTicket(form);
+
+            setShowCreate(false);
+            setNotice("Your ticket has been submitted. Our team will respond soon.");
+            setStatusFilter("");
+            setCategoryFilter("");
+            setSearchInput("");
+            setSearchTerm("");
+            setPage(1);
+            setRefreshKey((key) => key + 1);
+
+        } catch (err) {
+
+            setFormErrors(mapTicketErrors(err.data));
+
+        } finally {
+
+            setIsSaving(false);
+
+        }
+
+    };
+
+
+    const handleStatusChange = function(e){
+        setStatusFilter(e.target.value);
+        setPage(1);
+    };
+
+
+    const handleCategoryChange = function(e){
+        setCategoryFilter(e.target.value);
+        setPage(1);
+    };
+
+
+    const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+
+    const getPageNumbers = function(){
+
+        const start = Math.max(1, Math.min(page - 1, totalPages - 2));
+        const end = Math.min(totalPages, start + 2);
+        const numbers = [];
+
+        for (let i = start; i <= end; i++) {
+            numbers.push(i);
+        }
+
+        return numbers;
+
+    };
+
+    const hasFilters = Boolean(searchTerm || statusFilter || categoryFilter);
+
+    const rangeStart = (page - 1) * PAGE_SIZE + 1;
+    const rangeEnd = Math.min(page * PAGE_SIZE, totalCount);
+
+
     return <>
 
         <div className="dashboard-layout container-profile">
@@ -151,9 +295,6 @@ const Support = function(){
 
                 <main className="support-content">
 
-
-                    {/* SUPPORT HEADING */}
-
                     <section className="support-heading">
 
                         <div className="heading-texts">
@@ -170,9 +311,13 @@ const Support = function(){
                         </div>
 
 
-                        <button className="create-ticket-btn">
+                        <button
+                            type="button"
+                            className="create-ticket-btn"
+                            onClick={handleOpenCreate}
+                        >
 
-                            <img src={pencil} 
+                            <img src={pencil}
                             alt="Create Icon" className="smaller-icons"/>
 
                             Create Support Ticket
@@ -182,12 +327,16 @@ const Support = function(){
                     </section>
 
 
+                    {notice && (
+                        <p className="ticket-notice">
+                            {notice}
+                        </p>
+                    )}
 
-                    {/* TICKET STATISTICS */}
 
                     <section className="support-stats">
 
-                        {ticketStats.map((stat) => (
+                        {statCards.map((stat) => (
 
                             <div className="stat-card" key={stat.id}>
 
@@ -196,7 +345,7 @@ const Support = function(){
                                 </div>
 
                                 <div className="stat-info">
-                                    <h4>{stat.count}</h4>
+                                    <h4>{stats[stat.key]}</h4>
                                     <p>{stat.title}</p>
                                 </div>
 
@@ -210,9 +359,6 @@ const Support = function(){
 
                     </section>
 
-
-
-                    {/* SUPPORT REQUESTS */}
 
                     <section className="support-requests">
 
@@ -229,27 +375,30 @@ const Support = function(){
                                     <input
                                         type="text"
                                         placeholder="Search tickets..."
+                                        value={searchInput}
+                                        onChange={(e) => setSearchInput(e.target.value)}
                                     />
 
                                 </div>
 
 
-                                <select defaultValue="All Statuses">
-                                    <option>All Statuses</option>
-                                    <option>Open</option>
-                                    <option>In Progress</option>
-                                    <option>Resolved</option>
-                                    <option>Closed</option>
+                                <select value={statusFilter} onChange={handleStatusChange}>
+                                    <option value="">All Statuses</option>
+                                    {STATUS_OPTIONS.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
                                 </select>
 
 
-                                <select defaultValue="All Categories">
-                                    <option>All Categories</option>
-                                    <option>Shipments</option>
-                                    <option>Account</option>
-                                    <option>Tracking</option>
-                                    <option>Billing</option>
-                                    <option>General</option>
+                                <select value={categoryFilter} onChange={handleCategoryChange}>
+                                    <option value="">All Categories</option>
+                                    {CATEGORY_OPTIONS.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
                                 </select>
 
                             </div>
@@ -257,173 +406,227 @@ const Support = function(){
                         </div>
 
 
-
-                        {/* MOBILE AND TABLET TICKET CARDS */}
-
-                        <div className="ticket-list">
-
-                            {supportTickets.map((ticket) => (
-
-                                <div className="ticket-card" key={ticket.id}>
-
-                                    <div className="ticket-card-top">
-
-                                        <span className="ticket-id">
-                                            {ticket.ticketId}
-                                        </span>
-
-                                        <span className={`ticket-status ${ticket.status.toLowerCase().replace(" ", "-")}`}>
-                                            {ticket.status}
-                                        </span>
-
-                                    </div>
+                        {error && (
+                            <p className="ticket-feedback error">
+                                {error}
+                            </p>
+                        )}
 
 
-                                    <h4>{ticket.subject}</h4>
+                        {!error && isLoading && tickets.length === 0 && (
+                            <p className="ticket-feedback">
+                                Loading your tickets...
+                            </p>
+                        )}
 
 
-                                    <div className="ticket-details">
-
-                                        <div>
-                                            <span>Category</span>
-                                            <p>{ticket.category}</p>
-                                        </div>
-
-                                        <div>
-                                            <span>Tracking ID</span>
-                                            <p>{ticket.trackingId}</p>
-                                        </div>
-
-                                    </div>
+                        {!error && !isLoading && tickets.length === 0 && (
+                            <p className="ticket-feedback">
+                                {hasFilters
+                                    ? "No tickets match your filters."
+                                    : "You haven't created any support tickets yet."
+                                }
+                            </p>
+                        )}
 
 
-                                    <div className="ticket-card-bottom">
+                        {tickets.length > 0 && (
 
-                                        <span>
-                                            Last updated: {ticket.lastUpdated}
-                                        </span>
+                            <>
 
-                                        <button>
+                                <div className="ticket-list">
 
-                                            View Details
+                                    {tickets.map((ticket) => (
 
-                                            <img src={downArr} alt="Down Arrow"  className="smaller-icons"/>
+                                        <div className="ticket-card" key={ticket.id}>
 
-                                        </button>
+                                            <div className="ticket-card-top">
 
-                                    </div>
-
-                                </div>
-
-                            ))}
-
-                        </div>
-
-
-
-                        {/* DESKTOP TICKET TABLE */}
-
-                        <div className="ticket-table-container">
-
-                            <table className="ticket-table">
-
-                                <thead>
-                                    <tr>
-                                        <th>Ticket ID</th>
-                                        <th>Subject</th>
-                                        <th>Category</th>
-                                        <th>Tracking ID</th>
-                                        <th>Date Created</th>
-                                        <th>Last Updated</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-
-                                    {supportTickets.map((ticket) => (
-
-                                        <tr key={ticket.id}>
-
-                                            <td>{ticket.ticketId}</td>
-
-                                            <td>{ticket.subject}</td>
-
-                                            <td>{ticket.category}</td>
-
-                                            <td>{ticket.trackingId}</td>
-
-                                            <td>{ticket.dateCreated}</td>
-
-                                            <td>
-                                                {ticket.lastUpdated}
-
-                                                <span className="table-time">
-                                                    {ticket.time}
+                                                <span className="ticket-id">
+                                                    #{ticket.ticket_id}
+                                                    {ticket.has_response && (
+                                                        <em className="replied-tag">Replied</em>
+                                                    )}
                                                 </span>
-                                            </td>
 
-                                            <td>
-                                                <span className={`ticket-status ${ticket.status.toLowerCase().replace(" ", "-")}`}>
-                                                    {ticket.status}
+                                                <span className={`ticket-status ${statusClass(ticket.status)}`}>
+                                                    {ticket.status_label}
                                                 </span>
-                                            </td>
 
-                                            <td>
-                                                <button className="view-ticket">
-                                                    View
+                                            </div>
+
+
+                                            <h4>{ticket.subject}</h4>
+
+
+                                            <div className="ticket-details">
+
+                                                <div>
+                                                    <span>Category</span>
+                                                    <p>{ticket.category_label}</p>
+                                                </div>
+
+                                                <div>
+                                                    <span>Tracking ID</span>
+                                                    <p>{ticket.tracking_id || "None"}</p>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div className="ticket-card-bottom">
+
+                                                <span>
+                                                    Last updated: {formatDate(ticket.updated_at)}
+                                                </span>
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setSelectedTicketId(ticket.ticket_id)}
+                                                >
+
+                                                    View Details
+
+                                                    <img src={downArr} alt="Down Arrow"  className="smaller-icons"/>
+
                                                 </button>
-                                            </td>
 
-                                        </tr>
+                                            </div>
+
+                                        </div>
 
                                     ))}
 
-                                </tbody>
-
-                            </table>
-
-                        </div>
+                                </div>
 
 
+                                <div className="ticket-table-container">
 
-                        {/* PAGINATION */}
+                                    <table className="ticket-table">
 
-                        <div className="ticket-pagination">
+                                        <thead>
+                                            <tr>
+                                                <th>Ticket ID</th>
+                                                <th>Subject</th>
+                                                <th>Category</th>
+                                                <th>Tracking ID</th>
+                                                <th>Date Created</th>
+                                                <th>Last Updated</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
 
-                            <p>Showing 1–5 of 12 requests</p>
 
-                            <div className="pagination-buttons">
+                                        <tbody>
 
-                                <button>
-                                    <span>
-                                        ⮜
-                                    </span>
-                                </button>
+                                            {tickets.map((ticket) => (
 
-                                <button className="active">1</button>
+                                                <tr key={ticket.id}>
 
-                                <button>2</button>
+                                                    <td>
+                                                        #{ticket.ticket_id}
+                                                        {ticket.has_response && (
+                                                            <em className="replied-tag">Replied</em>
+                                                        )}
+                                                    </td>
 
-                                <button>3</button>
+                                                    <td>{ticket.subject}</td>
 
-                                <button>
-                                    <span>
-                                        ⮞
-                                    </span>
-                                </button>
+                                                    <td>{ticket.category_label}</td>
+
+                                                    <td>{ticket.tracking_id || "None"}</td>
+
+                                                    <td>{formatDate(ticket.created_at)}</td>
+
+                                                    <td>
+                                                        {formatDate(ticket.updated_at)}
+
+                                                        <span className="table-time">
+                                                            {formatTime(ticket.updated_at)}
+                                                        </span>
+                                                    </td>
+
+                                                    <td>
+                                                        <span className={`ticket-status ${statusClass(ticket.status)}`}>
+                                                            {ticket.status_label}
+                                                        </span>
+                                                    </td>
+
+                                                    <td>
+                                                        <button
+                                                            type="button"
+                                                            className="view-ticket"
+                                                            onClick={() => setSelectedTicketId(ticket.ticket_id)}
+                                                        >
+                                                            View
+                                                        </button>
+                                                    </td>
+
+                                                </tr>
+
+                                            ))}
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </>
+
+                        )}
+
+
+                        {totalCount > 0 && (
+
+                            <div className="ticket-pagination">
+
+                                <p>
+                                    Showing {rangeStart}–{rangeEnd} of {totalCount} requests
+                                </p>
+
+                                <div className="pagination-buttons">
+
+                                    <button
+                                        type="button"
+                                        disabled={page <= 1}
+                                        onClick={() => setPage(page - 1)}
+                                    >
+                                        <span>
+                                            ⮜
+                                        </span>
+                                    </button>
+
+                                    {getPageNumbers().map((number) => (
+                                        <button
+                                            type="button"
+                                            key={number}
+                                            className={number === page ? "active" : ""}
+                                            onClick={() => setPage(number)}
+                                        >
+                                            {number}
+                                        </button>
+                                    ))}
+
+                                    <button
+                                        type="button"
+                                        disabled={page >= totalPages}
+                                        onClick={() => setPage(page + 1)}
+                                    >
+                                        <span>
+                                            ⮞
+                                        </span>
+                                    </button>
+
+                                </div>
 
                             </div>
 
-                        </div>
+                        )}
 
                     </section>
 
-
-
-                    {/* FREQUENTLY ASKED QUESTIONS */}
 
                     <section className="support-faq">
 
@@ -449,24 +652,23 @@ const Support = function(){
                         </div>
 
 
-
                         <div className="faq-list">
 
                             {faqs.map((faq) => (
 
                                <details key={faq.id}>
 
-    <summary>
+                                    <summary>
 
-        {faq.question}
+                                        {faq.question}
 
-        <span className="faq-arrow">⮟</span>
+                                        <span className="faq-arrow">⮟</span>
 
-    </summary>
+                                    </summary>
 
-    <p>{faq.answer}</p>
+                                    <p>{faq.answer}</p>
 
-</details>
+                                </details>
 
                             ))}
 
@@ -476,6 +678,28 @@ const Support = function(){
 
 
                 </main>
+
+
+                {showCreate && (
+
+                    <CreateTicketModal
+                        onClose={handleCloseCreate}
+                        onSave={handleCreateTicket}
+                        isSaving={isSaving}
+                        serverErrors={formErrors}
+                    />
+
+                )}
+
+
+                {selectedTicketId && (
+
+                    <TicketDetailModal
+                        ticketId={selectedTicketId}
+                        onClose={() => setSelectedTicketId(null)}
+                    />
+
+                )}
 
             </div>
 
