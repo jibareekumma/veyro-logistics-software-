@@ -1,5 +1,3 @@
-
-
 import Landing from "./components/auths/Landing"
 import Register from "./components/auths/Register";
 import Login from "./components/auths/Login";
@@ -22,6 +20,10 @@ import NotFound from "./components/NotFound";
 import { NotificationProvider } from "./context/NotificationContext";
 
 import Support from "./components/support/Support";
+
+import AdminRoute from "./components/admin/AdminRoute";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AcceptInvite from "./components/admin/AcceptInvite";
 
 
 import {Routes, Route} from "react-router-dom";
@@ -52,6 +54,9 @@ function App() {
          <Route path = '/notifications' element = {<ProtectedRoute><Notifications/></ProtectedRoute>} />
 
          <Route path = '/support' element = {<ProtectedRoute><Support/></ProtectedRoute>} />
+
+         <Route path = '/admin' element = {<AdminRoute><AdminDashboard/></AdminRoute>} />
+         <Route path = '/accept-invite/:token' element = {<AcceptInvite/>} />
 
          <Route path = '*' element = {<NotFound/>} />
 

@@ -1,3 +1,4 @@
+
 import '../../stylings/Register.css'
 
 import { useState } from 'react'
@@ -94,7 +95,7 @@ const Login = function(){
         try {
             const data = await loginUser(values)
             saveSession(data, remember)
-            navigate('/dashboard')
+            navigate(data.user.role === 'customer' ? '/dashboard' : '/admin')
         } catch (error) {
             setErrors(parseErrors(error))
         } finally {
