@@ -1,7 +1,8 @@
 
+
 import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { getCurrentUser, hasSession, clearSession } from '../api/auth'
+import { getCurrentUser, hasSession, clearSession, getStoredUser } from '../api/auth'
 
 const ProtectedRoute = function({ children }){
 
@@ -48,7 +49,9 @@ const ProtectedRoute = function({ children }){
 const PublicRoute = function({ children }){
 
     if (hasSession()) {
-        return <Navigate to='/dashboard' replace />
+        const user = getStoredUser()
+        const isStaff = user && user.role && user.role !== 'customer'
+        return <Navigate to={isStaff ? '/admin' : '/dashboard'} replace />
     }
 
     return children
