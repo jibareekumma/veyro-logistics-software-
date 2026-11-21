@@ -1,9 +1,26 @@
+
+
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getStoredUser, logoutUser, parseErrors } from '../../api/auth'
 import { getOverview, getStaff, inviteStaff } from '../../api/admin'
 
+import AdminHeader from "./AdminHeader.jsx"
+import "../../stylings/admin-stylings/AdminDashboard.scss"
+
+import totalCusIcon from "../../assets/icons/total-admin.png"
+import newCustomer from "../../assets/icons/add-admin.png"
+import linkAdmin from "../../assets/icons/link-admin.png"
+import activeAdmmin from "../../assets/icons/verified2.png"
+
+import crownIcon from "../../assets/icons/crown.png"
+
 const ROLES = ['support', 'operations', 'finance', 'super_admin']
+
+const formatRole = function(role){
+    if (!role) return ''
+    return role.replace('_', ' ')
+}
 
 const AdminDashboard = function(){
 
@@ -17,6 +34,7 @@ const AdminDashboard = function(){
     const [errors, setErrors] = useState({})
     const [inviteLink, setInviteLink] = useState('')
     const [loading, setLoading] = useState(false)
+    const [copied, setCopied] = useState(false)
 
     useEffect(function(){
         const load = async function(){
@@ -31,7 +49,7 @@ const AdminDashboard = function(){
                 } else if (error.status === 403) {
                     navigate('/dashboard')
                 }
-            }
+            }  
         }
         load()
     }, [])
@@ -45,6 +63,7 @@ const AdminDashboard = function(){
         if (loading) return
         setErrors({})
         setInviteLink('')
+        setCopied(false)
         setLoading(true)
         try {
             const data = await inviteStaff(form)
@@ -58,6 +77,16 @@ const AdminDashboard = function(){
         }
     }
 
+    const handleCopy = async function(){
+        try {
+            await navigator.clipboard.writeText(inviteLink)
+            setCopied(true)
+            setTimeout(function(){ setCopied(false) }, 2000)
+        } catch (error) {
+            setCopied(false)
+        }
+    }
+
     const handleLogout = function(){
         logoutUser()
         navigate('/login')
@@ -66,88 +95,161 @@ const AdminDashboard = function(){
     return <>
         <div className='admin-dashboard'>
 
-            <header>
-                <h1>Admin Dashboard</h1>
-                <p>{user ? user.full_name : ''} ({user ? user.role : ''})</p>
-                <button onClick={handleLogout}>Logout</button>
-            </header>
+            <div className='admin-main'>
 
-            <section>
-                <h2>Overview</h2>
-                {overview ? (
-                    <div>
-                        <div><h3>{overview.total_customers}</h3><p>Total customers</p></div>
-                        <div><h3>{overview.new_customers_7d}</h3><p>New customers (7 days)</p></div>
-                        <div><h3>{overview.total_staff}</h3><p>Total staff</p></div>
-                        <div><h3>{overview.active_staff}</h3><p>Active staff</p></div>
+                <AdminHeader/>
+
+                <div className='admin-content'>
+
+                    <div className='page-head'>
+                        <div>
+                            <h1>Admin Dashboard</h1>
+                            <p>
+                                Welcome back, {user ? user.full_name : ''}
+                                <span className='role-badge'>{user ? formatRole(user.role) : ''}</span>
+                            </p>
+                        </div>
+                        <button className='logout-button' onClick={handleLogout}>Logout</button>
                     </div>
-                ) : (
-                    <p>Loading...</p>
-                )}
-            </section>
 
-            {isSuperAdmin && (
-                <section>
-                    <h2>Staff</h2>
+                    <section>
+                        <h2 className='sr-only'>Overview</h2>
+                        {overview ? (
+                            <div className='stats-grid'>
+                                <div className='stat-card'>
+                                    <span className='stat-icon'>
+                                        <img src={totalCusIcon} alt="Total Customer Icon" className='total-customer-icon admin-icon'/>
+                                    </span>
+                                    <h3>{overview.total_customers}</h3>
+                                    <p>Total customers</p>
+                                </div>
+                                <div className='stat-card'>
+                                    <span className='stat-icon'>
+                                        <img src={newCustomer} alt="New Customer Icon" className='new-customer-icon admin-icon'/>
+                                    </span>
+                                    <h3>{overview.new_customers_7d}</h3>
+                                    <p>New customers (7 days)</p>
+                                </div>
+                                <div className='stat-card'>
+                                    <span className='stat-icon'>
+                                        <img src={linkAdmin} alt="Link Admin Icon" className='link-customer-icon admin-icon'/>
+                                    </span>
+                                    <h3>{overview.total_staff}</h3>
+                                    <p>Total staff</p>
+                                </div>
+                                <div className='stat-card'>
+                                    <span className='stat-icon'>
+                                        <img src={activeAdmmin} alt="Active Admin Icon" className='active-admin-icon admin-icon'/>
+                                    </span>
+                                    <h3>{overview.active_staff}</h3>
+                                    <p>Active staff</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <p>Loading...</p>
+                        )}
+                    </section>
 
-                    <form onSubmit={handleInvite}>
-                        <h3>Invite staff</h3>
-                        <div>
-                            <label>Full name</label>
-                            <input name='full_name' value={form.full_name} onChange={handleChange} />
-                            {errors.full_name && <p>{errors.full_name}</p>}
-                        </div>
-                        <div>
-                            <label>Email</label>
-                            <input name='email' value={form.email} onChange={handleChange} />
-                            {errors.email && <p>{errors.email}</p>}
-                        </div>
-                        <div>
-                            <label>Role</label>
-                            <select name='role' value={form.role} onChange={handleChange}>
-                                {ROLES.map(function(role){
-                                    return <option key={role} value={role}>{role}</option>
-                                })}
-                            </select>
-                            {errors.role && <p>{errors.role}</p>}
-                        </div>
-                        {errors.general && <p>{errors.general}</p>}
-                        <button type='submit' disabled={loading}>
-                            {loading ? 'Creating invite...' : 'Create invite link'}
-                        </button>
-                    </form>
+                    {isSuperAdmin && (
+                        <section className='staff-section'>
 
-                    {inviteLink && (
-                        <div>
-                            <p>Send this link to the new staff member. It works once and expires in 7 days.</p>
-                            <input readOnly value={inviteLink} onFocus={function(e){ e.target.select() }} />
-                        </div>
+                            <div className='invite-panel'>
+                                <div className='section-head'>
+                                    <img src={crownIcon} alt="Crown Icon" className='crown-icon admin-icon' />
+                                    <div>
+                                        <h2>Staff Section</h2>
+                                        <p>Invite new staff members to join the platform.</p>
+                                    </div>
+                                </div>
+
+                                <form className='invite-form' onSubmit={handleInvite}>
+                                    <div className='form-field'>
+                                        <label>Full name</label>
+                                        <input name='full_name' placeholder='e.g. John Doe' value={form.full_name} onChange={handleChange} />
+                                        {errors.full_name && <p className='field-error'>{errors.full_name}</p>}
+                                    </div>
+                                    <div className='form-field'>
+                                        <label>Email</label>
+                                        <input name='email' placeholder='e.g. john@veyro.com' value={form.email} onChange={handleChange} />
+                                        {errors.email && <p className='field-error'>{errors.email}</p>}
+                                    </div>
+                                    <div className='form-field'>
+                                        <label>Role</label>
+                                        <select name='role' value={form.role} onChange={handleChange}>
+                                            {ROLES.map(function(role){
+                                                return <option key={role} value={role}>{role}</option>
+                                            })}
+                                        </select>
+                                        {errors.role && <p className='field-error'>{errors.role}</p>}
+                                    </div>
+                                    <div className='form-action'>
+                                        <button className='invite-button' type='submit' disabled={loading}>
+                                            {loading ? 'Creating invite...' : 'Create invite link'}
+                                        </button>
+                                    </div>
+                                    {errors.general && <p className='field-error form-error'>{errors.general}</p>}
+                                </form>
+
+                                {inviteLink && (
+                                    <div className='invite-link'>
+                                        <span className='icon-placeholder'></span>
+                                        <div className='invite-link-body'>
+                                            <p>Send this link to the new staff member. It works once and expires in 7 days.</p>
+                                            <input readOnly value={inviteLink} onFocus={function(e){ e.target.select() }} />
+                                        </div>
+                                        <button className='copy-button' type='button' onClick={handleCopy}>
+                                            {copied ? 'Copied' : 'Copy'}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className='staff-list'>
+                                <h3>Staff Members</h3>
+
+                                {staff.length > 0 ? (
+                                    <div className='table-wrap'>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {staff.map(function(member){
+                                                    return (
+                                                        <tr key={member.id}>
+                                                            <td>{member.full_name}</td>
+                                                            <td>{member.email}</td>
+                                                            <td>{member.role}</td>
+                                                            <td>
+                                                                <span className={`status-badge ${String(member.status).toLowerCase()}`}>
+                                                                    {member.status}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                ) : (
+                                    <div className='empty-state'>
+                                        <span className='icon-placeholder'></span>
+                                        <strong>No staff members found</strong>
+                                        <p>Invite your first staff member to get started.</p>
+                                    </div>
+                                )}
+                            </div>
+
+                        </section>
                     )}
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {staff.map(function(member){
-                                return (
-                                    <tr key={member.id}>
-                                        <td>{member.full_name}</td>
-                                        <td>{member.email}</td>
-                                        <td>{member.role}</td>
-                                        <td>{member.status}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </section>
-            )}
+                </div>
+            </div>
 
         </div>
     </>

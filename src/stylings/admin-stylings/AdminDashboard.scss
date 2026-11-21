@@ -1,0 +1,543 @@
+
+
+
+@import "../Variable.scss";
+
+.icon-placeholder {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: #000;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.admin-dashboard {
+    min-height: 100vh;
+    background: $veyro-off-white;
+    color: $veyro-near-black;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    z-index: 90;
+
+    &.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    @include tablet {
+        display: none;
+    }
+}
+
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    background: $color-sidebar-bg;
+    color: $veyro-white;
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    z-index: 100;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    @include tablet {
+        width: $sidebar-width-tablet;
+        transform: none;
+        z-index: 50;
+    }
+
+    @include desktop {
+        width: $sidebar-width-desktop;
+        padding: 2rem 1.5rem;
+    }
+
+    .icon-placeholder {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+
+    .logo-text {
+        font-family: $bebas-nue;
+        font-size: 2.05rem;
+        letter-spacing: 0.1em;
+    }
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: $secondary-texts;
+    text-decoration: none;
+    font-size: 1.25rem;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    &.active {
+        background: rgba($veyro-bright-cyan, 0.18);
+        color: $veyro-white;
+    }
+}
+
+.sidebar-footer {
+    margin: auto 0 0;
+    color: $veyro-bright-cyan;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 2rem;
+        height: 2px;
+        margin-top: 0.5rem;
+        background: $veyro-bright-cyan;
+    }
+}
+
+.menu-button {
+    display: flex;
+    padding: 0.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    @include tablet {
+        display: none;
+    }
+}
+
+.admin-main {
+    @include tablet {
+        margin-left: $sidebar-width-tablet;
+    }
+
+    @include desktop {
+        margin-left: $sidebar-width-desktop;
+    }
+}
+
+.admin-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.25rem 1rem;
+
+    @include tablet {
+        padding: 1.5rem;
+    }
+
+    @include desktop {
+        padding: 2rem;
+    }
+}
+
+.page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    h1 {
+        margin: 0 0 0.35rem;
+        color: $veyro-near-black;
+        font-size: 1.8rem;
+
+        @include tablet {
+            font-size: 2.175rem;
+        }
+    }
+
+    p {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+        font-size: 1.2rem;
+    }
+}
+
+.role-badge {
+    padding: 0.15rem 0.6rem;
+    background: rgba($veyro-bright-cyan, 0.2);
+    border-radius: 999px;
+    color: $veyro-deep-teal;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.logout-button {
+    padding: 0.5rem 1rem;
+    background: $accent-glow;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+
+    @include tablet {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem;
+    background: $veyro-white;
+    border: 1px solid $veyro-soft-gray;
+    border-radius: 0.75rem;
+
+    .stat-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.35rem;
+        background: $status-processing-bg;
+        border-radius: 50%;
+    }
+
+    p {
+        order: 1;
+        margin: 0;
+        color: $muted-gray;
+        font-size: 1.1rem;
+    }
+
+    h3 {
+        order: 2;
+        margin: 0;
+        color: $veyro-near-black;
+        font-size: 1.8rem;
+    }
+}
+
+.staff-section {
+    background: $veyro-white;
+    border: 1px solid $veyro-soft-gray;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.invite-panel {
+    padding: 1rem;
+    background: $status-processing-bg;
+
+    @include tablet {
+        padding: 1.25rem;
+    }
+}
+
+.section-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+
+    h2 {
+        margin: 0;
+        color: $veyro-near-black;
+        font-size: 1.4rem;
+    }
+
+    p {
+        margin: 0.25rem 0 0;
+        color: $muted-gray;
+        font-size: 1.1rem;
+    }
+}
+
+.invite-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    @include tablet {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include desktop {
+        grid-template-columns: repeat(3, 1fr) auto;
+        align-items: start;
+    }
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    label {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    input,
+    select {
+        padding: 0.65rem 0.8rem;
+        background: $veyro-white;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 0.5rem;
+        font-family: inherit;
+        font-size: 1.2rem;
+
+        &:focus {
+            outline: 2px solid $veyro-bright-cyan;
+            border-color: transparent;
+        }
+    }
+}
+
+.field-error {
+    margin: 0;
+    color: $status-attention-text;
+    font-size: 1.05rem;
+}
+
+.form-error {
+    grid-column: 1 / -1;
+}
+
+.form-action {
+    @include tablet {
+        grid-column: 1 / -1;
+    }
+
+    @include desktop {
+        grid-column: auto;
+        padding-top: 1.55rem;
+    }
+}
+
+.invite-button {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    background: $accent-gradient;
+    border: none;
+    border-radius: 0.5rem;
+    color: $veyro-white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    @include desktop {
+        width: auto;
+    }
+}
+
+.invite-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: $veyro-white;
+    border: 1px solid rgba($veyro-bright-cyan, 0.4);
+    border-radius: 0.5rem;
+
+    @include tablet {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .invite-link-body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    p {
+        margin: 0 0 0.5rem;
+        color: $muted-gray;
+        font-size: 1.1rem;
+    }
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.5rem;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 0.4rem;
+        font-family: inherit;
+        font-size: 1.1rem;
+    }
+}
+
+.copy-button {
+    padding: 0.5rem 1rem;
+    background: $veyro-white;
+    border: 1px solid $veyro-deep-teal;
+    border-radius: 0.5rem;
+    color: $veyro-deep-teal;
+    font-family: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.staff-list {
+    padding: 1rem;
+
+    @include tablet {
+        padding: 1.25rem;
+    }
+
+    h3 {
+        margin: 0 0 0.75rem;
+        font-size: 1.4rem;
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 0.5rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.1rem;
+
+        @include tablet {
+            font-size: 1.2rem;
+        }
+
+        th,
+        td {
+            padding: 0.65rem 0.75rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        th {
+            background: $veyro-off-white;
+            color: $muted-gray;
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-top: 1px solid $veyro-soft-gray;
+        }
+    }
+}
+
+.status-badge {
+    padding: 0.15rem 0.6rem;
+    background: $veyro-soft-gray;
+    border-radius: 0.25rem;
+    color: $muted-gray;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    &.active {
+        background: $status-delivered-bg;
+        color: $status-delivered-text;
+    }
+
+    &.invited {
+        background: $status-attention-bg;
+        color: $status-attention-text;
+    }
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 1rem;
+    background: $veyro-off-white;
+    border: 1px dashed $veyro-soft-gray;
+    border-radius: 0.5rem;
+    text-align: center;
+
+    p {
+        margin: 0;
+        color: $muted-gray;
+        font-size: 1.1rem;
+    }
+}
+
+
+.hamburger-menu{
+    width: 2rem;
+    height: 4rem;
+}
+
+.admin-icon{
+    width: 2.2rem;
+    height: 2.2rem;
+    filter: $filter-accent-dimmed;
+}
+
+.crown-icon{
+    filter: $filter-gold;
+}
+
+.navigation-icon{
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.logout-button{
+
+}

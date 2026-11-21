@@ -115,6 +115,9 @@ $filter-accent-glow: brightness(0) saturate(100%)
         invert(63%) sepia(47%) saturate(720%)
         hue-rotate(145deg) brightness(88%);
 
+ 
+$filter-gold: brightness(0) saturate(100%) invert(75%) sepia(65%) saturate(600%) hue-rotate(5deg) brightness(100%) contrast(95%);
+
 
 $accent-dimmed: rgba(2, 24, 37);
 $cyan-bg: rgba(0, 16, 26);
