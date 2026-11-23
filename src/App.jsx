@@ -25,6 +25,8 @@ import AdminRoute from "./components/admin/AdminRoute";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import AcceptInvite from "./components/admin/AcceptInvite";
 
+import ParcelDashboard from "./components/admin/ParcelDashboard";
+
 
 import {Routes, Route} from "react-router-dom";
 
@@ -57,6 +59,7 @@ function App() {
 
          <Route path = '/admin' element = {<AdminRoute><AdminDashboard/></AdminRoute>} />
          <Route path = '/accept-invite/:token' element = {<AcceptInvite/>} />
+         <Route path = '/parcel-dashboard/:token' element = {<ParcelDashboard/>} />
 
          <Route path = '*' element = {<NotFound/>} />
 

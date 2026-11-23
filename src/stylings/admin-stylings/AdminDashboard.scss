@@ -1,6 +1,5 @@
 
 
-
 @import "../Variable.scss";
 
 .icon-placeholder {
@@ -538,6 +537,240 @@
     height: 1.8rem;
 }
 
-.logout-button{
+// .logout-button{
 
+// }
+
+
+
+
+
+
+
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: bebas-nue;
+    src: url(fonts/BebasNeue-Regular.ttf);
+}
+
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+$sidebar-width-tablet: 18rem;
+$sidebar-width-desktop: 24rem;
+
+@mixin tablet {
+  @media (min-width: $bp-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $bp-desktop) {
+    @content;
+  }
+}
+
+$veyro-deep-teal: #205068;
+$veyro-bright-cyan: #58d0e8;
+$veyro-near-black: #181818;
+$veyro-off-white: #f8f8f8;
+$veyro-white: #ffffff;
+$veyro-soft-gray: #e5e7eb;
+$muted-gray: #6b7280;
+
+$filter-accent-dimmed: brightness(0) saturate(100%)
+        invert(63%) sepia(47%) saturate(720%)
+        hue-rotate(155deg) brightness(92%) contrast(92%);
+
+$status-transit-text: #16866e;
+$status-transit-bg: #e0f5ee;
+$status-delivered-text: #21845b;
+$status-delivered-bg: #dff5e8;
+$status-attention-text: #c2410c;
+$status-attention-bg: #ffedd5;
+$status-processing-text: #3b6ea5;
+$status-processing-bg: #e3eefb;
+
+$veyro-identity-colors: (
+  "deep-teal": $veyro-deep-teal,
+  "bright-cyan": $veyro-bright-cyan,
+  "near-black": $veyro-near-black,
+  "off-white": $veyro-off-white
+);
+
+$color-brand-primary: $veyro-deep-teal;
+$color-brand-accent: $veyro-bright-cyan;
+
+$color-sidebar-bg: $veyro-deep-teal;
+$color-navbar-bg: $veyro-deep-teal;
+$color-logo-mark: $veyro-deep-teal;
+$color-logo-wordmark: $veyro-near-black;
+$color-heading: $veyro-deep-teal;
+
+
+
+$dark-color-background: #111827;
+$dark-color-card-bg: #1f2937;
+$dark-color-primary: #58d0e8;
+$dark-color-text-primary: #f3f4f6;
+$dark-color-text-secondary: #9ca3af;
+$dark-color-border: #374151;
+
+$light-theme: (
+  "background": $veyro-off-white,
+  "card-bg": $veyro-white,
+  "primary": $veyro-deep-teal,
+  "accent": $veyro-bright-cyan,
+  "text-primary": $veyro-near-black,
+  "text-secondary": $muted-gray,
+  "border": $veyro-soft-gray
+);
+
+$dark-theme: (
+  "background": $dark-color-background,
+  "card-bg": $dark-color-card-bg,
+  "primary": $dark-color-primary,
+  "accent": $veyro-bright-cyan,
+  "text-primary": $dark-color-text-primary,
+  "text-secondary": $dark-color-text-secondary,
+  "border": $dark-color-border
+);
+
+
+
+
+$accent-gradient: linear-gradient(
+  135deg,
+  #35afc9 0%,
+  #67c9dc 100%
+);
+
+$bg-white-dim: rgb(219, 220, 223);
+
+$accent-filter: brightness(0) saturate(100%)
+        invert(77%) sepia(35%)
+        saturate(700%) hue-rotate(150deg)
+        brightness(90%) contrast(85%);
+
+$accent-glow:  #35afc9;
+$filter-accent-glow: brightness(0) saturate(100%)
+        invert(63%) sepia(47%) saturate(720%)
+        hue-rotate(145deg) brightness(88%);
+
+ 
+$filter-gold: brightness(0) saturate(100%) invert(75%) sepia(65%) saturate(600%) hue-rotate(5deg) brightness(100%) contrast(95%);
+
+
+$accent-dimmed: rgba(2, 24, 37);
+$cyan-bg: rgba(0, 16, 26);
+$secondary-texts: rgb(200, 203, 209);
+$border-color: rgb(83, 119, 119);
+
+$filter-white: brightness(0) invert(1);
+
+$accent-sec: #9fe6c8;
+
+$fira-sans: fira-sans;
+
+$bebas-nue: bebas-nue;
+
+$filter-red: brightness(0) saturate(100%) invert(16%) sepia(95%) saturate(7480%) hue-rotate(0deg) brightness(100%) contrast(110%);
+
+@mixin apply-theme($theme) {
+  @each $name, $value in $theme {
+    --color-#{$name}: #{$value};
+  }
+}
+
+@mixin apply-light-theme {
+  @include apply-theme($light-theme);
+}
+
+@mixin apply-dark-theme {
+  @include apply-theme($dark-theme);
+}
+
+@function theme-var($name) {
+  @return var(--color-#{$name});
+}
+
+
+
+
+with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id, along with a button that the admin clicks to control a parcel, just the search form , the search should be positioned on the right properly, and for mobile, right before stats, or maybe if for tablet and desktop it is better before stats, itll be cool too 
+
+Use the colors available in the scss variables files, and follow my coding and styling pattern, update the files and give back to me
+
+.tracking-search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.75rem 0.9rem;
+        background: $veyro-white;
+        border: 1px solid $veyro-soft-gray;
+        border-radius: 0.5rem;
+        color: $veyro-near-black;
+        font-family: inherit;
+        font-size: 1.1rem;
+
+        &::placeholder {
+            color: $muted-gray;
+        }
+
+        &:focus {
+            outline: 2px solid $veyro-bright-cyan;
+            border-color: transparent;
+        }
+    }
+
+    @include tablet {
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        input {
+            max-width: 22rem;
+        }
+    }
+}
+
+.manage-parcel-button {
+    padding: 0.75rem 1.25rem;
+    background: $accent-gradient;
+    border: none;
+    border-radius: 0.5rem;
+    color: $veyro-white;
+    font-family: inherit;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $veyro-deep-teal;
+        outline-offset: 2px;
+    }
+}
+
+
+.admin-search-input{
+   min-width: 10rem;
+   height: 3rem;
+   margin-right: 1.5rem;
+   border-radius: 5px;
+   border: 0.5px groove $border-color;
+    padding: 0 1rem;
 }

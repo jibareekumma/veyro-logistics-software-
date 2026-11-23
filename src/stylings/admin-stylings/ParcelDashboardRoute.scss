@@ -1,0 +1,171 @@
+
+
+@import "../Variable.scss";
+
+.parcel-route-container {
+    width: 100%;
+    padding: 1rem;
+    background: $veyro-white;
+    border: 1px solid $veyro-soft-gray;
+    border-radius: 0.75rem;
+    box-sizing: border-box;
+}
+
+.parcel-route-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+        margin: 0;
+        color: $veyro-deep-teal;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .route-info-placeholder {
+        width: 0.25rem;
+        height: 0.25rem;
+        background: $veyro-deep-teal;
+        border-radius: 50%;
+    }
+}
+
+.parcel-route-timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.route-event {
+    position: relative;
+    display: flex;
+    gap: 0.8rem;
+    padding-bottom: 1rem;
+
+    &:not(:last-child) {
+
+        .route-event-indicator::after {
+            content: '';
+            position: absolute;
+            top: 0.85rem;
+            left: 0.34rem;
+            width: 2px;
+            height: calc(100% + 0.15rem);
+            background: $veyro-soft-gray;
+        }
+    }
+
+    .route-event-indicator {
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+        width: 0.75rem;
+        height: 0.75rem;
+        margin-top: 0.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $veyro-white;
+        border-radius: 50%;
+
+        span {
+            width: 0.55rem;
+            height: 0.55rem;
+            background: $veyro-bright-cyan;
+            border-radius: 50%;
+        }
+    }
+
+    .route-event-content {
+        flex: 1;
+
+        .route-event-time {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: $muted-gray;
+            font-size: 1.15rem;
+        }
+
+        p {
+            margin: 0.25rem 0 0;
+            color: $veyro-deep-teal;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+    }
+
+    &.active {
+        .route-event-indicator span {
+            background: $veyro-bright-cyan;
+        }
+
+        .route-event-content p {
+            color: $veyro-deep-teal;
+        }
+    }
+}
+
+.full-tracking-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    background: $veyro-soft-gray;
+    border: 1px solid $veyro-bright-cyan;
+    border-radius: 0.5rem;
+    color: $veyro-deep-teal;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+        background: $veyro-bright-cyan;
+    }
+
+    .external-link-placeholder {
+        width: 0.65rem;
+        height: 0.65rem;
+        background: $veyro-deep-teal;
+        border-radius: 0.1rem;
+    }
+}
+
+.upper-right-arr{
+    width: 2rem;
+    height: 2rem;
+}
+
+
+@media (min-width: 768px) {
+    .parcel-route-container {
+        padding: 1.1rem;
+        border-radius: 0.65rem;
+    }
+
+    .parcel-route-header h3 { font-size: 1.05rem; }
+
+    .route-event {
+        padding-bottom: 1.15rem;
+
+        .route-event-content {
+            .route-event-time { font-size: 0.8rem; }
+            p { font-size: 0.9rem; }
+        }
+    }
+
+    .full-tracking-button {
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+
+    .upper-right-arr {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+}

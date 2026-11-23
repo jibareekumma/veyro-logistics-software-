@@ -1,0 +1,237 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.parcel-details-container {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.parcel-details-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid #e5e7eb;
+}
+.parcel-details-tabs button {
+  padding: 0.9rem 0.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #6b7280;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.parcel-details-tabs button.active {
+  color: #205068;
+  border-bottom-color: #58d0e8;
+}
+.parcel-details-tabs button:hover {
+  color: #205068;
+}
+
+.parcel-details-content {
+  padding: 1rem;
+  color: #181818;
+}
+.parcel-details-content h3 {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #205068;
+}
+
+.details-section .detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  font-size: 1.25rem;
+}
+.details-section .detail-row span {
+  color: #6b7280;
+}
+.details-section .detail-row strong {
+  color: #181818;
+  font-weight: 600;
+  text-align: right;
+}
+
+.tracking-section .tracking-event {
+  position: relative;
+  display: flex;
+  gap: 0.85rem;
+  padding-bottom: 1.4rem;
+}
+.tracking-section .tracking-event:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  top: 0.8rem;
+  height: calc(100% - 0.3rem);
+  width: 2px;
+  background: #e5e7eb;
+}
+.tracking-section .tracking-event .event-dot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-top: 0.2rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+}
+.tracking-section .tracking-event strong {
+  font-size: 1.25rem;
+  color: #181818;
+}
+.tracking-section .tracking-event p {
+  margin: 0.3rem 0;
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+.tracking-section .tracking-event small {
+  font-size: 1.12rem;
+  color: #6b7280;
+}
+.tracking-section .tracking-event.completed .event-dot, .tracking-section .tracking-event.active .event-dot {
+  background: #58d0e8;
+}
+.tracking-section .tracking-event.active strong {
+  color: #205068;
+}
+
+.parcel-actions-section .action-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  background: #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+}
+.parcel-actions-section .action-info span {
+  color: #6b7280;
+}
+.parcel-actions-section .action-info strong {
+  color: #205068;
+}
+.parcel-actions-section .parcel-action-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.parcel-actions-section .parcel-action-card:last-child {
+  border-bottom: none;
+}
+.parcel-actions-section .parcel-action-card strong {
+  display: block;
+  font-size: 1.25rem;
+  color: #181818;
+}
+.parcel-actions-section .parcel-action-card p {
+  margin: 0.3rem 0 0;
+  font-size: 1.15rem;
+  color: #6b7280;
+}
+.parcel-actions-section .parcel-action-card button {
+  padding: 0.55rem 0.75rem;
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  border-radius: 0.4rem;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1.12rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.parcel-actions-section .parcel-action-card button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+  .parcel-details-content {
+    padding: 0.85rem;
+  }
+  .details-section .detail-row {
+    font-size: 1.18rem;
+  }
+  .parcel-actions-section .parcel-action-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .parcel-actions-section .parcel-action-card button {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .parcel-details-container {
+    border-radius: 0.65rem;
+  }
+  .parcel-details-tabs button {
+    padding: 0.85rem 0.75rem;
+    font-size: 1rem;
+  }
+  .parcel-details-content {
+    padding: 1.25rem;
+  }
+  .parcel-details-content h3 {
+    font-size: 1.15rem;
+  }
+  .details-section .detail-row {
+    padding: 0.65rem 0;
+    font-size: 0.95rem;
+  }
+  .tracking-section .tracking-event {
+    padding-bottom: 1.5rem;
+  }
+  .tracking-section .tracking-event strong {
+    font-size: 1rem;
+  }
+  .tracking-section .tracking-event p {
+    font-size: 0.9rem;
+  }
+  .tracking-section .tracking-event small {
+    font-size: 0.82rem;
+  }
+  .parcel-actions-section .action-info {
+    font-size: 0.95rem;
+  }
+  .parcel-actions-section .parcel-action-card {
+    padding: 1rem 0;
+  }
+  .parcel-actions-section .parcel-action-card strong {
+    font-size: 0.95rem;
+  }
+  .parcel-actions-section .parcel-action-card p {
+    font-size: 0.85rem;
+  }
+  .parcel-actions-section .parcel-action-card button {
+    font-size: 0.85rem;
+  }
+}
+@media (min-width: 1024px) {
+  .parcel-details-content {
+    padding: 1.35rem;
+  }
+  .details-section .detail-row {
+    font-size: 0.92rem;
+    padding: 0.75rem 0;
+  }
+}/*# sourceMappingURL=ParcelDashboardDetails.css.map */

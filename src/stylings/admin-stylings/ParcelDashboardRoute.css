@@ -1,0 +1,156 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.parcel-route-container {
+  width: 100%;
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+}
+
+.parcel-route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.parcel-route-header h3 {
+  margin: 0;
+  color: #205068;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.parcel-route-header .route-info-placeholder {
+  width: 0.25rem;
+  height: 0.25rem;
+  background: #205068;
+  border-radius: 50%;
+}
+
+.parcel-route-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-event {
+  position: relative;
+  display: flex;
+  gap: 0.8rem;
+  padding-bottom: 1rem;
+}
+.route-event:not(:last-child) .route-event-indicator::after {
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  left: 0.34rem;
+  width: 2px;
+  height: calc(100% + 0.15rem);
+  background: #e5e7eb;
+}
+.route-event .route-event-indicator {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-top: 0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 50%;
+}
+.route-event .route-event-indicator span {
+  width: 0.55rem;
+  height: 0.55rem;
+  background: #58d0e8;
+  border-radius: 50%;
+}
+.route-event .route-event-content {
+  flex: 1;
+}
+.route-event .route-event-content .route-event-time {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #6b7280;
+  font-size: 1.15rem;
+}
+.route-event .route-event-content p {
+  margin: 0.25rem 0 0;
+  color: #205068;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.route-event.active .route-event-indicator span {
+  background: #58d0e8;
+}
+.route-event.active .route-event-content p {
+  color: #205068;
+}
+
+.full-tracking-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  background: #e5e7eb;
+  border: 1px solid #58d0e8;
+  border-radius: 0.5rem;
+  color: #205068;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.full-tracking-button:hover {
+  background: #58d0e8;
+}
+.full-tracking-button .external-link-placeholder {
+  width: 0.65rem;
+  height: 0.65rem;
+  background: #205068;
+  border-radius: 0.1rem;
+}
+
+.upper-right-arr {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (min-width: 768px) {
+  .parcel-route-container {
+    padding: 1.1rem;
+    border-radius: 0.65rem;
+  }
+  .parcel-route-header h3 {
+    font-size: 1.05rem;
+  }
+  .route-event {
+    padding-bottom: 1.15rem;
+  }
+  .route-event .route-event-content .route-event-time {
+    font-size: 0.8rem;
+  }
+  .route-event .route-event-content p {
+    font-size: 0.9rem;
+  }
+  .full-tracking-button {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+  .upper-right-arr {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}/*# sourceMappingURL=ParcelDashboardRoute.css.map */

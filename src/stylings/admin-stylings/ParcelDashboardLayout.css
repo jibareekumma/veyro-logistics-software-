@@ -1,0 +1,145 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.admin-dashboard {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.admin-dashboard .admin-main {
+  min-width: 0;
+}
+
+.admin-dashboard .admin-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-sizing: border-box;
+}
+
+.parcel-dashboard-grid,
+.parcel-dashboard-main-panel,
+.parcel-dashboard-side-panel {
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.parcel-dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.parcel-dashboard-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.parcel-side-card {
+  width: 100%;
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+}
+.parcel-side-card h3 {
+  margin: 0 0 0.9rem;
+  color: #205068;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.parcel-side-card p {
+  margin: 0.55rem 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.parcel-side-card small {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.parcel-side-status {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #205068;
+  font-size: 0.95rem;
+}
+
+.status-indicator,
+.next-stop-indicator {
+  display: inline-block;
+  width: 1.8rem;
+  height: 1.8rem;
+  flex: 0 0 1.8rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: 0.35rem solid #58d0e8;
+  box-sizing: border-box;
+}
+
+.next-stop-indicator {
+  border-color: #e5e7eb;
+  background: #58d0e8;
+}
+
+@media (min-width: 768px) {
+  .admin-dashboard .admin-content {
+    gap: 1.35rem;
+    padding: 1.25rem;
+  }
+  .parcel-dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(15rem, 0.85fr);
+    align-items: start;
+    gap: 1rem;
+  }
+  .parcel-dashboard-side-panel {
+    gap: 0.85rem;
+  }
+  .parcel-side-card {
+    padding: 1rem;
+  }
+  .parcel-side-card h3 {
+    font-size: 1rem;
+  }
+  .parcel-side-card p {
+    font-size: 0.82rem;
+  }
+  .parcel-side-card small {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  .admin-dashboard .admin-content {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  .parcel-dashboard-grid {
+    grid-template-columns: minmax(0, 1.8fr) minmax(17rem, 0.85fr);
+    gap: 1.25rem;
+  }
+  .parcel-dashboard-side-panel {
+    gap: 1rem;
+  }
+  .parcel-side-card {
+    padding: 1.1rem;
+  }
+  .parcel-side-card h3 {
+    font-size: 1.05rem;
+  }
+  .parcel-side-card p {
+    font-size: 0.85rem;
+  }
+}/*# sourceMappingURL=ParcelDashboardLayout.css.map */

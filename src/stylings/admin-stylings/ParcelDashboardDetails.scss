@@ -1,0 +1,274 @@
+
+
+
+
+@import "../Variable.scss";
+
+.parcel-details-container {
+    width: 100%;
+    background: $veyro-white;
+    border: 1px solid $veyro-soft-gray;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.parcel-details-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid $veyro-soft-gray;
+
+    button {
+        padding: 0.9rem 0.5rem;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: $muted-gray;
+        font-family: inherit;
+        font-size: 1.3rem;
+        font-weight: 600;
+        cursor: pointer;
+
+        &.active {
+            color: $veyro-deep-teal;
+            border-bottom-color: $veyro-bright-cyan;
+        }
+
+        &:hover {
+            color: $veyro-deep-teal;
+        }
+    }
+}
+
+.parcel-details-content {
+    padding: 1rem;
+    color: $veyro-near-black;
+
+    h3 {
+        margin: 0 0 1rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: $veyro-deep-teal;
+    }
+}
+
+.details-section {
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.45rem 0;
+        font-size: 1.25rem;
+
+        span {
+            color: $muted-gray;
+        }
+
+        strong {
+            color: $veyro-near-black;
+            font-weight: 600;
+            text-align: right;
+        }
+    }
+}
+
+.tracking-section {
+
+    .tracking-event {
+        position: relative;
+        display: flex;
+        gap: 0.85rem;
+        padding-bottom: 1.4rem;
+
+        &:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 0.35rem;
+            top: 0.8rem;
+            height: calc(100% - 0.3rem);
+            width: 2px;
+            background: $veyro-soft-gray;
+        }
+
+        .event-dot {
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            width: 0.75rem;
+            height: 0.75rem;
+            margin-top: 0.2rem;
+            border-radius: 50%;
+            background: $veyro-soft-gray;
+        }
+
+        strong {
+            font-size: 1.25rem;
+            color: $veyro-near-black;
+        }
+
+        p {
+            margin: 0.3rem 0;
+            font-size: 1.2rem;
+            color: $muted-gray;
+        }
+
+        small {
+            font-size: 1.12rem;
+            color: $muted-gray;
+        }
+
+        &.completed,
+        &.active {
+            .event-dot {
+                background: $veyro-bright-cyan;
+            }
+        }
+
+        &.active {
+            strong {
+                color: $veyro-deep-teal;
+            }
+        }
+    }
+}
+
+.parcel-actions-section {
+
+    .action-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        background: $veyro-soft-gray;
+        border-radius: 0.5rem;
+        font-size: 1.25rem;
+
+        span {
+            color: $muted-gray;
+        }
+
+        strong {
+            color: $veyro-deep-teal;
+        }
+    }
+
+    .parcel-action-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid $veyro-soft-gray;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        strong {
+            display: block;
+            font-size: 1.25rem;
+            color: $veyro-near-black;
+        }
+
+        p {
+            margin: 0.3rem 0 0;
+            font-size: 1.15rem;
+            color: $muted-gray;
+        }
+
+        button {
+            padding: 0.55rem 0.75rem;
+            background: $accent-gradient;
+            border: none;
+            border-radius: 0.4rem;
+            color: $veyro-white;
+            font-family: inherit;
+            font-size: 1.12rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+
+    .parcel-details-content {
+        padding: 0.85rem;
+    }
+
+    .details-section .detail-row {
+        font-size: 1.18rem;
+    }
+
+    .parcel-actions-section .parcel-action-card {
+        align-items: flex-start;
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+}
+
+
+@media (min-width: 768px) {
+    .parcel-details-container {
+        border-radius: 0.65rem;
+    }
+
+    .parcel-details-tabs button {
+        padding: 0.85rem 0.75rem;
+        font-size: 1rem;
+    }
+
+    .parcel-details-content {
+        padding: 1.25rem;
+
+        h3 { font-size: 1.15rem; }
+    }
+
+    .details-section .detail-row {
+        padding: 0.65rem 0;
+        font-size: 0.95rem;
+    }
+
+    .tracking-section .tracking-event {
+        padding-bottom: 1.5rem;
+
+        strong { font-size: 1rem; }
+        p { font-size: 0.9rem; }
+        small { font-size: 0.82rem; }
+    }
+
+    .parcel-actions-section {
+        .action-info { font-size: 0.95rem; }
+
+        .parcel-action-card {
+            padding: 1rem 0;
+
+            strong { font-size: 0.95rem; }
+            p { font-size: 0.85rem; }
+
+            button { font-size: 0.85rem; }
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .parcel-details-content {
+        padding: 1.35rem;
+    }
+
+    .details-section .detail-row {
+        font-size: 0.92rem;
+        padding: 0.75rem 0;
+    }
+}

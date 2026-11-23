@@ -1,5 +1,7 @@
 
 
+
+
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getStoredUser, logoutUser, parseErrors } from '../../api/auth'
@@ -97,7 +99,7 @@ const AdminDashboard = function(){
 
             <div className='admin-main'>
 
-                <AdminHeader/>
+                <AdminHeader/> 
 
                 <div className='admin-content'>
 
@@ -111,6 +113,23 @@ const AdminDashboard = function(){
                         </div>
                         <button className='logout-button' onClick={handleLogout}>Logout</button>
                     </div>
+
+                    <form className='tracking-search-form' role='search' onSubmit={function(e){ e.preventDefault() }}>
+                        <label className='sr-only' htmlFor='tracking-id'>Search by tracking ID</label>
+                        <input
+                            id='tracking-id'
+                            type='search'
+                            name='tracking_id'
+                            placeholder='Enter tracking ID'
+                            className='admin-search-input'
+                            required
+                        />
+                        <button type='submit' className='manage-parcel-button'
+                        onClick = {() => navigate('/parcel-dashboard/${token}')}
+                        >
+                            Manage Parcel
+                        </button>
+                    </form>
 
                     <section>
                         <h2 className='sr-only'>Overview</h2>

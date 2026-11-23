@@ -526,4 +526,84 @@
 .navigation-icon {
   width: 1.8rem;
   height: 1.8rem;
+}
+
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id, along with a button that the admin clicks to control a parcel, just the search form, the search should be positioned on the right properly, and for mobile, right before stats, or maybe if for tablet and desktop it is better before stats, itll be cool too Use the colors available in the scss variables files,
+and follow my coding and styling pattern, update the files and give back to me .tracking-search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id input, along with a button that the admin clicks to control a parcel input, just the search form input, the search should be positioned on the right properly input, and for mobile input, right before stats input, or maybe if for tablet and desktop it is better before stats input, itll be cool too Use the colors available in the scss variables files input,
+and follow my coding and styling pattern input, update the files and give back to me .tracking-search-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 0.9rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #181818;
+  font-family: inherit;
+  font-size: 1.1rem;
+}
+with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id input::-moz-placeholder, along with a button that the admin clicks to control a parcel input::-moz-placeholder, just the search form input::-moz-placeholder, the search should be positioned on the right properly input::-moz-placeholder, and for mobile input::-moz-placeholder, right before stats input::-moz-placeholder, or maybe if for tablet and desktop it is better before stats input::-moz-placeholder, itll be cool too Use the colors available in the scss variables files input::-moz-placeholder, and follow my coding and styling pattern input::-moz-placeholder, update the files and give back to me .tracking-search-form input::-moz-placeholder {
+  color: #6b7280;
+}
+with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id input::placeholder, along with a button that the admin clicks to control a parcel input::placeholder, just the search form input::placeholder, the search should be positioned on the right properly input::placeholder, and for mobile input::placeholder, right before stats input::placeholder, or maybe if for tablet and desktop it is better before stats input::placeholder, itll be cool too Use the colors available in the scss variables files input::placeholder,
+and follow my coding and styling pattern input::placeholder, update the files and give back to me .tracking-search-form input::placeholder {
+  color: #6b7280;
+}
+with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id input:focus, along with a button that the admin clicks to control a parcel input:focus, just the search form input:focus, the search should be positioned on the right properly input:focus, and for mobile input:focus, right before stats input:focus, or maybe if for tablet and desktop it is better before stats input:focus, itll be cool too Use the colors available in the scss variables files input:focus,
+and follow my coding and styling pattern input:focus, update the files and give back to me .tracking-search-form input:focus {
+  outline: 2px solid #58d0e8;
+  border-color: transparent;
+}
+@media (min-width: 768px) {
+  with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id, along with a button that the admin clicks to control a parcel, just the search form, the search should be positioned on the right properly, and for mobile, right before stats, or maybe if for tablet and desktop it is better before stats, itll be cool too Use the colors available in the scss variables files,
+  and follow my coding and styling pattern, update the files and give back to me .tracking-search-form {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  with the files i have pasted here now i want to create search form inside the adminDashboard the search for should be for the tracking id input, along with a button that the admin clicks to control a parcel input, just the search form input, the search should be positioned on the right properly input, and for mobile input, right before stats input, or maybe if for tablet and desktop it is better before stats input, itll be cool too Use the colors available in the scss variables files input,
+  and follow my coding and styling pattern input, update the files and give back to me .tracking-search-form input {
+    max-width: 22rem;
+  }
+}
+
+.manage-parcel-button {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.manage-parcel-button:hover {
+  opacity: 0.9;
+}
+.manage-parcel-button:focus-visible {
+  outline: 2px solid #205068;
+  outline-offset: 2px;
+}
+
+.admin-search-input {
+  min-width: 10rem;
+  height: 3rem;
+  margin-right: 1.5rem;
+  border-radius: 5px;
+  border: 0.5px groove rgb(83, 119, 119);
+  padding: 0 1rem;
 }/*# sourceMappingURL=AdminDashboard.css.map */
