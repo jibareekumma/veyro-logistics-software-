@@ -1,3 +1,6 @@
+
+
+
 import Landing from "./components/auths/Landing"
 import Register from "./components/auths/Register";
 import Login from "./components/auths/Login";
@@ -59,7 +62,7 @@ function App() {
 
          <Route path = '/admin' element = {<AdminRoute><AdminDashboard/></AdminRoute>} />
          <Route path = '/accept-invite/:token' element = {<AcceptInvite/>} />
-         <Route path = '/parcel-dashboard/:token' element = {<ParcelDashboard/>} />
+         <Route path = '/parcel-dashboard/:trackingId' element = {<AdminRoute><ParcelDashboard/></AdminRoute>} />
 
          <Route path = '*' element = {<NotFound/>} />
 

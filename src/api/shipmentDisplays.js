@@ -6,7 +6,7 @@ const statusMap = {
     in_transit: { label: 'In Transit', listClass: 'transit', dashClass: 'in-transit' },
     out_for_delivery: { label: 'In Transit', listClass: 'transit', dashClass: 'in-transit' },
     delivered: { label: 'Delivered', listClass: 'delivered', dashClass: 'delivered' },
-    exception: { label: 'Needs Attention', listClass: 'attention', dashClass: 'delayed' },
+    exception: { label: 'Delayed', listClass: 'attention', dashClass: 'delayed' },
     cancelled: { label: 'Cancelled', listClass: 'attention', dashClass: 'delayed' }
 }
 

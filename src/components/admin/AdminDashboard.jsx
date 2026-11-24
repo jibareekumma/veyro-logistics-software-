@@ -1,11 +1,9 @@
 
 
-
-
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getStoredUser, logoutUser, parseErrors } from '../../api/auth'
-import { getOverview, getStaff, inviteStaff } from '../../api/admin'
+import { getOverview, getStaff, inviteStaff, getParcel } from '../../api/admin'
 
 import AdminHeader from "./AdminHeader.jsx"
 import "../../stylings/admin-stylings/AdminDashboard.scss"
@@ -37,6 +35,9 @@ const AdminDashboard = function(){
     const [inviteLink, setInviteLink] = useState('')
     const [loading, setLoading] = useState(false)
     const [copied, setCopied] = useState(false)
+    const [trackingId, setTrackingId] = useState('')
+    const [trackError, setTrackError] = useState('')
+    const [checking, setChecking] = useState(false)
 
     useEffect(function(){
         const load = async function(){
@@ -94,6 +95,34 @@ const AdminDashboard = function(){
         navigate('/login')
     }
 
+    const handleTrack = async function(e){
+        e.preventDefault()
+        if (checking) return
+        const id = trackingId.trim().toUpperCase()
+        if (!id) {
+            setTrackError('Enter a tracking ID.')
+            return
+        }
+        setTrackError('')
+        setChecking(true)
+        try {
+            await getParcel(id)
+            navigate(`/parcel-dashboard/${id}`)
+        } catch (error) {
+            if (error.status === 404) {
+                setTrackError('No shipment found with that tracking ID.')
+            } else if (error.status === 401) {
+                navigate('/login')
+            } else if (error.status === 403) {
+                navigate('/dashboard')
+            } else {
+                setTrackError('Could not check this tracking ID. Please try again.')
+            }
+        } finally {
+            setChecking(false)
+        }
+    }
+
     return <>
         <div className='admin-dashboard'>
 
@@ -114,7 +143,7 @@ const AdminDashboard = function(){
                         <button className='logout-button' onClick={handleLogout}>Logout</button>
                     </div>
 
-                    <form className='tracking-search-form' role='search' onSubmit={function(e){ e.preventDefault() }}>
+                    <form className='tracking-search-form' role='search' onSubmit={handleTrack}>
                         <label className='sr-only' htmlFor='tracking-id'>Search by tracking ID</label>
                         <input
                             id='tracking-id'
@@ -122,14 +151,16 @@ const AdminDashboard = function(){
                             name='tracking_id'
                             placeholder='Enter tracking ID'
                             className='admin-search-input'
+                            value={trackingId}
+                            onChange={function(e){ setTrackingId(e.target.value) }}
                             required
                         />
-                        <button type='submit' className='manage-parcel-button'
-                        onClick = {() => navigate('/parcel-dashboard/${token}')}
-                        >
-                            Manage Parcel
+                        <button type='submit' className='manage-parcel-button' disabled={checking}>
+                            {checking ? 'Checking...' : 'Manage Parcel'}
                         </button>
                     </form>
+
+                    {trackError && <p className='field-error'>{trackError}</p>}
 
                     <section>
                         <h2 className='sr-only'>Overview</h2>

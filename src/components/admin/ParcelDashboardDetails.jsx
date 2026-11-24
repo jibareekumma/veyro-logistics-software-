@@ -1,13 +1,164 @@
 
 
 import { useState } from 'react'
-import '../../stylings/admin-stylings/ParcelDashboardDetails.scss'
 
-const ParcelDashboardDetails = function(){
+import { addParcelEvent, updateParcelEvent, deleteParcelEvent } from '../../api/admin'
+import { getStoredUser, parseErrors } from '../../api/auth'
+import { formatDate, formatDateTime, getDeliveryLabel } from '../../api/shipmentDisplays.js'
+import { STATUS_LABELS, UPDATE_OPTIONS, FINAL_STATUSES, getNextStatus, canManageParcels } from './ParcelHelpers.js'
+
+import '../../stylings/admin-stylings/ParcelDashboardDetails.scss'
+import '../../stylings/admin-stylings/ParcelDashboardForms.scss'
+
+const ParcelDashboardDetails = function({ parcel, onUpdate }){
+
+    const canManage = canManageParcels(getStoredUser())
+    const isFinal = FINAL_STATUSES.includes(parcel.status)
 
     const [activeTab, setActiveTab] = useState('Details')
+    const [panel, setPanel] = useState('')
+    const [form, setForm] = useState({ status: '', location: '', note: '' })
+    const [errors, setErrors] = useState({})
+    const [saving, setSaving] = useState(false)
+    const [editingId, setEditingId] = useState(null)
+    const [editForm, setEditForm] = useState({ location: '', note: '' })
+    const [removingId, setRemovingId] = useState(null)
 
     const tabs = ['Details', 'Tracking', 'Actions']
+
+    const switchTab = function(tab){
+        setActiveTab(tab)
+        setErrors({})
+        setEditingId(null)
+        setRemovingId(null)
+    }
+
+    const openPanel = function(name){
+        setErrors({})
+        setForm({
+            status: name === 'problem' ? 'exception' : getNextStatus(parcel.status),
+            location: '',
+            note: ''
+        })
+        setPanel(name)
+    }
+
+    const handleFormChange = function(e){
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
+
+    const handleEditChange = function(e){
+        setEditForm({ ...editForm, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async function(e){
+        e.preventDefault()
+        if (saving) return
+        setSaving(true)
+        setErrors({})
+        try {
+            const updated = await addParcelEvent(parcel.tracking_id, form)
+            onUpdate(updated)
+            setPanel('')
+            setActiveTab('Tracking')
+        } catch (error) {
+            setErrors(parseErrors(error))
+        } finally {
+            setSaving(false)
+        }
+    }
+
+    const startEdit = function(event){
+        setErrors({})
+        setRemovingId(null)
+        setEditingId(event.id)
+        setEditForm({ location: event.location, note: event.note })
+    }
+
+    const saveEdit = async function(){
+        if (saving) return
+        setSaving(true)
+        setErrors({})
+        try {
+            const updated = await updateParcelEvent(parcel.tracking_id, editingId, editForm)
+            onUpdate(updated)
+            setEditingId(null)
+        } catch (error) {
+            setErrors(parseErrors(error))
+        } finally {
+            setSaving(false)
+        }
+    }
+
+    const confirmRemove = async function(){
+        if (saving) return
+        setSaving(true)
+        setErrors({})
+        try {
+            const updated = await deleteParcelEvent(parcel.tracking_id, removingId)
+            onUpdate(updated)
+            setRemovingId(null)
+        } catch (error) {
+            setErrors(parseErrors(error))
+            setRemovingId(null)
+        } finally {
+            setSaving(false)
+        }
+    }
+
+    const renderForm = function(kind){
+        const isProblem = kind === 'problem'
+        return (
+            <form className='parcel-inline-form' onSubmit={handleSubmit}>
+
+                {!isProblem && (
+                    <div className='form-field'>
+                        <label>New status</label>
+                        <select name='status' value={form.status} onChange={handleFormChange}>
+                            {UPDATE_OPTIONS.map(function(option){
+                                return <option key={option} value={option}>{STATUS_LABELS[option]}</option>
+                            })}
+                        </select>
+                        {errors.status && <p className='field-error'>{errors.status}</p>}
+                    </div>
+                )}
+
+                <div className='form-field'>
+                    <label>Location</label>
+                    <input
+                        name='location'
+                        value={form.location}
+                        onChange={handleFormChange}
+                        placeholder={`Current: ${parcel.current_location}`}
+                    />
+                    {errors.location && <p className='field-error'>{errors.location}</p>}
+                </div>
+
+                <div className='form-field'>
+                    <label>{isProblem ? 'Describe the problem' : 'Note (optional)'}</label>
+                    <textarea
+                        name='note'
+                        rows='3'
+                        maxLength='255'
+                        value={form.note}
+                        onChange={handleFormChange}
+                        placeholder={isProblem ? 'e.g. Delayed at customs, awaiting clearance' : 'e.g. Departed sorting hub'}
+                    />
+                    {errors.note && <p className='field-error'>{errors.note}</p>}
+                </div>
+
+                {errors.general && <p className='field-error'>{errors.general}</p>}
+
+                <div className='form-buttons'>
+                    <button type='button' className='cancel' onClick={function(){ setPanel('') }}>Cancel</button>
+                    <button type='submit' className={isProblem ? 'danger' : ''} disabled={saving}>
+                        {saving ? 'Saving...' : isProblem ? 'Report and notify customer' : 'Update status'}
+                    </button>
+                </div>
+
+            </form>
+        )
+    }
 
     return <>
         <div className="parcel-details-container">
@@ -18,7 +169,7 @@ const ParcelDashboardDetails = function(){
                         <button
                             key={tab}
                             className={activeTab === tab ? 'active' : ''}
-                            onClick={() => setActiveTab(tab)}
+                            onClick={() => switchTab(tab)}
                         >
                             {tab}
                         </button>
@@ -35,37 +186,62 @@ const ParcelDashboardDetails = function(){
 
                         <div className="detail-row">
                             <span>Customer</span>
-                            <strong>John Doe</strong>
+                            <strong>{parcel.customer_name}</strong>
+                        </div>
+
+                        <div className="detail-row">
+                            <span>Customer Email</span>
+                            <strong>{parcel.customer_email}</strong>
                         </div>
 
                         <div className="detail-row">
                             <span>Tracking ID</span>
-                            <strong>VY-82K4-91AX</strong>
+                            <strong>{parcel.tracking_id}</strong>
+                        </div>
+
+                        <div className="detail-row">
+                            <span>Item</span>
+                            <strong>{parcel.description}</strong>
                         </div>
 
                         <div className="detail-row">
                             <span>Service Type</span>
-                            <strong>Express Delivery</strong>
+                            <strong>{getDeliveryLabel(parcel.delivery_method)} Delivery</strong>
                         </div>
 
                         <div className="detail-row">
                             <span>Package Weight</span>
-                            <strong>2.5 kg</strong>
+                            <strong>{Number(parcel.weight)} kg</strong>
                         </div>
 
                         <div className="detail-row">
                             <span>Dimensions</span>
-                            <strong>30 × 20 × 15 cm</strong>
+                            <strong>{Number(parcel.length)} × {Number(parcel.width)} × {Number(parcel.height)} cm</strong>
+                        </div>
+
+                        <div className="detail-row">
+                            <span>Sender</span>
+                            <strong>{parcel.sender_full_name} · {parcel.sender_phone}</strong>
                         </div>
 
                         <div className="detail-row">
                             <span>Pickup Location</span>
-                            <strong>Miami, FL</strong>
+                            <strong>{parcel.sender_city}, {parcel.sender_country}</strong>
+                        </div>
+
+                        <div className="detail-row">
+                            <span>Receiver</span>
+                            <strong>{parcel.receiver_full_name} · {parcel.receiver_phone}</strong>
                         </div>
 
                         <div className="detail-row">
                             <span>Destination</span>
-                            <strong>Toronto, Canada</strong>
+                            <strong>{parcel.receiver_city}, {parcel.receiver_country}</strong>
+                        </div>
+
+                        <div className="detail-row">
+                            <span>Created</span>
+                            <strong>{formatDate(parcel.created_at)}</strong>
                         </div>
 
                     </section>
@@ -76,41 +252,72 @@ const ParcelDashboardDetails = function(){
 
                         <h3>Tracking History</h3>
 
-                        <div className="tracking-event completed">
-                            <span className="event-dot"></span>
-                            <div>
-                                <strong>Picked Up</strong>
-                                <p>Parcel collected from sender.</p>
-                                <small>Nov 20, 2026 · 09:30 AM</small>
-                            </div>
-                        </div>
+                        {errors.general && <p className='field-error'>{errors.general}</p>}
 
-                        <div className="tracking-event completed">
-                            <span className="event-dot"></span>
-                            <div>
-                                <strong>In Transit</strong>
-                                <p>Parcel is moving to the next hub.</p>
-                                <small>Nov 21, 2026 · 02:15 PM</small>
-                            </div>
-                        </div>
+                        {parcel.events.map(function(event, index){
+                            const isEditing = editingId === event.id
+                            const isRemoving = removingId === event.id
+                            const stateClass = index === 0 ? 'active' : 'completed'
+                            const delayedClass = event.status === 'exception' ? ' delayed' : ''
 
-                        <div className="tracking-event active">
-                            <span className="event-dot"></span>
-                            <div>
-                                <strong>At Hub</strong>
-                                <p>Parcel has arrived at the sorting hub.</p>
-                                <small>Nov 23, 2026 · 08:45 AM</small>
-                            </div>
-                        </div>
+                            return (
+                                <div className={`tracking-event ${stateClass}${delayedClass}`} key={event.id}>
+                                    <span className="event-dot"></span>
+                                    <div className="event-body">
+                                        <strong>{STATUS_LABELS[event.status] || event.status}</strong>
 
-                        <div className="tracking-event pending">
-                            <span className="event-dot"></span>
-                            <div>
-                                <strong>Out for Delivery</strong>
-                                <p>Waiting for dispatch.</p>
-                                <small>Pending</small>
-                            </div>
-                        </div>
+                                        {isEditing ? (
+                                            <div className="event-edit">
+                                                <input
+                                                    name='location'
+                                                    value={editForm.location}
+                                                    onChange={handleEditChange}
+                                                    placeholder='Location'
+                                                />
+                                                <textarea
+                                                    name='note'
+                                                    rows='2'
+                                                    maxLength='255'
+                                                    value={editForm.note}
+                                                    onChange={handleEditChange}
+                                                    placeholder='Note'
+                                                />
+                                                {errors.note && <p className='field-error'>{errors.note}</p>}
+                                                <div className="event-tools">
+                                                    <button type='button' onClick={saveEdit} disabled={saving}>
+                                                        {saving ? 'Saving...' : 'Save'}
+                                                    </button>
+                                                    <button type='button' onClick={function(){ setEditingId(null) }}>Cancel</button>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <p>{event.note || 'No note added.'}</p>
+                                                <small>{event.location ? `${event.location} · ` : ''}{formatDateTime(event.created_at)}</small>
+
+                                                {canManage && (
+                                                    <div className="event-tools">
+                                                        {isRemoving ? (
+                                                            <>
+                                                                <button type='button' className='remove' onClick={confirmRemove} disabled={saving}>
+                                                                    {saving ? 'Removing...' : 'Confirm remove'}
+                                                                </button>
+                                                                <button type='button' onClick={function(){ setRemovingId(null) }}>Keep</button>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <button type='button' onClick={function(){ startEdit(event) }}>Edit</button>
+                                                                <button type='button' className='remove' onClick={function(){ setErrors({}); setRemovingId(event.id) }}>Remove</button>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                        })}
 
                     </section>
                 )}
@@ -122,32 +329,42 @@ const ParcelDashboardDetails = function(){
 
                         <div className="action-info">
                             <span>Current Status</span>
-                            <strong>At Hub</strong>
+                            <strong>{STATUS_LABELS[parcel.status] || parcel.status}</strong>
                         </div>
 
-                        <div className="parcel-action-card">
-                            <div>
-                                <strong>Update Parcel Status</strong>
-                                <p>Change the current shipment stage.</p>
-                            </div>
-                            <button type="button">Update Status →</button>
-                        </div>
+                        {!canManage && (
+                            <p className="action-note">Your role can view this parcel but cannot change it.</p>
+                        )}
 
-                        <div className="parcel-action-card">
-                            <div>
-                                <strong>Assign Dispatcher</strong>
-                                <p>Assign a staff member to handle delivery.</p>
-                            </div>
-                            <button type="button">Assign Staff →</button>
-                        </div>
+                        {canManage && isFinal && (
+                            <p className="action-note">
+                                This shipment is {STATUS_LABELS[parcel.status].toLowerCase()} and can no longer be updated. If it was marked by mistake, remove its latest event in the Tracking tab.
+                            </p>
+                        )}
 
-                        <div className="parcel-action-card">
-                            <div>
-                                <strong>Report a Delay</strong>
-                                <p>Record an issue affecting this shipment.</p>
-                            </div>
-                            <button type="button">Report Issue →</button>
-                        </div>
+                        {canManage && !isFinal && (
+                            <>
+                                <div className="parcel-action-card">
+                                    <div>
+                                        <strong>Update Parcel Status</strong>
+                                        <p>Change the current shipment stage and location.</p>
+                                    </div>
+                                    <button type="button" onClick={function(){ openPanel('status') }}>Update Status →</button>
+                                </div>
+
+                                {panel === 'status' && renderForm('status')}
+
+                                <div className="parcel-action-card">
+                                    <div>
+                                        <strong>Report a Delay</strong>
+                                        <p>Record an issue. The customer is notified by email.</p>
+                                    </div>
+                                    <button type="button" onClick={function(){ openPanel('problem') }}>Report Issue →</button>
+                                </div>
+
+                                {panel === 'problem' && renderForm('problem')}
+                            </>
+                        )}
 
                     </section>
                 )}

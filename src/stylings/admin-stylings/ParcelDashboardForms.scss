@@ -1,0 +1,257 @@
+
+
+@import "../Variable.scss";
+
+.parcel-header-container .parcel-header-texts .status.exception {
+    background-color: #fee2e2;
+
+    p {
+        color: #b91c1c;
+    }
+}
+
+.parcel-lookup-error {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem;
+
+    h4 {
+        margin: 0;
+        font-size: 1.6rem;
+        color: $veyro-deep-teal;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1.25rem;
+        color: $muted-gray;
+    }
+
+    button {
+        padding: 0.7rem 1rem;
+        background: $accent-gradient;
+        border: none;
+        border-radius: 0.4rem;
+        color: $veyro-white;
+        font-family: inherit;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+}
+
+.parcel-actions-section {
+
+    .action-note {
+        margin: 0 0 1rem;
+        font-size: 1.2rem;
+        line-height: 1.5;
+        color: $muted-gray;
+    }
+}
+
+.parcel-inline-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 0.9rem;
+    margin: 0.25rem 0 0.9rem;
+    background: $veyro-soft-gray;
+    border-radius: 0.5rem;
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        label {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: $veyro-deep-teal;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.6rem 0.7rem;
+            background: $veyro-white;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.4rem;
+            color: $veyro-near-black;
+            font-family: inherit;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            resize: vertical;
+
+            &:focus {
+                outline: none;
+                border-color: $veyro-bright-cyan;
+            }
+        }
+    }
+
+    .field-error {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #dc2626;
+    }
+
+    .form-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.6rem;
+
+        button {
+            padding: 0.55rem 0.9rem;
+            background: $accent-gradient;
+            border: none;
+            border-radius: 0.4rem;
+            color: $veyro-white;
+            font-family: inherit;
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            &.cancel {
+                background: transparent;
+                border: 1px solid #cbd5e1;
+                color: $muted-gray;
+            }
+
+            &.danger {
+                background: #dc2626;
+            }
+        }
+    }
+}
+
+.tracking-section {
+
+    .field-error {
+        margin: 0 0 0.6rem;
+        font-size: 1.1rem;
+        color: #dc2626;
+    }
+
+    .tracking-event {
+
+        .event-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        &.delayed {
+            .event-dot {
+                background: #dc2626;
+            }
+
+            strong {
+                color: #dc2626;
+            }
+        }
+    }
+
+    .event-tools {
+        display: flex;
+        gap: 0.6rem;
+        margin-top: 0.5rem;
+
+        button {
+            padding: 0.3rem 0.65rem;
+            background: transparent;
+            border: 1px solid $veyro-soft-gray;
+            border-radius: 0.35rem;
+            color: $veyro-deep-teal;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+
+            &.remove {
+                border-color: #dc2626;
+                color: #dc2626;
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .event-edit {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.4rem;
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.5rem 0.6rem;
+            background: $veyro-white;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.35rem;
+            color: $veyro-near-black;
+            font-family: inherit;
+            font-size: 1.15rem;
+            box-sizing: border-box;
+            resize: vertical;
+
+            &:focus {
+                outline: none;
+                border-color: $veyro-bright-cyan;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+
+    .parcel-lookup-error {
+        h4 { font-size: 1.3rem; }
+        p { font-size: 0.95rem; }
+        button { font-size: 0.9rem; }
+    }
+
+    .parcel-actions-section .action-note {
+        font-size: 0.9rem;
+    }
+
+    .parcel-inline-form {
+        .form-field {
+            label { font-size: 0.85rem; }
+
+            input,
+            select,
+            textarea {
+                font-size: 0.9rem;
+            }
+        }
+
+        .field-error { font-size: 0.8rem; }
+
+        .form-buttons button { font-size: 0.85rem; }
+    }
+
+    .tracking-section {
+        .field-error { font-size: 0.8rem; }
+
+        .event-tools button { font-size: 0.8rem; }
+
+        .event-edit {
+            input,
+            textarea {
+                font-size: 0.88rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,226 @@
+@font-face {
+  font-family: fira-sans;
+  src: url(fonts/FiraSans-Regular.ttf);
+}
+@font-face {
+  font-family: bebas-nue;
+  src: url(fonts/BebasNeue-Regular.ttf);
+}
+.parcel-header-container .parcel-header-texts .status.exception {
+  background-color: #fee2e2;
+}
+.parcel-header-container .parcel-header-texts .status.exception p {
+  color: #b91c1c;
+}
+
+.parcel-lookup-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1.5rem 1rem;
+}
+.parcel-lookup-error h4 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #205068;
+}
+.parcel-lookup-error p {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #6b7280;
+}
+.parcel-lookup-error button {
+  padding: 0.7rem 1rem;
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  border-radius: 0.4rem;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.parcel-actions-section .action-note {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.parcel-inline-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.9rem;
+  margin: 0.25rem 0 0.9rem;
+  background: #e5e7eb;
+  border-radius: 0.5rem;
+}
+.parcel-inline-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.parcel-inline-form .form-field label {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #205068;
+}
+.parcel-inline-form .form-field input,
+.parcel-inline-form .form-field select,
+.parcel-inline-form .form-field textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.4rem;
+  color: #181818;
+  font-family: inherit;
+  font-size: 1.2rem;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.parcel-inline-form .form-field input:focus,
+.parcel-inline-form .form-field select:focus,
+.parcel-inline-form .form-field textarea:focus {
+  outline: none;
+  border-color: #58d0e8;
+}
+.parcel-inline-form .field-error {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #dc2626;
+}
+.parcel-inline-form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.parcel-inline-form .form-buttons button {
+  padding: 0.55rem 0.9rem;
+  background: linear-gradient(135deg, #35afc9 0%, #67c9dc 100%);
+  border: none;
+  border-radius: 0.4rem;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.parcel-inline-form .form-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.parcel-inline-form .form-buttons button.cancel {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #6b7280;
+}
+.parcel-inline-form .form-buttons button.danger {
+  background: #dc2626;
+}
+
+.tracking-section .field-error {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+  color: #dc2626;
+}
+.tracking-section .tracking-event .event-body {
+  flex: 1;
+  min-width: 0;
+}
+.tracking-section .tracking-event.delayed .event-dot {
+  background: #dc2626;
+}
+.tracking-section .tracking-event.delayed strong {
+  color: #dc2626;
+}
+.tracking-section .event-tools {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+.tracking-section .event-tools button {
+  padding: 0.3rem 0.65rem;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.35rem;
+  color: #205068;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tracking-section .event-tools button.remove {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+.tracking-section .event-tools button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.tracking-section .event-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.tracking-section .event-edit input,
+.tracking-section .event-edit textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.35rem;
+  color: #181818;
+  font-family: inherit;
+  font-size: 1.15rem;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.tracking-section .event-edit input:focus,
+.tracking-section .event-edit textarea:focus {
+  outline: none;
+  border-color: #58d0e8;
+}
+
+@media (min-width: 768px) {
+  .parcel-lookup-error h4 {
+    font-size: 1.3rem;
+  }
+  .parcel-lookup-error p {
+    font-size: 0.95rem;
+  }
+  .parcel-lookup-error button {
+    font-size: 0.9rem;
+  }
+  .parcel-actions-section .action-note {
+    font-size: 0.9rem;
+  }
+  .parcel-inline-form .form-field label {
+    font-size: 0.85rem;
+  }
+  .parcel-inline-form .form-field input,
+  .parcel-inline-form .form-field select,
+  .parcel-inline-form .form-field textarea {
+    font-size: 0.9rem;
+  }
+  .parcel-inline-form .field-error {
+    font-size: 0.8rem;
+  }
+  .parcel-inline-form .form-buttons button {
+    font-size: 0.85rem;
+  }
+  .tracking-section .field-error {
+    font-size: 0.8rem;
+  }
+  .tracking-section .event-tools button {
+    font-size: 0.8rem;
+  }
+  .tracking-section .event-edit input,
+  .tracking-section .event-edit textarea {
+    font-size: 0.88rem;
+  }
+}/*# sourceMappingURL=ParcelDashboardForms.css.map */
